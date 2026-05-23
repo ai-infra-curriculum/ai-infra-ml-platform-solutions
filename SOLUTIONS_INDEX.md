@@ -1,15 +1,52 @@
 # Solutions Index
 
-This repository provides reference implementations for `ai-infra-ml-platform-learning`.
-## Repository Layout
+Reference implementations for [ai-infra-ml-platform-learning](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning).
+**Coverage: 100% modules (45 exercises).** Last updated 2026-05-23.
 
-- `modules/`: module-level exercise solutions
-- `projects/`: project-grade solutions
-- `guides/`: troubleshooting and implementation notes
-- `resources/`: supporting references and shared assets
+## Layout
+- `modules/`: per-exercise solutions (one dir per learning exercise)
+- `projects/`: capstone solutions
+- `guides/` / `resources/`: cross-cutting material
 
-## Synchronization Rules
+## Module coverage
 
-- Module slugs should match the paired learning repository.
-- Every learner-facing exercise or project should eventually have a corresponding solution path here.
-- Operational reports belong in the workspace `_meta/housekeeping/`, not the repo root.
+| Module | Exercises | Status |
+|---|---|---|
+| 001-platform-fundamentals | 5 | ✅ |
+| 002-api-design | 5 | ✅ |
+| 003-multi-tenancy-resources | 5 | ✅ |
+| 004-feature-store | 5 | ✅ |
+| 005-workflow-orchestration | 5 | ✅ |
+| 006-model-management | 5 | ✅ |
+| 007-developer-experience | 5 | ✅ |
+| 008-observability | 5 | ✅ |
+| 009-security-governance | 5 | ✅ |
+| **Total** | **45** | **45/45** |
+
+## Cross-references to engineer-solutions
+
+Many platform-engineering topics overlap engineering-track topics:
+
+| Platform topic | Engineering deep dive |
+|---|---|
+| Multi-tenancy + quotas | engineer-solutions/mod-104 ex-14 |
+| Cluster cost optimization | engineer-solutions/mod-104 ex-15 |
+| Feature store | engineer-solutions/mod-106 ex-07 |
+| Streaming features (Lambda) | engineer-solutions/mod-105 ex-11 |
+| MLflow tracking + registry | engineer-solutions/mod-106 ex-02, ex-03 |
+| Deployment strategies | engineer-solutions/mod-106 ex-08 |
+| A/B testing | engineer-solutions/mod-106 ex-09 |
+| Model governance | engineer-solutions/mod-106 ex-10 |
+| Orchestration patterns | engineer-solutions/mod-106 ex-11 |
+| Per-model cost | engineer-solutions/mod-106 ex-12 |
+| Backfill safety | engineer-solutions/mod-105 ex-09 |
+| Pipeline architecture | engineer-solutions/mod-105 ex-01 |
+| SLO + burn rate | engineer-solutions/mod-108 ex-08 |
+| Incident response | engineer-solutions/mod-108 ex-09 |
+| Dashboards-as-code | engineer-solutions/mod-108 ex-04 |
+| Secret mgmt (Vault + ESO) | engineer-solutions/mod-109 ex-07 |
+| Supply chain (SLSA + cosign) | engineer-solutions/mod-103 ex-10 |
+| Policy as code | engineer-solutions/mod-109 ex-08 |
+
+## Synchronization
+Module slugs MUST match the paired learning repository.

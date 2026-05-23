@@ -1,0 +1,16 @@
+# Gang-scheduled distributed training: all 4 workers schedule together or none.
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata: { name: ddp-train, namespace: team-a }
+spec:
+  schedulerName: volcano
+  minAvailable: 4
+  queue: training
+  tasks:
+    - replicas: 4
+      template:
+        spec:
+          containers:
+            - name: worker
+              image: ghcr.io/me/trainer:0.5
+              resources: { limits: { nvidia.com/gpu: 1 } }

@@ -1,0 +1,13 @@
+groups:
+  - name: feast
+    rules:
+      - alert: FeatureViewStale
+        expr: feature_view_freshness_seconds > 5 * 3600
+        for: 30m
+        labels: { severity: warning }
+        annotations: { summary: "FV {{ $labels.feature_view }} stale > 5h" }
+      - alert: FeastMaterializationFailed
+        expr: airflow_dag_run_failed_count{dag_id="feast_materialize"} > 0
+        for: 5m
+        labels: { severity: critical }
+        annotations: { summary: "Feast materialization DAG failed" }

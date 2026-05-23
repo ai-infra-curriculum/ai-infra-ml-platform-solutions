@@ -1,0 +1,13 @@
+apiVersion: scheduling.volcano.sh/v1beta1
+kind: Queue
+metadata: { name: training }
+spec:
+  weight: 6
+  capability: { "nvidia.com/gpu": 6 }
+---
+apiVersion: scheduling.volcano.sh/v1beta1
+kind: Queue
+metadata: { name: serving }
+spec:
+  weight: 2
+  capability: { "nvidia.com/gpu": 2 }

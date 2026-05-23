@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: default-deny, namespace: team-a }
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata: { name: allow-essentials, namespace: team-a }
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+  ingress:
+    - from:
+        - { namespaceSelector: { matchLabels: { team: a } } }
+        - { namespaceSelector: { matchLabels: { name: monitoring } } }
+        - { namespaceSelector: { matchLabels: { name: ingress-nginx } } }
+  egress:
+    - to: [{ namespaceSelector: { matchLabels: { team: a } } }]
+    - to: [{ namespaceSelector: { matchLabels: { name: kube-system } } }]   # DNS
+      ports: [{ port: 53, protocol: UDP }, { port: 53, protocol: TCP }]

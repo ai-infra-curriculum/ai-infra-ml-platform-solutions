@@ -1,0 +1,41 @@
+groups:
+  - name: iris-api-sli
+    interval: 30s
+    rules:
+      - record: sli:availability:ratio_rate5m
+        expr: |
+          sum(rate(http_requests_total{job="iris-api",status!~"5.."}[5m]))
+          /
+          sum(rate(http_requests_total{job="iris-api"}[5m]))
+      - record: sli:availability:ratio_rate1h
+        expr: |
+          sum(rate(http_requests_total{job="iris-api",status!~"5.."}[1h]))
+          /
+          sum(rate(http_requests_total{job="iris-api"}[1h]))
+      - record: sli:availability:ratio_rate6h
+        expr: |
+          sum(rate(http_requests_total{job="iris-api",status!~"5.."}[6h]))
+          /
+          sum(rate(http_requests_total{job="iris-api"}[6h]))
+      - record: sli:availability:ratio_rate30m
+        expr: |
+          sum(rate(http_requests_total{job="iris-api",status!~"5.."}[30m]))
+          /
+          sum(rate(http_requests_total{job="iris-api"}[30m]))
+
+  - name: iris-api-burn
+    rules:
+      - alert: BudgetBurnFast
+        expr: |
+          ((1 - sli:availability:ratio_rate1h) / 0.005 > 14.4)
+          and
+          ((1 - sli:availability:ratio_rate5m) / 0.005 > 14.4)
+        labels: { severity: critical }
+        annotations: { summary: "30d availability budget exhausting in <2 days" }
+      - alert: BudgetBurnSlow
+        expr: |
+          ((1 - sli:availability:ratio_rate6h) / 0.005 > 6)
+          and
+          ((1 - sli:availability:ratio_rate30m) / 0.005 > 6)
+        labels: { severity: warning }
+        annotations: { summary: "30d availability budget exhausting in <5 days" }
