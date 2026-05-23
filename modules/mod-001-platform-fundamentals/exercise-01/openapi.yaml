@@ -1,0 +1,68 @@
+openapi: 3.1.0
+info:
+  title: Aurelia AI Resource Provisioning API
+  version: "1.0.0"
+servers:
+  - url: https://api.aurelia.ai/v1
+paths:
+  /pods:
+    post:
+      summary: Request a GPU pod
+      operationId: requestPod
+      parameters:
+        - { name: X-Tenant-Id, in: header, required: true, schema: { type: string } }
+        - { name: Idempotency-Key, in: header, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content: { application/json: { schema: { $ref: '#/components/schemas/PodRequest' } } }
+      responses:
+        '202':
+          description: Accepted
+          content: { application/json: { schema: { $ref: '#/components/schemas/Pod' } } }
+    get:
+      summary: List my team's pod requests
+      operationId: listPods
+      parameters:
+        - { name: X-Tenant-Id, in: header, required: true, schema: { type: string } }
+        - { name: cursor,  in: query, schema: { type: string } }
+        - { name: status,  in: query, schema: { type: string } }
+  /pods/{id}:
+    get:
+      operationId: getPod
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: string } }
+        - { name: X-Tenant-Id, in: header, required: true, schema: { type: string } }
+      responses:
+        '200': { content: { application/json: { schema: { $ref: '#/components/schemas/Pod' } } } }
+    delete:
+      operationId: cancelPod
+      parameters: [{ name: id, in: path, required: true, schema: { type: string } }]
+      responses: { '204': { description: Cancelled } }
+  /pods/{id}:extend:
+    post:
+      operationId: extendPod
+      parameters: [{ name: id, in: path, required: true, schema: { type: string } }]
+      requestBody:
+        content: { application/json: { schema: { type: object, properties: { additional_hours: { type: integer, minimum: 1, maximum: 24 } } } } }
+
+components:
+  schemas:
+    PodRequest:
+      type: object
+      required: [gpu_type, gpu_count]
+      properties:
+        gpu_type:   { type: string, enum: [t4, a10, l4, l40s, a100, h100] }
+        gpu_count:  { type: integer, minimum: 1, maximum: 8 }
+        cpu:        { type: integer, minimum: 1, default: 4 }
+        memory_gb:  { type: integer, minimum: 4, default: 16 }
+        lifetime_hours: { type: integer, minimum: 1, maximum: 24, default: 4 }
+        access_mode: { type: string, enum: [ssh, jupyter, kubeconfig], default: ssh }
+    Pod:
+      type: object
+      properties:
+        id: { type: string }
+        status: { type: string, enum: [pending, scheduling, running, expired, failed, cancelled] }
+        spec: { $ref: '#/components/schemas/PodRequest' }
+        connection_info: { type: object }
+        created_at: { type: string, format: date-time }
+        expires_at: { type: string, format: date-time }

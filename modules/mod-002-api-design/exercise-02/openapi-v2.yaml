@@ -1,0 +1,21 @@
+openapi: 3.1.0
+info: { title: ML Training Jobs API, version: "2.0.0" }
+servers: [{ url: https://api.ml-platform.example.com/v2 }]
+# Only the breaking change shown:
+components:
+  schemas:
+    JobRequest:
+      type: object
+      required: [model_uri, dataset_uri, gpu]
+      properties:
+        model_uri: { type: string, format: uri }
+        dataset_uri: { type: string, format: uri }
+        gpu:
+          type: object
+          required: [type, count]
+          properties:
+            type: { type: string, enum: [t4, a10, l4, l40s, a100_40, a100_80, h100] }
+            count: { type: number, minimum: 0.125 }    # fractional via MIG
+            mig_slice: { type: string, enum: ["1g.5gb", "2g.10gb", "3g.20gb", "7g.40gb"] }
+        max_runtime_hours: { type: integer, minimum: 1, maximum: 168, default: 8 }
+        hyperparams: { type: object, additionalProperties: true }
