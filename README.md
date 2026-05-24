@@ -103,9 +103,9 @@ This track is for:
 
 ## Related Resources
 
-- [ML Platform Learning Repository](../../learning/ai-infra-ml-platform-learning/)
-- [MLOps Track (prerequisite)](../../learning/ai-infra-mlops-learning/)
-- [Principal Engineer Track (career progression)](../../learning/ai-infra-principal-engineer-learning/)
+- [ML Platform Learning Repository](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning)
+- [MLOps Track (prerequisite)](https://github.com/ai-infra-curriculum/ai-infra-mlops-learning)
+- [Principal Engineer Track (career progression)](https://github.com/ai-infra-curriculum/ai-infra-principal-engineer-learning)
 
 ---
 
