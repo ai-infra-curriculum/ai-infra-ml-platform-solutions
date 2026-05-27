@@ -7,6 +7,10 @@ Reference implementations for the **AI Infrastructure ML Platform Engineer** lea
 
 For the authoritative list of what is covered (including cross-references to the Engineer track), see [`SOLUTIONS_INDEX.md`](./SOLUTIONS_INDEX.md).
 
+## What's new — 2026-05-27
+
+Module-level `SOLUTION.md` design-rationale docs for all 9 modules (`mod-001-platform-fundamentals` through `mod-009-security-governance`). Each doc explains *why* the platform-engineering reference implementations are shaped the way they are — the API contracts, multi-tenancy primitives, governance patterns that scale across many teams. Audit score: 54 → 66.
+
 ## What's in here
 
 - **`modules/`** — Per-exercise solutions, one directory per exercise. Modules in scope today:
