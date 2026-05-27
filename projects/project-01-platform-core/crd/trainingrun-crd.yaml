@@ -1,0 +1,164 @@
+# Reference CRD for the TrainingRun primitive (requirement F1).
+#
+# Ships at v1alpha1 with a *structural* OpenAPI v3 schema so a future
+# v1beta1/v1 can be added with a conversion webhook without breaking
+# existing clients. The conversion strategy is `None` here on purpose:
+# a single served+stored version needs no webhook, and shipping a
+# webhook that is not yet wired to a running service would fail
+# admission. The migration plan is documented in SOLUTION.md §2.
+#
+# Validate statically:
+#   kubectl apply --dry-run=server -f crd/trainingrun-crd.yaml
+#   kubeconform -strict -schema-location default crd/trainingrun-crd.yaml
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: trainingruns.platform.smartrecs.io
+spec:
+  group: platform.smartrecs.io
+  scope: Namespaced
+  names:
+    plural: trainingruns
+    singular: trainingrun
+    kind: TrainingRun
+    shortNames:
+      - tr
+  conversion:
+    strategy: None
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      additionalPrinterColumns:
+        - name: Phase
+          type: string
+          jsonPath: .status.phase
+        - name: Tenant
+          type: string
+          jsonPath: .metadata.namespace
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      subresources:
+        status: {}
+      schema:
+        openAPIV3Schema:
+          type: object
+          required:
+            - spec
+          properties:
+            spec:
+              type: object
+              # Five validated fields: image, resources, dataset,
+              # hyperparameters, retries.
+              required:
+                - image
+                - resources
+                - dataset
+              properties:
+                image:
+                  type: string
+                  # Reject bare image references: a tag or a digest is
+                  # mandatory so a run is reproducible. Digest preferred.
+                  pattern: '^.+(:.+|@sha256:[0-9a-f]{64})$'
+                command:
+                  type: array
+                  items:
+                    type: string
+                resources:
+                  type: object
+                  required:
+                    - requests
+                  properties:
+                    requests:
+                      type: object
+                      additionalProperties:
+                        type: string
+                    limits:
+                      type: object
+                      additionalProperties:
+                        type: string
+                dataset:
+                  type: object
+                  required:
+                    - name
+                  properties:
+                    name:
+                      type: string
+                      minLength: 1
+                    version:
+                      type: string
+                hyperparameters:
+                  type: object
+                  # Free-form scalar map; values are stringified by the
+                  # SDK before submission to keep the schema structural.
+                  additionalProperties:
+                    type: string
+                outputs:
+                  type: object
+                  properties:
+                    artifact_uri:
+                      type: string
+                    metrics_uri:
+                      type: string
+                retries:
+                  type: object
+                  properties:
+                    max:
+                      type: integer
+                      minimum: 0
+                      maximum: 10
+                      default: 0
+                    backoff:
+                      type: string
+                      enum:
+                        - none
+                        - linear
+                        - exponential
+                      default: exponential
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                  enum:
+                    - Pending
+                    - Running
+                    - Succeeded
+                    - Failed
+                    - Cancelled
+                startedAt:
+                  type: string
+                  format: date-time
+                completedAt:
+                  type: string
+                  format: date-time
+                observedRetries:
+                  type: integer
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    required:
+                      - type
+                      - status
+                    properties:
+                      type:
+                        type: string
+                      status:
+                        type: string
+                        enum: ["True", "False", "Unknown"]
+                      reason:
+                        type: string
+                      message:
+                        type: string
+                      lastTransition:
+                        type: string
+                        format: date-time
+                metrics:
+                  type: object
+                  properties:
+                    podStatus:
+                      type: string
+                    podName:
+                      type: string

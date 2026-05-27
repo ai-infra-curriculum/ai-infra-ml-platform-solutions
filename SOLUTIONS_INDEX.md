@@ -23,6 +23,16 @@ Reference implementations for [ai-infra-ml-platform-learning](https://github.com
 | 009-security-governance | 5 | ✅ |
 | **Total** | **45** | **45/45** |
 
+## Project (capstone) coverage
+
+| Project | Solution | Status |
+|---|---|---|
+| 01-platform-core | [projects/project-01-platform-core](projects/project-01-platform-core/) | ✅ |
+| 02-feature-store | — | ⬜ planned |
+| 03-workflow-orchestration | — | ⬜ planned |
+| 04-model-registry | — | ⬜ planned |
+| 05-developer-portal | — | ⬜ planned |
+
 ## Cross-references to engineer-solutions
 
 Many platform-engineering topics overlap engineering-track topics:

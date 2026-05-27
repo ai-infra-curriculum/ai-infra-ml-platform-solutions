@@ -1,0 +1,120 @@
+# Per-tenant isolation bundle (requirement F4). The control plane (or a
+# dedicated provisioner) renders one copy of this set per tenant at
+# onboarding. A concrete example is shown for tenant "recs-team";
+# `recs-team` is substituted wherever the namespace appears.
+#
+# Isolation is layered on purpose — namespace alone is NOT a security
+# boundary (it is a naming + RBAC + quota boundary). The NetworkPolicy
+# and workload-identity binding are what make tenant A unable to reach
+# tenant B's data.
+#
+# Validate statically:
+#   kubectl apply --dry-run=server -f tenant/tenant-namespace.yaml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: recs-team
+  labels:
+    platform.smartrecs.io/tenant: recs-team
+    # Pod Security Admission: enforce the restricted profile so tenant
+    # workloads cannot run privileged / root pods (requirement NF3).
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: latest
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-quota
+  namespace: recs-team
+spec:
+  hard:
+    requests.cpu: "64"
+    requests.memory: 256Gi
+    requests.nvidia.com/gpu: "8"
+    limits.cpu: "64"
+    limits.memory: 256Gi
+    limits.nvidia.com/gpu: "8"
+    # Cap concurrent runs at the namespace level as a backstop; the
+    # control plane also enforces a per-tenant concurrent-run limit
+    # (requirement F5) before the CR is ever applied.
+    count/jobs.batch: "20"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tenant-defaults
+  namespace: recs-team
+spec:
+  limits:
+    - type: Container
+      # No defaults are set on purpose: every pod MUST declare its own
+      # requests + limits, which surfaces the missing-resource-request
+      # bug before scheduling. Min/max bound the allowed range.
+      min:
+        cpu: 100m
+        memory: 128Mi
+      max:
+        cpu: "32"
+        memory: 128Gi
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: recs-team
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-platform-egress
+  namespace: recs-team
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    # DNS is required for any name resolution.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Allow egress ONLY to the platform dependencies a training run
+    # legitimately needs: feature store, model registry / MLflow, and
+    # the object store. Everything else (including other tenant
+    # namespaces) is denied by default-deny-all above.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              platform.smartrecs.io/component: feature-store
+        - namespaceSelector:
+            matchLabels:
+              platform.smartrecs.io/component: model-registry
+      ports:
+        - protocol: TCP
+          port: 443
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: training-runner
+  namespace: recs-team
+  annotations:
+    # Workload identity: bind this SA to a tenant-scoped credential so
+    # a compromised pod in recs-team can read only recs-team's bucket
+    # prefix. On AWS this is IRSA; on GCP, Workload Identity; in a
+    # cloud-agnostic setup, a SPIFFE SVID issued by SPIRE.
+    # The IAM/SPIFFE policy — not Kubernetes — enforces the data
+    # boundary; the annotation only names the identity to assume.
+    eks.amazonaws.com/role-arn: arn:aws:iam::000000000000:role/recs-team-training
+    spiffe.io/spiffe-id: spiffe://smartrecs.io/ns/recs-team/sa/training-runner
