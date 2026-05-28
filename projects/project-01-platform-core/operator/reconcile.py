@@ -43,6 +43,7 @@ class ReconcileInputs:
 
     namespace: str
     name: str
+    uid: str
     spec: Mapping[str, Any]
     status: Mapping[str, Any]
 
@@ -73,7 +74,11 @@ def desired_job(inputs: ReconcileInputs) -> Mapping[str, Any]:
                     "apiVersion": "platform.smartrecs.io/v1alpha1",
                     "kind": "TrainingRun",
                     "name": inputs.name,
-                    "uid": inputs.status.get("ownerUid", ""),
+                    # uid comes from the owning CR's metadata.uid (assigned
+                    # by the apiserver on create). An empty UID makes the
+                    # apiserver reject the Job create, so the operator must
+                    # plumb metadata.uid through ReconcileInputs.
+                    "uid": inputs.uid,
                     "controller": True,
                     "blockOwnerDeletion": True,
                 }

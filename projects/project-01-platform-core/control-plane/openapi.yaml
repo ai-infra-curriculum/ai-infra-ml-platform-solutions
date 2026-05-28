@@ -164,12 +164,13 @@ components:
     IdempotencyKey:
       name: Idempotency-Key
       in: header
-      required: false
+      required: true
       schema: { type: string, maxLength: 64 }
       description: |
         Repeating a POST with the same key + payload returns the original
-        201 response and does not create a second run. Required for
-        retry-safe SDK behaviour under F6.
+        201 response and does not create a second run. Required on
+        mutating POSTs so a network retry cannot create a duplicate
+        TrainingRun and double-spend quota/GPU time (F6).
   schemas:
     TrainingRunSpec:
       type: object
