@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://workflows.smartrecs.io/schemas/pipeline-v1.json",
+  "title": "Pipeline",
+  "description": "Declarative ML pipeline definition (workflows.smartrecs.io/v1). Mirrors the example in the project-03 README. Cycle detection is enforced by the parser after schema validation - JSON Schema cannot express a DAG constraint.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["apiVersion", "kind", "metadata", "spec"],
+  "properties": {
+    "apiVersion": {
+      "const": "workflows.smartrecs.io/v1"
+    },
+    "kind": {
+      "const": "Pipeline"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "namespace"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$",
+          "description": "DNS-1123 label; matches Kubernetes resource-name constraints."
+        },
+        "namespace": {
+          "type": "string",
+          "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$",
+          "description": "Tenant identifier; pipelines are isolated by namespace."
+        },
+        "version": {
+          "type": "string",
+          "description": "Semver or arbitrary opaque version tag. Pipelines are immutable per (namespace, name, version)."
+        }
+      }
+    },
+    "spec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["steps"],
+      "properties": {
+        "schedule": {
+          "type": "string",
+          "description": "Cron expression (5-field, UTC). Optional; absence means event-triggered or manual.",
+          "pattern": "^\\s*\\S+(\\s+\\S+){4}\\s*$"
+        },
+        "event_filter": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {"type": "string"},
+            "match": {"type": "object", "additionalProperties": {"type": "string"}}
+          },
+          "required": ["name"]
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/step"}
+        },
+        "retries": {"$ref": "#/$defs/retries_default"},
+        "notification": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "on_failure": {"type": "string"},
+            "on_success": {"type": "string"}
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "image"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?$"
+        },
+        "image": {
+          "type": "string",
+          "description": "Fully qualified container reference, e.g. ghcr.io/org/img:tag."
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": {"type": "string"}
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {"type": "string"},
+          "uniqueItems": true,
+          "default": []
+        },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "cpu": {"type": "string"},
+            "memory": {"type": "string"},
+            "gpu": {"type": "integer", "minimum": 0}
+          }
+        },
+        "gates": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/gate"}
+        },
+        "retries": {"$ref": "#/$defs/retries_step"},
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Per-attempt timeout; the executor kills the pod and treats it as a transient failure."
+        }
+      }
+    },
+    "gate": {
+      "type": "object",
+      "additionalProperties": false,
+      "oneOf": [
+        {"required": ["condition"]},
+        {"required": ["human_approval"]}
+      ],
+      "properties": {
+        "condition": {
+          "type": "string",
+          "description": "Boolean expression over prior-step outputs, evaluated by the AST-restricted evaluator in gates/condition.py."
+        },
+        "human_approval": {
+          "type": "boolean",
+          "description": "If true, the run enters WaitingApproval and pauses until POST /v1/runs/{id}/approve."
+        }
+      }
+    },
+    "retries_default": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Default max attempts for transient failures."
+        },
+        "backoff": {
+          "type": "string",
+          "enum": ["constant", "linear", "exponential"]
+        },
+        "max_backoff_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "retries_step": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "backoff": {
+          "type": "string",
+          "enum": ["constant", "linear", "exponential"]
+        },
+        "classify_overrides": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string",
+            "enum": ["transient", "intermittent", "permanent"]
+          },
+          "description": "Map of exit-code or reason -> classification, overriding retry_classifier defaults."
+        }
+      }
+    }
+  }
+}
