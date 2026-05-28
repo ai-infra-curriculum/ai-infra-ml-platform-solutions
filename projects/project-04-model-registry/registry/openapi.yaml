@@ -1,0 +1,515 @@
+# Model-registry API contract -- reference solution for F1, F3, F4, F5, F6.
+#
+# Validates with:
+#   openapi-spec-validator registry/openapi.yaml
+#   # (or) redocly lint registry/openapi.yaml
+#
+# Surface kept small on purpose. The learner builds the FastAPI app
+# behind this; the spec is the rubric for "what shape must the API
+# have to grade against the rubric's F1-F6 rows?"
+openapi: 3.1.0
+info:
+  title: Model Registry
+  version: v1
+  description: |
+    System of record for "what model is in production where, and why."
+    Metadata-only -- artifacts live in object storage and are referenced
+    by content digest.
+
+servers:
+  - url: https://registry.platform.example.com/v1
+
+security:
+  - bearerAuth: []
+
+paths:
+  /models:
+    post:
+      summary: Register a model (namespace + name + owner).
+      operationId: registerModel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelCreate'
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+        '400': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+    get:
+      summary: List models in the caller's tenant.
+      operationId: listModels
+      parameters:
+        - in: query
+          name: status
+          schema: { $ref: '#/components/schemas/Status' }
+        - in: query
+          name: training_data_version
+          schema: { type: string }
+        - in: query
+          name: accuracy_gte
+          schema: { type: number, minimum: 0, maximum: 1 }
+        - in: query
+          name: page
+          schema: { type: integer, minimum: 1, default: 1 }
+        - in: query
+          name: page_size
+          schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelList'
+
+  /models/{model_id}/versions:
+    post:
+      summary: Register an immutable model version.
+      operationId: registerModelVersion
+      parameters:
+        - in: path
+          name: model_id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelVersionCreate'
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelVersion'
+        '400': { $ref: '#/components/responses/Error' }
+        '405':
+          description: Cannot mutate an existing version.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+
+  /models/{model_id}/versions/{version}:
+    get:
+      summary: Full version metadata + lineage.
+      operationId: getModelVersion
+      parameters:
+        - in: path
+          name: model_id
+          required: true
+          schema: { type: string, format: uuid }
+        - in: path
+          name: version
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelVersionDetail'
+        '404': { $ref: '#/components/responses/Error' }
+
+  /promotions:
+    post:
+      summary: Request a promotion. Returns 202 if gates are pending.
+      operationId: createPromotion
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromotionCreate'
+      responses:
+        '201':
+          description: Auto-promoted (all gates passed without human approval).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotion'
+        '202':
+          description: Awaiting human approval gate.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotion'
+        '422':
+          description: A gate failed; promotion blocked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GateFailure'
+
+  /promotions/{promotion_id}/approve:
+    post:
+      summary: Record a human approval against an in-flight promotion.
+      operationId: approvePromotion
+      parameters:
+        - in: path
+          name: promotion_id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Approval'
+      responses:
+        '200':
+          description: Approval recorded; promotion completed if last approval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotion'
+        '404': { $ref: '#/components/responses/Error' }
+
+  /deployments:
+    post:
+      summary: Create a deployment of a model version.
+      operationId: createDeployment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeploymentCreate'
+      responses:
+        '201':
+          description: Created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '400': { $ref: '#/components/responses/Error' }
+        '422':
+          description: Signature verification failed at deployment time.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /deployments/{deployment_id}/rollback:
+    post:
+      summary: Roll back to the prior Production version. Audit reason required.
+      operationId: rollbackDeployment
+      parameters:
+        - in: path
+          name: deployment_id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason:
+                  type: string
+                  minLength: 1
+                  description: |
+                    Free-text reason linked to incident/regression. Required
+                    field; the registry refuses rollbacks without it.
+      responses:
+        '200':
+          description: Rollback successful; new active deployment returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '404': { $ref: '#/components/responses/Error' }
+        '409':
+          description: No prior Production version to roll back to.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /lineage/{model_version_id}:
+    get:
+      summary: Forward lineage of a model version.
+      operationId: getForwardLineage
+      parameters:
+        - in: path
+          name: model_version_id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lineage'
+
+  /lineage/reverse:
+    get:
+      summary: Models affected by a data source (reverse lineage).
+      operationId: getReverseLineage
+      parameters:
+        - in: query
+          name: source_kind
+          required: true
+          schema:
+            type: string
+            enum: [training_data, feature_snapshot, base_model, training_run]
+        - in: query
+          name: source_identifier
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lineage'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Error:
+      description: Standardised error envelope.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+  schemas:
+    Status:
+      type: string
+      enum: [Registered, Staging, Production, Deprecated, Decommissioned]
+
+    RolloutStrategy:
+      type: string
+      enum: [rolling, blue-green, canary, shadow]
+
+    Error:
+      type: object
+      required: [error, code, request_id]
+      properties:
+        error: { type: string }
+        code: { type: string }
+        request_id: { type: string }
+
+    Model:
+      type: object
+      required: [id, namespace, name, owner, created_at]
+      properties:
+        id: { type: string, format: uuid }
+        namespace: { type: string }
+        name: { type: string }
+        owner: { type: string }
+        created_at: { type: string, format: date-time }
+
+    ModelCreate:
+      type: object
+      required: [name, owner]
+      properties:
+        name: { type: string }
+        owner: { type: string }
+
+    ModelVersion:
+      type: object
+      required: [id, model_id, version, artifact_uri, artifact_digest,
+                 signature_uri, metadata, metrics, status,
+                 registered_by, registered_at]
+      properties:
+        id: { type: string, format: uuid }
+        model_id: { type: string, format: uuid }
+        version: { type: string }
+        artifact_uri: { type: string, format: uri }
+        artifact_digest:
+          type: string
+          pattern: '^sha256:[0-9a-f]{64}$'
+        signature_uri: { type: string, format: uri }
+        metadata: { type: object, additionalProperties: true }
+        metrics: { type: object, additionalProperties: true }
+        status: { $ref: '#/components/schemas/Status' }
+        registered_by: { type: string }
+        registered_at: { type: string, format: date-time }
+
+    ModelVersionCreate:
+      type: object
+      required: [version, artifact_uri, artifact_digest,
+                 signature_uri, metadata, metrics, lineage]
+      properties:
+        version: { type: string, pattern: '^\d+\.\d+\.\d+$' }
+        artifact_uri: { type: string, format: uri }
+        artifact_digest:
+          type: string
+          pattern: '^sha256:[0-9a-f]{64}$'
+        signature_uri: { type: string, format: uri }
+        metadata: { type: object, additionalProperties: true }
+        metrics:
+          type: object
+          required: [accuracy]
+          properties:
+            accuracy: { type: number, minimum: 0, maximum: 1 }
+            fairness:
+              type: object
+              properties:
+                disparate_impact: { type: number, minimum: 0 }
+            adversarial:
+              type: object
+              properties:
+                robust_accuracy_at_eps_8_255:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+        lineage:
+          type: array
+          items:
+            type: object
+            required: [source_kind, source_identifier]
+            properties:
+              source_kind:
+                type: string
+                enum: [training_data, feature_snapshot, base_model, training_run]
+              source_identifier: { type: string }
+
+    ModelVersionDetail:
+      allOf:
+        - $ref: '#/components/schemas/ModelVersion'
+        - type: object
+          properties:
+            lineage: { $ref: '#/components/schemas/Lineage' }
+
+    ModelList:
+      type: object
+      required: [items, page, page_size, total]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/Model' }
+        page: { type: integer }
+        page_size: { type: integer }
+        total: { type: integer }
+
+    PromotionCreate:
+      type: object
+      required: [model_version_id, to_status]
+      properties:
+        model_version_id: { type: string, format: uuid }
+        to_status:
+          type: string
+          enum: [Staging, Production, Deprecated, Decommissioned]
+        gate_overrides:
+          type: object
+          additionalProperties: { type: boolean }
+          description: |
+            Optional per-gate skip flags (e.g. fairness gate may be
+            skipped for low-stakes models; every skip is audited).
+
+    Promotion:
+      type: object
+      required: [id, model_version_id, from_status, to_status, state]
+      properties:
+        id: { type: string, format: uuid }
+        model_version_id: { type: string, format: uuid }
+        from_status: { $ref: '#/components/schemas/Status' }
+        to_status: { $ref: '#/components/schemas/Status' }
+        state:
+          type: string
+          enum: [Pending, Approved, Completed, Rejected]
+        approvers_required:
+          type: array
+          items: { type: string }
+        approvers_recorded:
+          type: array
+          items: { type: string }
+
+    Approval:
+      type: object
+      required: [approver, signature]
+      properties:
+        approver: { type: string }
+        signature:
+          type: string
+          description: Detached signature over the promotion ID by the approver's identity.
+
+    GateFailure:
+      type: object
+      required: [promotion_id, failed_gate, evaluated_value, threshold]
+      properties:
+        promotion_id: { type: string, format: uuid }
+        failed_gate: { type: string }
+        evaluated_value: {}
+        threshold: {}
+        request_id: { type: string }
+
+    DeploymentCreate:
+      type: object
+      required: [model_version_id, target_environment, rollout_strategy]
+      properties:
+        model_version_id: { type: string, format: uuid }
+        target_environment: { type: string }
+        rollout_strategy: { $ref: '#/components/schemas/RolloutStrategy' }
+        traffic_share:
+          type: number
+          minimum: 0
+          maximum: 1
+          description: Required when rollout_strategy = canary.
+
+    Deployment:
+      type: object
+      required: [id, model_version_id, target_environment,
+                 rollout_strategy, deployed_by, deployed_at, status]
+      properties:
+        id: { type: string, format: uuid }
+        model_version_id: { type: string, format: uuid }
+        target_environment: { type: string }
+        rollout_strategy: { $ref: '#/components/schemas/RolloutStrategy' }
+        traffic_share: { type: number }
+        deployed_by: { type: string }
+        deployed_at: { type: string, format: date-time }
+        status:
+          type: string
+          enum: [Active, Rolled-back, Decommissioned]
+        rollback_reason: { type: string }
+
+    LineageNode:
+      type: object
+      required: [model_version_id, namespace, name, version]
+      properties:
+        model_version_id: { type: string, format: uuid }
+        namespace: { type: string }
+        name: { type: string }
+        version: { type: string }
+
+    LineageEdge:
+      type: object
+      required: [model_version_id, source_kind, source_identifier]
+      properties:
+        model_version_id: { type: string, format: uuid }
+        source_kind:
+          type: string
+          enum: [training_data, feature_snapshot, base_model, training_run]
+        source_identifier: { type: string }
+
+    Lineage:
+      type: object
+      required: [root, nodes, edges]
+      properties:
+        root: { type: string, format: uuid }
+        nodes:
+          type: array
+          items: { $ref: '#/components/schemas/LineageNode' }
+        edges:
+          type: array
+          items: { $ref: '#/components/schemas/LineageEdge' }

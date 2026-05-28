@@ -1,0 +1,130 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "graphTooltip": 0,
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": ["ml-platform", "model-registry"],
+  "templating": {
+    "list": [
+      {
+        "name": "tenant",
+        "label": "Tenant",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(registry_models_total, tenant)",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": true
+      },
+      {
+        "name": "target",
+        "label": "Target env",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(registry_deployments_active, target_environment)",
+        "refresh": 1,
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  },
+  "time": { "from": "now-24h", "to": "now" },
+  "timepicker": {},
+  "title": "Model Registry -- F8",
+  "uid": "ml-platform-registry",
+  "version": 1,
+  "panels": [
+    {
+      "id": 1,
+      "title": "Models in Production",
+      "type": "stat",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum(registry_models_total{tenant=~\"$tenant\",status=\"Production\"})",
+          "legendFormat": "Production"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Promotion outcomes (rate, 5m)",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 6, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by (outcome) (rate(registry_promotions_total{tenant=~\"$tenant\",to_status=\"Production\"}[5m]))",
+          "legendFormat": "{{outcome}}"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Active deployments by target",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 4 },
+      "targets": [
+        {
+          "expr": "sum by (target_environment) (registry_deployments_active{tenant=~\"$tenant\",target_environment=~\"$target\"})",
+          "legendFormat": "{{target_environment}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Rollouts in flight",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 4 },
+      "targets": [
+        {
+          "expr": "sum by (rollout_strategy) (registry_rollouts_in_flight{tenant=~\"$tenant\"})",
+          "legendFormat": "{{rollout_strategy}}"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Promotions blocked (last 24h)",
+      "type": "stat",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 12 },
+      "targets": [
+        {
+          "expr": "sum(increase(registry_promotions_total{outcome=\"blocked\"}[24h]))"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Deployment timeline (events)",
+      "type": "table",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 18, "x": 6, "y": 12 },
+      "description": "Joined from the audit-chain feed by the registry exporter; one row per state transition for the selected tenants.",
+      "targets": [
+        {
+          "expr": "ALERTS{job=\"registry\"}",
+          "legendFormat": "{{alertname}}"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "SLO -- registry read latency p99",
+      "type": "timeseries",
+      "datasource": "Prometheus",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 20 },
+      "description": "Learner pins the SLO when filling this in; the rubric checks the reasoning, not the specific number.",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(registry_http_request_duration_seconds_bucket{handler=\"GET_models\"}[5m])))"
+        }
+      ]
+    }
+  ]
+}

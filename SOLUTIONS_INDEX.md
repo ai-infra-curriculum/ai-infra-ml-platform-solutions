@@ -8,6 +8,12 @@ Reference implementations for [ai-infra-ml-platform-learning](https://github.com
 - `projects/`: capstone solutions
 - `guides/` / `resources/`: cross-cutting material
 
+## Project coverage
+
+| Project | Status |
+|---|---|
+| [project-04-model-registry](./projects/project-04-model-registry/) | ✅ |
+
 ## Module coverage
 
 | Module | Exercises | Status |

@@ -1,0 +1,38 @@
+{
+  "already_present": [],
+  "curriculum_appended": {
+    "already_present": [],
+    "appended": [
+      "fill-project-04-model-registry-solution"
+    ],
+    "present": true
+  },
+  "curriculum_suggestions": [
+    {
+      "scope": "project-04-model-registry",
+      "suggestion": "Update `CURRICULUM.md` so the row for `project-04-model-registry` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "fill-project-04-model-registry-solution"
+    }
+  ],
+  "generated_at": "2026-05-28T19:14:25Z",
+  "repo": {
+    "has_git": true,
+    "kind": "solutions",
+    "name": "ai-infra-ml-platform-solutions",
+    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "track": "ml-platform"
+  },
+  "schema_version": 1,
+  "status": "updated",
+  "updated": [
+    {
+      "date": "2026-05-28",
+      "module": null,
+      "project": "project-04-model-registry",
+      "title": "Author solution artifact for project-04-model-registry",
+      "type": "project_solution_gap",
+      "work_id": "fill-project-04-model-registry-solution"
+    }
+  ],
+  "versions_path": "VERSIONS.md"
+}
