@@ -99,10 +99,12 @@ BEGIN
     END IF;
 END$$;
 
-GRANT INSERT, SELECT ON audit_log TO orchestrator;
 -- BIGSERIAL inserts call nextval(audit_log_id_seq); table-level INSERT
--- does not imply USAGE on the backing sequence, so grant it explicitly.
-GRANT USAGE ON SEQUENCE audit_log_id_seq TO orchestrator;
+-- does not imply USAGE on the backing sequence, so grant it explicitly
+-- alongside the table grants below. SELECT on the sequence is included
+-- so currval() works for any post-insert "what id did I just get" probes.
+GRANT INSERT, SELECT ON audit_log TO orchestrator;
+GRANT USAGE, SELECT ON SEQUENCE audit_log_id_seq TO orchestrator;
 REVOKE UPDATE, DELETE, TRUNCATE ON audit_log FROM orchestrator;
 
 COMMIT;
