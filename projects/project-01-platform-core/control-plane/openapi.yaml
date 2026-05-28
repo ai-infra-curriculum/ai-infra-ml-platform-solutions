@@ -28,7 +28,15 @@ paths:
       summary: Admit a new training run
       parameters:
         - $ref: '#/components/parameters/RequestId'
-        - $ref: '#/components/parameters/IdempotencyKey'
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, maxLength: 64 }
+          description: |
+            Repeating a POST with the same key + payload returns the
+            original 201 response and does not create a second run.
+            Required on mutating POSTs so a network retry cannot create
+            a duplicate TrainingRun and double-spend quota/GPU time (F6).
       requestBody:
         required: true
         content:
@@ -161,16 +169,6 @@ components:
       required: false
       schema: { type: string }
       description: Caller-supplied correlation ID; if absent, server generates one.
-    IdempotencyKey:
-      name: Idempotency-Key
-      in: header
-      required: true
-      schema: { type: string, maxLength: 64 }
-      description: |
-        Repeating a POST with the same key + payload returns the original
-        201 response and does not create a second run. Required on
-        mutating POSTs so a network retry cannot create a duplicate
-        TrainingRun and double-spend quota/GPU time (F6).
   schemas:
     TrainingRunSpec:
       type: object
