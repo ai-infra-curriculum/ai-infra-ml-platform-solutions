@@ -24,3 +24,11 @@ Each module solution directory (`modules/mod-NNN-<slug>/`) should include:
 - Module slugs MUST match the paired learning repository.
 - Solutions are reference implementations; learners attempt exercises first.
 - Operational reports belong in the workspace `_meta/`, not the repo root.
+
+## Shipped (autonomous)
+
+Auto-appended by the AICG runner. One row per verified work item. Edit the rest of the document by hand; this section is additive only.
+
+| Date | Work ID | Scope | Title |
+|---|---|---|---|
+| 2026-05-28 | `fill-project-02-feature-store-solution` | `project-02-feature-store` | Author solution artifact for project-02-feature-store |

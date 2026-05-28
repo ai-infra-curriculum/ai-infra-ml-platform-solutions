@@ -1,0 +1,38 @@
+{
+  "already_present": [],
+  "curriculum_appended": {
+    "already_present": [],
+    "appended": [
+      "fill-project-02-feature-store-solution"
+    ],
+    "present": true
+  },
+  "curriculum_suggestions": [
+    {
+      "scope": "project-02-feature-store",
+      "suggestion": "Update `CURRICULUM.md` so the row for `project-02-feature-store` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "fill-project-02-feature-store-solution"
+    }
+  ],
+  "generated_at": "2026-05-28T17:05:44Z",
+  "repo": {
+    "has_git": true,
+    "kind": "solutions",
+    "name": "ai-infra-ml-platform-solutions",
+    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "track": "ml-platform"
+  },
+  "schema_version": 1,
+  "status": "updated",
+  "updated": [
+    {
+      "date": "2026-05-28",
+      "module": null,
+      "project": "project-02-feature-store",
+      "title": "Author solution artifact for project-02-feature-store",
+      "type": "project_solution_gap",
+      "work_id": "fill-project-02-feature-store-solution"
+    }
+  ],
+  "versions_path": "VERSIONS.md"
+}

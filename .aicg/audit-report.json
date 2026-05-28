@@ -1,0 +1,1035 @@
+{
+  "checks": {
+    "learning_solution_parity": {
+      "status": "fail"
+    },
+    "placeholder_scan": {
+      "finding_count": 0,
+      "status": "pass"
+    },
+    "project_parity": {
+      "project_count": 5,
+      "status": "fail"
+    },
+    "repo_structure": {
+      "finding_count": 0,
+      "status": "pass"
+    }
+  },
+  "gaps": [
+    {
+      "exercise_id": "exercise-05",
+      "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+      "message": "mod-001-platform-fundamentals/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+      "module_id": "mod-001-platform-fundamentals",
+      "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+      "severity": "warning",
+      "type": "exercise_solution_module_level_only"
+    },
+    {
+      "exercise_id": "exercise-05",
+      "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+      "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+      "module_id": "mod-002-api-design",
+      "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+      "severity": "warning",
+      "type": "exercise_solution_module_level_only"
+    },
+    {
+      "accepted_artifacts": [
+        "SOLUTION.md",
+        "STEP_BY_STEP.md",
+        "README.md"
+      ],
+      "expected_path": "projects/project-01-platform-core",
+      "message": "Solution project project-01-platform-core has no SOLUTION.md / README.md / STEP_BY_STEP.md.",
+      "project_id": "project-01-platform-core",
+      "severity": "error",
+      "type": "missing_project_solution_artifact"
+    },
+    {
+      "expected_path": "projects/project-03-workflow-orchestration",
+      "learning_path": "projects/project-03-workflow-orchestration",
+      "message": "Missing solution project directory for project-03-workflow-orchestration.",
+      "project_id": "project-03-workflow-orchestration",
+      "severity": "error",
+      "type": "missing_solution_project"
+    },
+    {
+      "expected_path": "projects/project-04-model-registry",
+      "learning_path": "projects/project-04-model-registry",
+      "message": "Missing solution project directory for project-04-model-registry.",
+      "project_id": "project-04-model-registry",
+      "severity": "error",
+      "type": "missing_solution_project"
+    },
+    {
+      "expected_path": "projects/project-05-developer-portal",
+      "learning_path": "projects/project-05-developer-portal",
+      "message": "Missing solution project directory for project-05-developer-portal.",
+      "project_id": "project-05-developer-portal",
+      "severity": "error",
+      "type": "missing_solution_project"
+    }
+  ],
+  "generated_at": "2026-05-28T17:05:45Z",
+  "modules": [
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-001-platform-fundamentals/exercise-01",
+          "found_artifact": "modules/mod-001-platform-fundamentals/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-01-design-api-for-resource-provisioning.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "design-api-for-resource-provisioning",
+          "status": "ok",
+          "title": "Exercise 01: Design an API for an ML Resource Provisioning Service"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-001-platform-fundamentals/exercise-02",
+          "found_artifact": "modules/mod-001-platform-fundamentals/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-02-namespace-isolation-in-kubernetes.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "namespace-isolation-in-kubernetes",
+          "status": "ok",
+          "title": "Exercise 02: Namespace Isolation in Kubernetes"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-001-platform-fundamentals/exercise-03",
+          "found_artifact": "modules/mod-001-platform-fundamentals/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-03-resource-quota-management.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "resource-quota-management",
+          "status": "ok",
+          "title": "Exercise 03: Resource Quota Management for Teams"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-001-platform-fundamentals/exercise-04",
+          "found_artifact": "modules/mod-001-platform-fundamentals/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-04-build-a-simple-plugin-system.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "build-a-simple-plugin-system",
+          "status": "ok",
+          "title": "Exercise 04: Build a Simple Plugin System"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-001-platform-fundamentals/exercise-05",
+          "found_artifact": null,
+          "gaps": [
+            {
+              "exercise_id": "exercise-05",
+              "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+              "message": "mod-001-platform-fundamentals/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+              "module_id": "mod-001-platform-fundamentals",
+              "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+              "severity": "warning",
+              "type": "exercise_solution_module_level_only"
+            }
+          ],
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "case-study-analysis-michelangelo-metaflow",
+          "status": "module_rationale_only",
+          "title": "Exercise 05: Case Study Analysis \u2014 Michelangelo vs Metaflow"
+        }
+      ],
+      "gaps": [
+        {
+          "exercise_id": "exercise-05",
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+          "message": "mod-001-platform-fundamentals/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+          "module_id": "mod-001-platform-fundamentals",
+          "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+          "severity": "warning",
+          "type": "exercise_solution_module_level_only"
+        }
+      ],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-001-platform-fundamentals",
+      "missing_solution_count": 0,
+      "module_id": "mod-001-platform-fundamentals",
+      "module_rationale_only_count": 1,
+      "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+      "solution_path": "modules/mod-001-platform-fundamentals",
+      "status": "module_rationale_only"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-002-api-design/exercise-01",
+          "found_artifact": "modules/mod-002-api-design/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-01-design-training-jobs-api.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "design-training-jobs-api",
+          "status": "ok",
+          "title": "Exercise 01: Design a Training-Jobs API"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-002-api-design/exercise-02",
+          "found_artifact": "modules/mod-002-api-design/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-02-versioning-deprecation-plan.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "versioning-deprecation-plan",
+          "status": "ok",
+          "title": "Exercise 02: Versioning + Deprecation Plan"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-002-api-design/exercise-03",
+          "found_artifact": "modules/mod-002-api-design/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-03-implement-fastapi-server.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "implement-fastapi-server",
+          "status": "ok",
+          "title": "Exercise 03: Implement FastAPI Server from Spec"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-002-api-design/exercise-04",
+          "found_artifact": "modules/mod-002-api-design/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-04-build-python-sdk.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "build-python-sdk",
+          "status": "ok",
+          "title": "Exercise 04: Build a Python SDK over the Generated Client"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-002-api-design/exercise-05",
+          "found_artifact": null,
+          "gaps": [
+            {
+              "exercise_id": "exercise-05",
+              "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+              "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+              "module_id": "mod-002-api-design",
+              "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+              "severity": "warning",
+              "type": "exercise_solution_module_level_only"
+            }
+          ],
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "api-design-review",
+          "status": "module_rationale_only",
+          "title": "Exercise 05: API Design Review (Pair Exercise)"
+        }
+      ],
+      "gaps": [
+        {
+          "exercise_id": "exercise-05",
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+          "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+          "module_id": "mod-002-api-design",
+          "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+          "severity": "warning",
+          "type": "exercise_solution_module_level_only"
+        }
+      ],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-002-api-design",
+      "missing_solution_count": 0,
+      "module_id": "mod-002-api-design",
+      "module_rationale_only_count": 1,
+      "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+      "solution_path": "modules/mod-002-api-design",
+      "status": "module_rationale_only"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-003-multi-tenancy-resources/exercise-01",
+          "found_artifact": "modules/mod-003-multi-tenancy-resources/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-003-multi-tenancy-resources/exercises/exercise-01-namespace-per-team-setup.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "namespace-per-team-setup",
+          "status": "ok",
+          "title": "Exercise 01: Namespace-per-Team Setup"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-003-multi-tenancy-resources/exercise-02",
+          "found_artifact": "modules/mod-003-multi-tenancy-resources/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-003-multi-tenancy-resources/exercises/exercise-02-resource-quota-enforcement.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "resource-quota-enforcement",
+          "status": "ok",
+          "title": "Exercise 02: ResourceQuota Enforcement Test"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-003-multi-tenancy-resources/exercise-03",
+          "found_artifact": "modules/mod-003-multi-tenancy-resources/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-003-multi-tenancy-resources/exercises/exercise-03-network-policy-isolation.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "network-policy-isolation",
+          "status": "ok",
+          "title": "Exercise 03: Network Policy Cross-Tenant Isolation"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-003-multi-tenancy-resources/exercise-04",
+          "found_artifact": "modules/mod-003-multi-tenancy-resources/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-003-multi-tenancy-resources/exercises/exercise-04-fair-share-with-volcano.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "fair-share-with-volcano",
+          "status": "ok",
+          "title": "Exercise 04: Fair-Share Scheduling with Volcano"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-003-multi-tenancy-resources/exercise-05",
+          "found_artifact": "modules/mod-003-multi-tenancy-resources/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-003-multi-tenancy-resources/exercises/exercise-05-cost-attribution-pipeline.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "cost-attribution-pipeline",
+          "status": "ok",
+          "title": "Exercise 05: Cost Attribution Pipeline"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-003-multi-tenancy-resources",
+      "missing_solution_count": 0,
+      "module_id": "mod-003-multi-tenancy-resources",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-003-multi-tenancy-resources/SOLUTION.md",
+      "solution_path": "modules/mod-003-multi-tenancy-resources",
+      "status": "ok"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-004-feature-store/exercise-01",
+          "found_artifact": "modules/mod-004-feature-store/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-004-feature-store/exercises/exercise-01-feast-quickstart.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "feast-quickstart",
+          "status": "ok",
+          "title": "Exercise 01: Feast Quickstart"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-004-feature-store/exercise-02",
+          "found_artifact": "modules/mod-004-feature-store/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-004-feature-store/exercises/exercise-02-point-in-time-join.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "point-in-time-join",
+          "status": "ok",
+          "title": "Exercise 02: Point-in-Time Correctness"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-004-feature-store/exercise-03",
+          "found_artifact": "modules/mod-004-feature-store/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-004-feature-store/exercises/exercise-03-materialization-pipeline.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "materialization-pipeline",
+          "status": "ok",
+          "title": "Exercise 03: Materialization Pipeline with Backfill"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-004-feature-store/exercise-04",
+          "found_artifact": "modules/mod-004-feature-store/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-004-feature-store/exercises/exercise-04-streaming-feature.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "streaming-feature",
+          "status": "ok",
+          "title": "Exercise 04: Streaming Feature"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-004-feature-store/exercise-05",
+          "found_artifact": "modules/mod-004-feature-store/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-004-feature-store/exercises/exercise-05-feature-store-operations.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "feature-store-operations",
+          "status": "ok",
+          "title": "Exercise 05: Feature Store Operations"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-004-feature-store",
+      "missing_solution_count": 0,
+      "module_id": "mod-004-feature-store",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-004-feature-store/SOLUTION.md",
+      "solution_path": "modules/mod-004-feature-store",
+      "status": "ok"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-005-workflow-orchestration/exercise-01",
+          "found_artifact": "modules/mod-005-workflow-orchestration/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-005-workflow-orchestration/exercises/exercise-01-airflow-or-prefect-decision.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "airflow-or-prefect-decision",
+          "status": "ok",
+          "title": "Exercise 01: Orchestrator Selection Decision Memo"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-005-workflow-orchestration/exercise-02",
+          "found_artifact": "modules/mod-005-workflow-orchestration/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-005-workflow-orchestration/exercises/exercise-02-implement-four-patterns.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "implement-four-patterns",
+          "status": "ok",
+          "title": "Exercise 02: Implement All Four Orchestration Patterns"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-005-workflow-orchestration/exercise-03",
+          "found_artifact": "modules/mod-005-workflow-orchestration/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-005-workflow-orchestration/exercises/exercise-03-safe-backfill.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "safe-backfill",
+          "status": "ok",
+          "title": "Exercise 03: Safe Backfill Tooling"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-005-workflow-orchestration/exercise-04",
+          "found_artifact": "modules/mod-005-workflow-orchestration/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-005-workflow-orchestration/exercises/exercise-04-sla-and-alerting.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "sla-and-alerting",
+          "status": "ok",
+          "title": "Exercise 04: SLA + Alerting"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-005-workflow-orchestration/exercise-05",
+          "found_artifact": "modules/mod-005-workflow-orchestration/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-005-workflow-orchestration/exercises/exercise-05-pool-capacity-tuning.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "pool-capacity-tuning",
+          "status": "ok",
+          "title": "Exercise 05: Pool Capacity Tuning"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-005-workflow-orchestration",
+      "missing_solution_count": 0,
+      "module_id": "mod-005-workflow-orchestration",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-005-workflow-orchestration/SOLUTION.md",
+      "solution_path": "modules/mod-005-workflow-orchestration",
+      "status": "ok"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-006-model-management/exercise-01",
+          "found_artifact": "modules/mod-006-model-management/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-006-model-management/exercises/exercise-01-mlflow-registry-deep-dive.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "mlflow-registry-deep-dive",
+          "status": "ok",
+          "title": "Exercise 01: MLflow Registry Deep Dive"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-006-model-management/exercise-02",
+          "found_artifact": "modules/mod-006-model-management/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-006-model-management/exercises/exercise-02-rollback-procedure.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "rollback-procedure",
+          "status": "ok",
+          "title": "Exercise 02: Rollback Procedure"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-006-model-management/exercise-03",
+          "found_artifact": "modules/mod-006-model-management/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-006-model-management/exercises/exercise-03-canary-via-argo.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "canary-via-argo",
+          "status": "ok",
+          "title": "Exercise 03: Canary Deployment via Argo Rollouts"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-006-model-management/exercise-04",
+          "found_artifact": "modules/mod-006-model-management/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-006-model-management/exercises/exercise-04-governance-gate.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "governance-gate",
+          "status": "ok",
+          "title": "Exercise 04: Governance Gate at Promotion"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-006-model-management/exercise-05",
+          "found_artifact": "modules/mod-006-model-management/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-006-model-management/exercises/exercise-05-quarterly-audit.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "quarterly-audit",
+          "status": "ok",
+          "title": "Exercise 05: Quarterly Audit Tooling"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-006-model-management",
+      "missing_solution_count": 0,
+      "module_id": "mod-006-model-management",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-006-model-management/SOLUTION.md",
+      "solution_path": "modules/mod-006-model-management",
+      "status": "ok"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-007-developer-experience/exercise-01",
+          "found_artifact": "modules/mod-007-developer-experience/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-007-developer-experience/exercises/exercise-01-customer-interviews.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "customer-interviews",
+          "status": "ok",
+          "title": "Exercise 01: Customer Discovery Interviews"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-007-developer-experience/exercise-02",
+          "found_artifact": "modules/mod-007-developer-experience/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-007-developer-experience/exercises/exercise-02-build-a-cli.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "build-a-cli",
+          "status": "ok",
+          "title": "Exercise 02: Build a CLI"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-007-developer-experience/exercise-03",
+          "found_artifact": "modules/mod-007-developer-experience/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-007-developer-experience/exercises/exercise-03-tutorial-write-up.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "tutorial-write-up",
+          "status": "ok",
+          "title": "Exercise 03: Tutorial Write-Up"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-007-developer-experience/exercise-04",
+          "found_artifact": "modules/mod-007-developer-experience/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-007-developer-experience/exercises/exercise-04-error-message-audit.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "error-message-audit",
+          "status": "ok",
+          "title": "Exercise 04: Error Message Audit"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-007-developer-experience/exercise-05",
+          "found_artifact": "modules/mod-007-developer-experience/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-007-developer-experience/exercises/exercise-05-nps-survey-design.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "nps-survey-design",
+          "status": "ok",
+          "title": "Exercise 05: NPS Survey + Roadmap Impact"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-007-developer-experience",
+      "missing_solution_count": 0,
+      "module_id": "mod-007-developer-experience",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-007-developer-experience/SOLUTION.md",
+      "solution_path": "modules/mod-007-developer-experience",
+      "status": "ok"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-008-observability/exercise-01",
+          "found_artifact": "modules/mod-008-observability/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-008-observability/exercises/exercise-01-build-model-dashboard.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "build-model-dashboard",
+          "status": "ok",
+          "title": "Exercise 01: Per-Model Dashboard"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-008-observability/exercise-02",
+          "found_artifact": "modules/mod-008-observability/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-008-observability/exercises/exercise-02-burn-rate-alerts.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "burn-rate-alerts",
+          "status": "ok",
+          "title": "Exercise 02: SLO + Burn-Rate Alerts"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-008-observability/exercise-03",
+          "found_artifact": "modules/mod-008-observability/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-008-observability/exercises/exercise-03-drift-monitoring.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "drift-monitoring",
+          "status": "ok",
+          "title": "Exercise 03: Drift Monitoring End-to-End"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-008-observability/exercise-04",
+          "found_artifact": "modules/mod-008-observability/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-008-observability/exercises/exercise-04-cost-rollup-pipeline.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "cost-rollup-pipeline",
+          "status": "ok",
+          "title": "Exercise 04: Cost Rollup Pipeline"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-008-observability/exercise-05",
+          "found_artifact": "modules/mod-008-observability/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-008-observability/exercises/exercise-05-incident-runbook.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "incident-runbook",
+          "status": "ok",
+          "title": "Exercise 05: Incident Runbook Library"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-008-observability",
+      "missing_solution_count": 0,
+      "module_id": "mod-008-observability",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-008-observability/SOLUTION.md",
+      "solution_path": "modules/mod-008-observability",
+      "status": "ok"
+    },
+    {
+      "exercise_count": 5,
+      "exercises": [
+        {
+          "exercise_id": "exercise-01",
+          "expected_solution_dir": "modules/mod-009-security-governance/exercise-01",
+          "found_artifact": "modules/mod-009-security-governance/exercise-01/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-009-security-governance/exercises/exercise-01-implement-oidc.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "implement-oidc",
+          "status": "ok",
+          "title": "Exercise 01: Implement OIDC + RBAC"
+        },
+        {
+          "exercise_id": "exercise-02",
+          "expected_solution_dir": "modules/mod-009-security-governance/exercise-02",
+          "found_artifact": "modules/mod-009-security-governance/exercise-02/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-009-security-governance/exercises/exercise-02-vault-secret-rotation.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "vault-secret-rotation",
+          "status": "ok",
+          "title": "Exercise 02: Vault Secret Rotation"
+        },
+        {
+          "exercise_id": "exercise-03",
+          "expected_solution_dir": "modules/mod-009-security-governance/exercise-03",
+          "found_artifact": "modules/mod-009-security-governance/exercise-03/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-009-security-governance/exercises/exercise-03-supply-chain-attestation.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "supply-chain-attestation",
+          "status": "ok",
+          "title": "Exercise 03: SLSA L2 Supply Chain"
+        },
+        {
+          "exercise_id": "exercise-04",
+          "expected_solution_dir": "modules/mod-009-security-governance/exercise-04",
+          "found_artifact": "modules/mod-009-security-governance/exercise-04/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-009-security-governance/exercises/exercise-04-governance-gates.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "governance-gates",
+          "status": "ok",
+          "title": "Exercise 04: Implement Governance Gates"
+        },
+        {
+          "exercise_id": "exercise-05",
+          "expected_solution_dir": "modules/mod-009-security-governance/exercise-05",
+          "found_artifact": "modules/mod-009-security-governance/exercise-05/README.md",
+          "gaps": [],
+          "learning_path": "lessons/mod-009-security-governance/exercises/exercise-05-quarterly-compliance-audit.md",
+          "required_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "slug": "quarterly-compliance-audit",
+          "status": "ok",
+          "title": "Exercise 05: Quarterly Compliance Audit"
+        }
+      ],
+      "gaps": [],
+      "has_module_rationale": true,
+      "learning_path": "lessons/mod-009-security-governance",
+      "missing_solution_count": 0,
+      "module_id": "mod-009-security-governance",
+      "module_rationale_only_count": 0,
+      "module_rationale_path": "modules/mod-009-security-governance/SOLUTION.md",
+      "solution_path": "modules/mod-009-security-governance",
+      "status": "ok"
+    }
+  ],
+  "paired_repo": {
+    "has_git": true,
+    "kind": "learning",
+    "name": "ai-infra-ml-platform-learning",
+    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-learning",
+    "track": "ml-platform"
+  },
+  "projects": [
+    {
+      "found_artifact": null,
+      "gaps": [
+        {
+          "accepted_artifacts": [
+            "SOLUTION.md",
+            "STEP_BY_STEP.md",
+            "README.md"
+          ],
+          "expected_path": "projects/project-01-platform-core",
+          "message": "Solution project project-01-platform-core has no SOLUTION.md / README.md / STEP_BY_STEP.md.",
+          "project_id": "project-01-platform-core",
+          "severity": "error",
+          "type": "missing_project_solution_artifact"
+        }
+      ],
+      "learning_path": "projects/project-01-platform-core",
+      "project_id": "project-01-platform-core",
+      "solution_path": "projects/project-01-platform-core",
+      "status": "gap",
+      "title": "Project 01: Self-Service ML Platform Core"
+    },
+    {
+      "found_artifact": "projects/project-02-feature-store/SOLUTION.md",
+      "gaps": [],
+      "learning_path": "projects/project-02-feature-store",
+      "project_id": "project-02-feature-store",
+      "solution_path": "projects/project-02-feature-store",
+      "status": "ok",
+      "title": "Project 02: Enterprise Feature Store"
+    },
+    {
+      "found_artifact": null,
+      "gaps": [
+        {
+          "expected_path": "projects/project-03-workflow-orchestration",
+          "learning_path": "projects/project-03-workflow-orchestration",
+          "message": "Missing solution project directory for project-03-workflow-orchestration.",
+          "project_id": "project-03-workflow-orchestration",
+          "severity": "error",
+          "type": "missing_solution_project"
+        }
+      ],
+      "learning_path": "projects/project-03-workflow-orchestration",
+      "project_id": "project-03-workflow-orchestration",
+      "solution_path": null,
+      "status": "gap",
+      "title": "Project 03: ML Workflow Orchestration Engine"
+    },
+    {
+      "found_artifact": null,
+      "gaps": [
+        {
+          "expected_path": "projects/project-04-model-registry",
+          "learning_path": "projects/project-04-model-registry",
+          "message": "Missing solution project directory for project-04-model-registry.",
+          "project_id": "project-04-model-registry",
+          "severity": "error",
+          "type": "missing_solution_project"
+        }
+      ],
+      "learning_path": "projects/project-04-model-registry",
+      "project_id": "project-04-model-registry",
+      "solution_path": null,
+      "status": "gap",
+      "title": "Project 04: Model Management System"
+    },
+    {
+      "found_artifact": null,
+      "gaps": [
+        {
+          "expected_path": "projects/project-05-developer-portal",
+          "learning_path": "projects/project-05-developer-portal",
+          "message": "Missing solution project directory for project-05-developer-portal.",
+          "project_id": "project-05-developer-portal",
+          "severity": "error",
+          "type": "missing_solution_project"
+        }
+      ],
+      "learning_path": "projects/project-05-developer-portal",
+      "project_id": "project-05-developer-portal",
+      "solution_path": null,
+      "status": "gap",
+      "title": "Project 05: Developer Portal & SDK"
+    }
+  ],
+  "repo": {
+    "has_git": true,
+    "kind": "solutions",
+    "name": "ai-infra-ml-platform-solutions",
+    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "track": "ml-platform"
+  },
+  "schema_version": 2,
+  "source_policy": {
+    "official_first": true,
+    "practitioner_reference_note": "VeriSwarm sources may be used only as practitioner implementation references, not standards authorities.",
+    "registry_last_verified": "2026-05-24"
+  },
+  "summary": {
+    "error_count": 4,
+    "gap_count": 6,
+    "module_count": 9,
+    "project_count": 5,
+    "status": "fail",
+    "warning_count": 2
+  },
+  "workspace": "/home/s0v3r1gn/ai-infra-curriculum"
+}
