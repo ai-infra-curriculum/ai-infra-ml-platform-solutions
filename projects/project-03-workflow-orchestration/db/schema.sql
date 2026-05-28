@@ -100,6 +100,8 @@ BEGIN
 END$$;
 
 GRANT INSERT, SELECT ON audit_log TO orchestrator;
+-- BIGSERIAL inserts call nextval(audit_log_id_seq); table-level INSERT
+-- does not imply USAGE on the backing sequence, so grant it explicitly.
 GRANT USAGE ON SEQUENCE audit_log_id_seq TO orchestrator;
 REVOKE UPDATE, DELETE, TRUNCATE ON audit_log FROM orchestrator;
 
