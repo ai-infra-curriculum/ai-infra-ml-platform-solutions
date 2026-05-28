@@ -1,7 +1,7 @@
 # Solutions Index
 
 Reference implementations for [ai-infra-ml-platform-learning](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning).
-**Coverage: 100% modules (45 exercises) · 1 / 5 projects.** Last updated 2026-05-28.
+**Coverage: 100% modules (45 exercises) · 2 / 5 projects.** Last updated 2026-05-28.
 
 ## Layout
 - `modules/`: per-exercise solutions (one dir per learning exercise)
@@ -28,7 +28,7 @@ Reference implementations for [ai-infra-ml-platform-learning](https://github.com
 | Project | Status | Notes |
 |---|---|---|
 | [01-platform-core](projects/project-01-platform-core/SOLUTION.md) | ✅ | TrainingRun CRD + control plane + operator + multi-tenancy + audit chain. |
-| 02-feature-store | ⏳ | Pending. |
+| [02-feature-store](projects/project-02-feature-store/SOLUTION.md) | ✅ | Registry + offline/online materialization + point-in-time joins + multi-tenant serving. |
 | 03-workflow-orchestration | ⏳ | Pending. |
 | 04-model-registry | ⏳ | Pending. |
 | 05-developer-portal | ⏳ | Pending. |
