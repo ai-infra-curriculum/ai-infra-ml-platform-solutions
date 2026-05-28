@@ -1,7 +1,7 @@
 {
   "audit_summary": {
-    "error_count": 4,
-    "gap_count": 6,
+    "error_count": 5,
+    "gap_count": 7,
     "module_count": 9,
     "project_count": 5,
     "status": "fail",
@@ -104,7 +104,7 @@
       "why": "Module-level SOLUTION.md exists; per-exercise artifacts could deepen the answer for graders comparing approaches."
     }
   ],
-  "generated_at": "2026-05-28T19:34:27Z",
+  "generated_at": "2026-05-27T23:28:36Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
@@ -113,7 +113,7 @@
     "track": "ml-platform"
   },
   "schema_version": 2,
-  "work_item_count": 4,
+  "work_item_count": 5,
   "work_items": [
     {
       "actions": [
@@ -142,7 +142,7 @@
       "status": "verified",
       "title": "Author solution artifact for project-01-platform-core",
       "type": "project_solution_gap",
-      "verified_at": "2026-05-28T20:22:05Z",
+      "verified_at": "2026-05-28T06:08:52Z",
       "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
     },
     {
@@ -206,6 +206,35 @@
     {
       "actions": [
         {
+          "path": "projects/project-04-model-registry",
+          "type": "create_directory"
+        },
+        {
+          "path": "projects/project-04-model-registry/SOLUTION.md",
+          "project_id": "project-04-model-registry",
+          "source_project": "projects/project-04-model-registry",
+          "type": "write_solution"
+        }
+      ],
+      "exercises": [],
+      "id": "fill-project-04-model-registry-solution",
+      "priority": 4,
+      "project": "project-04-model-registry",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "error",
+      "source_policy": {
+        "needs_research_blocks_merge": true,
+        "official_first": true,
+        "required_default_sources": []
+      },
+      "status": "planned",
+      "title": "Author solution artifact for project-04-model-registry",
+      "type": "project_solution_gap",
+      "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
+    },
+    {
+      "actions": [
+        {
           "path": "projects/project-05-developer-portal",
           "type": "create_directory"
         },
@@ -218,7 +247,7 @@
       ],
       "exercises": [],
       "id": "fill-project-05-developer-portal-solution",
-      "priority": 4,
+      "priority": 5,
       "project": "project-05-developer-portal",
       "repo": "ai-infra-ml-platform-solutions",
       "severity": "error",

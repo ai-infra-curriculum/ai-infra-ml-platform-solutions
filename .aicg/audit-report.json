@@ -4,7 +4,7 @@
       "status": "fail"
     },
     "placeholder_scan": {
-      "finding_count": 2,
+      "finding_count": 0,
       "status": "pass"
     },
     "project_parity": {
@@ -52,31 +52,23 @@
       "type": "missing_solution_project"
     },
     {
+      "expected_path": "projects/project-04-model-registry",
+      "learning_path": "projects/project-04-model-registry",
+      "message": "Missing solution project directory for project-04-model-registry.",
+      "project_id": "project-04-model-registry",
+      "severity": "error",
+      "type": "missing_solution_project"
+    },
+    {
       "expected_path": "projects/project-05-developer-portal",
       "learning_path": "projects/project-05-developer-portal",
       "message": "Missing solution project directory for project-05-developer-portal.",
       "project_id": "project-05-developer-portal",
       "severity": "error",
       "type": "missing_solution_project"
-    },
-    {
-      "excerpt": "# Placeholder convention: `${TENANT_SLUG}`, `${TENANT_GROUP}`, and",
-      "line": 8,
-      "message": "Found placeholder marker.",
-      "path": "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml",
-      "severity": "warning",
-      "type": "placeholder"
-    },
-    {
-      "excerpt": "\"pending\",          # placeholder; updated after insert",
-      "line": 205,
-      "message": "Found placeholder marker.",
-      "path": "projects/project-01-platform-core/control-plane/training_runs.py",
-      "severity": "warning",
-      "type": "placeholder"
     }
   ],
-  "generated_at": "2026-05-28T20:22:05Z",
+  "generated_at": "2026-05-28T06:08:52Z",
   "modules": [
     {
       "exercise_count": 5,
@@ -974,12 +966,21 @@
       "title": "Project 03: ML Workflow Orchestration Engine"
     },
     {
-      "found_artifact": "projects/project-04-model-registry/SOLUTION.md",
-      "gaps": [],
+      "found_artifact": null,
+      "gaps": [
+        {
+          "expected_path": "projects/project-04-model-registry",
+          "learning_path": "projects/project-04-model-registry",
+          "message": "Missing solution project directory for project-04-model-registry.",
+          "project_id": "project-04-model-registry",
+          "severity": "error",
+          "type": "missing_solution_project"
+        }
+      ],
       "learning_path": "projects/project-04-model-registry",
       "project_id": "project-04-model-registry",
-      "solution_path": "projects/project-04-model-registry",
-      "status": "ok",
+      "solution_path": null,
+      "status": "gap",
       "title": "Project 04: Model Management System"
     },
     {
@@ -1015,12 +1016,12 @@
     "registry_last_verified": "2026-05-24"
   },
   "summary": {
-    "error_count": 3,
-    "gap_count": 7,
+    "error_count": 4,
+    "gap_count": 6,
     "module_count": 9,
     "project_count": 5,
     "status": "fail",
-    "warning_count": 4
+    "warning_count": 2
   },
   "workspace": "/home/s0v3r1gn/ai-infra-curriculum"
 }

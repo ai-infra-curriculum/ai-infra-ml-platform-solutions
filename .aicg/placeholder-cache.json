@@ -12,8 +12,8 @@
     },
     "CURRICULUM.md": {
       "findings": [],
-      "mtime_ns": 1779999725794855284,
-      "size": 1673
+      "mtime_ns": 1779948532594787437,
+      "size": 1527
     },
     "LEARNING_GUIDE.md": {
       "findings": [],
@@ -27,8 +27,8 @@
     },
     "SOLUTIONS_INDEX.md": {
       "findings": [],
-      "mtime_ns": 1779995581535548033,
-      "size": 2263
+      "mtime_ns": 1779924251052844365,
+      "size": 2133
     },
     "SOLUTION_OVERVIEW.md": {
       "findings": [],
@@ -37,8 +37,8 @@
     },
     "VERSIONS.md": {
       "findings": [],
-      "mtime_ns": 1779999725791521998,
-      "size": 366
+      "mtime_ns": 1779948532594787437,
+      "size": 220
     },
     "guides/README.md": {
       "findings": [],
@@ -302,7 +302,7 @@
     },
     "modules/mod-005-workflow-orchestration/exercise-01/DECISION.md": {
       "findings": [],
-      "mtime_ns": 1779992733294129113,
+      "mtime_ns": 1779916458299139777,
       "size": 1185
     },
     "modules/mod-005-workflow-orchestration/exercise-01/README.md": {
@@ -397,7 +397,7 @@
     },
     "modules/mod-007-developer-experience/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779992733294129113,
+      "mtime_ns": 1779916458302473062,
       "size": 4513
     },
     "modules/mod-007-developer-experience/exercise-01/INTERVIEW_TEMPLATE.md": {
@@ -545,133 +545,10 @@
       "mtime_ns": 1779924251052844365,
       "size": 64
     },
-    "projects/project-01-platform-core/README.md": {
-      "findings": [],
-      "mtime_ns": 1779999518357816334,
-      "size": 3240
-    },
     "projects/project-01-platform-core/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779999705878472913,
-      "size": 19621
-    },
-    "projects/project-01-platform-core/STEP_BY_STEP.md": {
-      "findings": [],
-      "mtime_ns": 1779999499954745694,
-      "size": 5981
-    },
-    "projects/project-01-platform-core/audit/verify.py": {
-      "findings": [],
-      "mtime_ns": 1779999690015366017,
-      "size": 5547
-    },
-    "projects/project-01-platform-core/control-plane/openapi.yaml": {
-      "findings": [],
-      "mtime_ns": 1779999240611646271,
-      "size": 17392
-    },
-    "projects/project-01-platform-core/control-plane/training_runs.py": {
-      "findings": [
-        {
-          "excerpt": "\"pending\",          # placeholder; updated after insert",
-          "line": 205,
-          "message": "Found placeholder marker.",
-          "path": "projects/project-01-platform-core/control-plane/training_runs.py",
-          "severity": "warning",
-          "type": "placeholder"
-        }
-      ],
-      "mtime_ns": 1779999330117120576,
-      "size": 10077
-    },
-    "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml": {
-      "findings": [
-        {
-          "excerpt": "# Placeholder convention: `${TENANT_SLUG}`, `${TENANT_GROUP}`, and",
-          "line": 8,
-          "message": "Found placeholder marker.",
-          "path": "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml",
-          "severity": "warning",
-          "type": "placeholder"
-        }
-      ],
-      "mtime_ns": 1779999423442504531,
-      "size": 5166
-    },
-    "projects/project-01-platform-core/operator/crds.yaml": {
-      "findings": [],
-      "mtime_ns": 1779999355510115632,
-      "size": 5699
-    },
-    "projects/project-01-platform-core/operator/reconcile.py": {
-      "findings": [],
-      "mtime_ns": 1779999390302977579,
-      "size": 8118
-    },
-    "projects/project-01-platform-core/rubric.md": {
-      "findings": [],
-      "mtime_ns": 1779999461415295824,
-      "size": 5334
-    },
-    "projects/project-04-model-registry/README.md": {
-      "findings": [],
-      "mtime_ns": 1779995059929815979,
-      "size": 3356
-    },
-    "projects/project-04-model-registry/SOLUTION.md": {
-      "findings": [],
-      "mtime_ns": 1779995571025700422,
-      "size": 15003
-    },
-    "projects/project-04-model-registry/STEP_BY_STEP.md": {
-      "findings": [],
-      "mtime_ns": 1779995442877558519,
-      "size": 6444
-    },
-    "projects/project-04-model-registry/deployment/rollout-strategies.md": {
-      "findings": [],
-      "mtime_ns": 1779995272590027621,
-      "size": 6111
-    },
-    "projects/project-04-model-registry/gates/evaluate.py": {
-      "findings": [],
-      "mtime_ns": 1779995201887729550,
-      "size": 6199
-    },
-    "projects/project-04-model-registry/gates/gates.yaml": {
-      "findings": [],
-      "mtime_ns": 1779995173704810436,
-      "size": 2115
-    },
-    "projects/project-04-model-registry/multi-tenancy/policy.md": {
-      "findings": [],
-      "mtime_ns": 1779995331615838436,
-      "size": 3596
-    },
-    "projects/project-04-model-registry/observability/grafana-dashboard.json": {
-      "findings": [],
-      "mtime_ns": 1779995376068527223,
-      "size": 3769
-    },
-    "projects/project-04-model-registry/observability/metrics.md": {
-      "findings": [],
-      "mtime_ns": 1779995356948804452,
-      "size": 3497
-    },
-    "projects/project-04-model-registry/registry/openapi.yaml": {
-      "findings": [],
-      "mtime_ns": 1779995153671771538,
-      "size": 16016
-    },
-    "projects/project-04-model-registry/rubric.md": {
-      "findings": [],
-      "mtime_ns": 1779995401498158504,
-      "size": 3692
-    },
-    "projects/project-04-model-registry/signing/verify.py": {
-      "findings": [],
-      "mtime_ns": 1779995234130588994,
-      "size": 5609
+      "mtime_ns": 1779948523638258189,
+      "size": 13309
     },
     "resources/README.md": {
       "findings": [],
@@ -679,6 +556,6 @@
       "size": 85
     }
   },
-  "generated_at": "2026-05-28T20:22:05Z",
+  "generated_at": "2026-05-28T06:08:52Z",
   "schema_version": 1
 }

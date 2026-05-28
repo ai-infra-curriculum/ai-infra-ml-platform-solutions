@@ -1,0 +1,52 @@
+# Sample pipeline used in the project-03 README and in
+# `examples/` fixtures. Validates against ../api/pipeline.schema.json.
+apiVersion: workflows.smartrecs.io/v1
+kind: Pipeline
+metadata:
+  name: nightly-recs-retrain
+  namespace: recs-team
+  version: v3
+spec:
+  schedule: "0 2 * * *"
+  steps:
+    - name: ingest
+      image: ghcr.io/smartrecs/ingest:v1.4
+      env:
+        SOURCE: warehouse.user_events
+      timeout_seconds: 3600
+    - name: features
+      image: ghcr.io/smartrecs/featurize:v2.1
+      depends_on: [ingest]
+      timeout_seconds: 3600
+    - name: train
+      image: ghcr.io/smartrecs/trainer:v3.2
+      depends_on: [features]
+      resources:
+        gpu: 1
+        memory: "32Gi"
+      timeout_seconds: 28800
+      retries:
+        max_attempts: 2
+        backoff: exponential
+        classify_overrides:
+          # OOM on GPU step is transient at the platform level
+          # (re-schedule on a bigger node), but treat exit 2 as
+          # permanent because the trainer uses it for "bad config".
+          "exit:2": permanent
+    - name: evaluate
+      image: ghcr.io/smartrecs/evaluator:v1.0
+      depends_on: [train]
+    - name: promote
+      image: ghcr.io/smartrecs/promoter:v1.0
+      depends_on: [evaluate]
+      gates:
+        - condition: "accuracy >= 0.85"
+        - condition: "fairness_disparate_impact <= 1.25"
+        - human_approval: true
+  retries:
+    default: 3
+    backoff: exponential
+    max_backoff_seconds: 600
+  notification:
+    on_failure: pagerduty/recs-team
+    on_success: slack/#recs-deploys

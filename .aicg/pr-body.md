@@ -7,16 +7,16 @@
 ## Audit Summary
 
 - Status: `fail`
-- Errors: `3`
-- Warnings: `4`
+- Errors: `4`
+- Warnings: `2`
 
 ## Validation Summary
 
-- Status: `not_run`
-- Checks: `0`
+- Status: `passed`
+- Checks: `5`
 
 ## Rollback
 
 ```bash
-git checkout main && git branch -D aicg/2026-05-28/ai-infra-ml-platform-solutions/fill-project-01-platform-core-solution
+git checkout main && git branch -D aicg/2026-05-27/ai-infra-ml-platform-solutions/fill-project-01-platform-core-solution
 ```
