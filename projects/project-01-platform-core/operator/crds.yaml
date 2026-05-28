@@ -1,0 +1,183 @@
+# Operator CRDs -- TrainingRun + ResourceClaim.
+#
+# Validates with:
+#   kubeconform -strict -summary -kubernetes-version 1.29 operator/crds.yaml
+#
+# Two CRDs. Both `apiextensions.k8s.io/v1`, both with structural
+# schemas so the API server validates submitted manifests at
+# admission time -- not after the operator has already started a
+# reconcile loop on garbage input.
+#
+# The CRDs are the operator's *own* representation; the
+# control-plane API in `control-plane/openapi.yaml` is the
+# *user-facing* one. The control plane writes CRD objects in
+# response to API calls; the operator reconciles them.
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: trainingruns.platform.example.com
+spec:
+  group: platform.example.com
+  names:
+    kind: TrainingRun
+    listKind: TrainingRunList
+    plural: trainingruns
+    singular: trainingrun
+    shortNames: [tr]
+    categories: [platform]
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      additionalPrinterColumns:
+        - name: Phase
+          type: string
+          jsonPath: .status.phase
+        - name: Priority
+          type: string
+          jsonPath: .spec.priority
+        - name: Submitted
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      schema:
+        openAPIV3Schema:
+          type: object
+          required: [spec]
+          properties:
+            spec:
+              type: object
+              required: [image, resources]
+              properties:
+                image:
+                  type: string
+                  description: Container image, digest-pinned recommended.
+                command:
+                  type: array
+                  items: { type: string }
+                resources:
+                  type: object
+                  required: [cpu, memory]
+                  properties:
+                    cpu:    { type: string }
+                    memory: { type: string }
+                    gpu:    { type: string }
+                priority:
+                  type: string
+                  enum: [interactive, batch, backfill]
+                  default: batch
+                artifactURI:
+                  type: string
+                tenantID:
+                  type: string
+                  description: Set by the control-plane admission webhook from the OIDC token; users may not set it.
+                auditChainEntryID:
+                  type: string
+                  description: Audit-chain UUID linking this run to the audit log.
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                  enum: [Pending, Scheduled, Running, Succeeded, Failed, Cancelled]
+                startedAt:
+                  type: string
+                  format: date-time
+                finishedAt:
+                  type: string
+                  format: date-time
+                exitCode:
+                  type: integer
+                podName:
+                  type: string
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    required: [type, status]
+                    properties:
+                      type:    { type: string }
+                      status:  { type: string, enum: ["True", "False", "Unknown"] }
+                      reason:  { type: string }
+                      message: { type: string }
+                      lastTransitionTime:
+                        type: string
+                        format: date-time
+      subresources:
+        status: {}
+
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: resourceclaims.platform.example.com
+spec:
+  group: platform.example.com
+  names:
+    kind: ResourceClaim
+    listKind: ResourceClaimList
+    plural: resourceclaims
+    singular: resourceclaim
+    shortNames: [rc]
+    categories: [platform]
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      additionalPrinterColumns:
+        - name: Status
+          type: string
+          jsonPath: .status.phase
+        - name: CPU
+          type: string
+          jsonPath: .spec.cpu
+        - name: Memory
+          type: string
+          jsonPath: .spec.memory
+        - name: GPU
+          type: string
+          jsonPath: .spec.gpu
+      schema:
+        openAPIV3Schema:
+          type: object
+          required: [spec]
+          properties:
+            spec:
+              type: object
+              required: [cpu, memory]
+              properties:
+                cpu:      { type: string }
+                memory:   { type: string }
+                gpu:      { type: string, default: "0" }
+                priority:
+                  type: string
+                  enum: [interactive, batch, backfill]
+                  default: batch
+                expiresAt:
+                  type: string
+                  format: date-time
+                tenantID:
+                  type: string
+                auditChainEntryID:
+                  type: string
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                  enum: [Pending, Approved, Active, Rejected, Expired]
+                approvedBy:
+                  type: string
+                approvedAt:
+                  type: string
+                  format: date-time
+                appliedQuotaRef:
+                  type: object
+                  properties:
+                    name:      { type: string }
+                    namespace: { type: string }
+      subresources:
+        status: {}

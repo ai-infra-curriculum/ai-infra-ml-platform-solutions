@@ -1,0 +1,62 @@
+# Default promotion gates -- reference solution for F3.
+#
+# Validates with: yamllint -s gates.yaml
+#
+# The set below is the *default* applied when a model has no
+# per-model gates configuration. Per-model overrides live in the
+# `models.gates` JSONB column (not shown) and either *add* gates or
+# replace the defaults entirely. Skipping a default gate is allowed
+# but is audited and surfaces in the rubric F3 check.
+#
+# Thresholds intentionally match `architecture.md` §Promotion gates
+# verbatim. Any deviation must come with a documented justification
+# in the model's `metadata.gates_justification` field.
+gates:
+  # F2 + supply chain: every Production model must have a Cosign
+  # signature that verifies against the expected workflow identity.
+  - name: signature
+    type: assertion
+    runs_at: [staging_to_production, deployment]
+    expression: |
+      signature_valid
+      AND signing_identity_matches(expected_workflow)
+    on_fail: block
+
+  # F3 + architecture.md §Promotion gates.
+  - name: accuracy
+    type: threshold
+    runs_at: [registered_to_staging, staging_to_production]
+    metric: metrics.accuracy
+    operator: ">="
+    threshold: 0.85
+    on_fail: block
+
+  # Disparate-impact ratio per the architecture doc. A model is
+  # blocked above 1.25 because the architecture sets that as the
+  # ceiling for the default tier. High-risk tiers tighten further.
+  - name: fairness
+    type: threshold
+    runs_at: [staging_to_production]
+    metric: metrics.fairness.disparate_impact
+    operator: "<="
+    threshold: 1.25
+    on_fail: block
+
+  - name: robustness
+    type: threshold
+    runs_at: [staging_to_production]
+    metric: metrics.adversarial.robust_accuracy_at_eps_8_255
+    operator: ">="
+    threshold: 0.30
+    on_fail: block
+
+  # Human approval gate. The promotion API returns 202 with
+  # state=Pending; an approver POSTs to /promotions/{id}/approve to
+  # advance. All listed approvers required for default tier.
+  - name: human_approval
+    type: approval
+    runs_at: [staging_to_production]
+    approvers:
+      - role: team-lead
+      - role: security-eng
+    on_fail: block
