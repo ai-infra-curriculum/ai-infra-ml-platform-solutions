@@ -100,6 +100,7 @@ BEGIN
 END$$;
 
 GRANT INSERT, SELECT ON audit_log TO orchestrator;
+GRANT USAGE ON SEQUENCE audit_log_id_seq TO orchestrator;
 REVOKE UPDATE, DELETE, TRUNCATE ON audit_log FROM orchestrator;
 
 COMMIT;

@@ -1,0 +1,1 @@
+Added `GRANT USAGE ON SEQUENCE audit_log_id_seq TO orchestrator;` at `projects/project-03-workflow-orchestration/db/schema.sql:103` so `INSERT` against `audit_log` (without an explicit `id`) succeeds under the orchestrator role.
