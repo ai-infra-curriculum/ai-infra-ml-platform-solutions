@@ -15,7 +15,7 @@ mean the project does not pass; one Fail with otherwise-Pass rows means
 | F3 | Operator reconciliation | Create → Job + ConfigMap + SA in tenant namespace; delete → finalizer cleanup; restart converges within 30 s; retries respect `spec.retries.max` + backoff. |
 | F4 | Multi-tenancy | Namespace + ResourceQuota + LimitRange + NetworkPolicy + ServiceAccount with workload identity, all present per tenant. Cross-tenant bucket read fails at IAM; cross-namespace HTTP call fails at NetworkPolicy. |
 | F5 | Quota enforcement | Admission rejects an over-quota run with a clear error; `GET /v1/tenants/{id}/quota-usage` shows live usage; concurrent-run cap enforced. |
-| F6 | SDK + CLI | SDK matches `README.md` §3 examples; CLI verbs `create | list | status | cancel`; both authenticate with a token; `examples/` directory present. |
+| F6 | SDK + CLI | SDK matches `README.md` §3 examples; CLI verbs `create \| list \| status \| cancel`; both authenticate with a token; `examples/` directory present. |
 | F7 | Observability | All five required metrics emitted with the right labels; `/metrics` exposed on control-plane + operator; structured JSON logs; one Grafana dashboard JSON shipped. |
 | F8 | Audit chain | Significant actions emit events; entries carry timestamp, identity, tenant, action, resource, payload hash, prev hash; `verify` walks the chain; DB rejects UPDATE/DELETE on `audit_log`. |
 
