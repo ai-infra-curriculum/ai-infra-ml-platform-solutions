@@ -69,8 +69,8 @@ The 10-minute test is a hard constraint. Tutorials that take
 
 ### Ex-04 — Error message audit
 
-The deliverable: a CSV of every error message the platform's CLI
-+ API can produce, scored on:
+The deliverable: a CSV of every error message the platform's
+CLI + API can produce, scored on:
 
 - **Specificity**: does it tell the user *what* failed?
 - **Actionability**: does it tell the user *what to do*?

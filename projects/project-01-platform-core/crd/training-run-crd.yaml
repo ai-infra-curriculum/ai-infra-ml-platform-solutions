@@ -1,0 +1,160 @@
+# TrainingRun CRD — reference solution for project-01-platform-core (F1).
+#
+# Validates statically with:
+#   kubectl --dry-run=client -f training-run-crd.yaml apply
+#   kubeconform -strict -summary training-run-crd.yaml
+#
+# Maps to requirements.md F1: structural schema, >=5 validated spec fields,
+# v1alpha1 + conversion placeholder for v1beta1/v1.
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: trainingruns.platform.smartrecs.io
+spec:
+  group: platform.smartrecs.io
+  scope: Namespaced
+  names:
+    plural: trainingruns
+    singular: trainingrun
+    kind: TrainingRun
+    shortNames:
+      - tr
+    categories:
+      - platform
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      additionalPrinterColumns:
+        - name: Phase
+          type: string
+          jsonPath: .status.phase
+        - name: Tenant
+          type: string
+          jsonPath: .metadata.namespace
+        - name: Age
+          type: date
+          jsonPath: .metadata.creationTimestamp
+      schema:
+        openAPIV3Schema:
+          type: object
+          required: [spec]
+          properties:
+            spec:
+              type: object
+              required: [image, resources, dataset]
+              properties:
+                image:
+                  type: string
+                  # Require a registry-qualified, digest-pinned image. The
+                  # control plane enforces the same rule on admission; this is
+                  # defence in depth so a hand-applied CR can never reference
+                  # a mutable tag.
+                  pattern: '^[A-Za-z0-9.\-]+(:[0-9]+)?/[A-Za-z0-9._/\-]+@sha256:[A-Fa-f0-9]{64}$'
+                command:
+                  type: array
+                  items:
+                    type: string
+                resources:
+                  type: object
+                  required: [requests, limits]
+                  properties:
+                    requests:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        # Accepts Kubernetes quantity syntax: "8", "32Gi", "1", "500m".
+                        pattern: '^([0-9]+(\.[0-9]+)?)(m|Ki|Mi|Gi|Ti|Pi|Ei|k|M|G|T|P|E)?$'
+                    limits:
+                      type: object
+                      additionalProperties:
+                        type: string
+                        pattern: '^([0-9]+(\.[0-9]+)?)(m|Ki|Mi|Gi|Ti|Pi|Ei|k|M|G|T|P|E)?$'
+                dataset:
+                  type: object
+                  required: [name, version]
+                  properties:
+                    name:
+                      type: string
+                      minLength: 1
+                      maxLength: 253
+                      pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?$'
+                    version:
+                      type: string
+                      pattern: '^v[0-9]+(\.[0-9]+){0,2}$'
+                hyperparameters:
+                  type: object
+                  # Hyperparameters are user-controlled; schema-validate only
+                  # that they are scalar primitives, not arbitrary nested
+                  # structures (keeps the audit-event payload bounded).
+                  additionalProperties:
+                    anyOf:
+                      - type: number
+                      - type: integer
+                      - type: string
+                      - type: boolean
+                outputs:
+                  type: object
+                  properties:
+                    artifact_uri:
+                      type: string
+                      pattern: '^(s3|gs|abfss)://.+'
+                    metrics_uri:
+                      type: string
+                      pattern: '^mlflow://.+'
+                retries:
+                  type: object
+                  properties:
+                    max:
+                      type: integer
+                      minimum: 0
+                      maximum: 10
+                    backoff:
+                      type: string
+                      enum: [exponential, linear, none]
+            status:
+              type: object
+              properties:
+                phase:
+                  type: string
+                  enum: [Pending, Running, Succeeded, Failed, Cancelled]
+                startedAt:
+                  type: string
+                  format: date-time
+                completedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                conditions:
+                  type: array
+                  items:
+                    type: object
+                    required: [type, status, lastTransition]
+                    properties:
+                      type:
+                        type: string
+                        enum: [Admitted, Running, QuotaExceeded, ImagePullBackOff]
+                      status:
+                        type: string
+                        enum: ["True", "False", "Unknown"]
+                      lastTransition:
+                        type: string
+                        format: date-time
+                      reason:
+                        type: string
+                      message:
+                        type: string
+                metrics:
+                  type: object
+                  properties:
+                    podName:
+                      type: string
+                    podStatus:
+                      type: string
+  # Conversion placeholder. The webhook is wired in deploy/ once a v1beta1
+  # schema exists; the structural schema above is the necessary precondition
+  # for the apiserver to allow conversion later.
+  conversion:
+    strategy: None
