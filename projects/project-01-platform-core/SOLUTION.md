@@ -1,329 +1,253 @@
 # SOLUTION — Project 01: Self-Service ML Platform Core
 
-> The reference solution for [`projects/project-01-platform-core`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning/tree/main/projects/project-01-platform-core)
-> in the paired learning repository. This document follows the AICG
-> Output Contract: 1) overview, 2) worked answer, 3) validation,
-> 4) rubric, 5) common mistakes, 6) references.
+> Read this *after* the per-component reference code under
+> `control-plane/`, `operator/`, and `audit/`. This file explains
+> the cross-component design rationale: why the platform is
+> partitioned the way it is, what discipline the capstone
+> collectively teaches, and the trade-offs the reference
+> solution accepts.
 
-## 1. Solution overview
+## Overview
 
-Project 01 is the capstone of the foundation modules (mod-001
-through mod-003 plus mod-007). The deliverable is a platform that
-turns Kubernetes into a self-service ML platform: data scientists
-submit `TrainingRun` intents through a CLI / SDK, and the platform
-materialises them into per-tenant Kubernetes workloads with full
-admission control, quota enforcement, isolation, observability, and
-audit evidence.
+A platform team's deliverable is not "Kubernetes plus YAML." It is
+**a contract that data scientists program against, and a control
+loop that turns that contract into infrastructure**. The capstone
+forces the engineer to internalize four things at once:
 
-The reference solution takes seven positions that together
-distinguish a *platform* from "Kubernetes plus scripts":
+- Higher-order primitive (`TrainingRun`), not pod specs.
+- Operator pattern end-to-end: CRD → controller → status writes →
+  finalizers.
+- Multi-tenant isolation that survives a hostile pod, not just a
+  namespace label.
+- An audit trail that produces evidence a compliance auditor will
+  accept, not a log file.
 
-1. **CRD is the operational source of truth; the DB mirrors it.**
-   The operator reconciles against the CR. The PostgreSQL `training_runs`
-   table exists for cross-tenant query (listing, filtering) and to
-   survive CR garbage collection. Trade-off accepted: dual-store
-   consistency overhead, in exchange for keeping Kubernetes-native
-   semantics (RBAC, GC, finalizers) and getting fast queries.
-2. **Control plane validates at admission; operator enforces
-   continuously.** Schema, image allowlist, quota, dataset existence
-   are checked at `POST /v1/training-runs`. The operator re-checks
-   *only* the invariants it owns (Job state, retries, finalizers).
-   Quota changes after admission do not kill running pods — that is
-   a separate policy decision.
-3. **Tenant isolation is layered, not single-mechanism.** A namespace
-   alone is not a security boundary. Isolation requires *all four* of
-   `ResourceQuota` + `LimitRange` + `NetworkPolicy default-deny` +
-   workload identity (SPIFFE or cloud IRSA). The reference manifest
-   ships them as a single onboarding artifact so they cannot drift
-   apart.
-4. **API is cursor-paginated, idempotency-keyed, header-tenanted.**
-   Tenant is in the bearer token, not in the URL — one route table,
-   one authorisation point. `Idempotency-Key` on POST is non-optional
-   because retrying a training-run submission must not double-spend
-   GPU-hours.
-5. **Audit chain is insert-only at the SQL level, not just the app
-   level.** A trigger rejects `UPDATE`, `DELETE`, *and* `TRUNCATE` on
-   `audit_log`. The `verify_audit_chain()` SQL function walks the
-   chain and returns the first tampered row's `sequence_no`, or
-   `NULL` for verified. An auditor checking compliance asks for this
-   property at the DB, not in code review.
-6. **CRD ships at `v1alpha1` with a structural schema in place from
-   day one.** Even though the conversion webhook does nothing yet,
-   the structural-schema precondition has to be satisfied before the
-   apiserver allows conversion later. Skipping it forces a CRD
-   replacement (downtime + client breakage) when `v1beta1` arrives.
-7. **Observability metrics are bounded-cardinality by design.**
-   `tenant` is a label (bounded by org), `phase` is a label (bounded
-   enum), run ID is *not* (unbounded). Putting run ID on a metric is
-   the single mistake that has killed more Prometheus deployments
-   than any other.
+The project's grade is whether all four hold up *together* under
+the acceptance demo. Any one in isolation is a sub-skill that
+modules 001-003 already teach.
 
-## 2. Worked answer or implementation
+## Implementation
 
-The curated artifacts in this directory map 1:1 to the eight
-functional requirements:
+### `control-plane/` — admission and intent storage
 
-### F1 — TrainingRun CRD ([`crd/training-run-crd.yaml`](./crd/training-run-crd.yaml))
+The control plane validates, persists, and dispatches. It does
+**not** enforce. Three deliberate shapes:
 
-OpenAPI v3 schema validates **seven** spec fields, not the bare
-minimum of five required by F1:
+- **Tenant in a header**, not in the path. Carried over from
+  mod-001 ex-01; eliminates one combinatorial axis from the route
+  table and lets a single `Depends(get_tenant)` cover every route.
+- **CR is the operational source of truth, DB mirrors it**. The
+  control plane writes both, but reconciles to the CR. The DB
+  exists for cross-tenant queries the Kubernetes API can't answer
+  cheaply, and for an audit history that survives CR deletion.
+- **Idempotency-Key on POST**. Provisioning is expensive; double-
+  posts under retry must not double-provision Jobs. The key maps
+  to the CR `metadata.name`, which the cluster will reject on
+  duplicate — so idempotency is enforced by Kubernetes, not by
+  application code.
 
-- `spec.image` — registry-qualified, digest-pinned regex.
-- `spec.resources.requests` / `spec.resources.limits` — Kubernetes
-  quantity-syntax regex on every key.
-- `spec.dataset.name` — DNS-1123 label.
-- `spec.dataset.version` — semver-ish `vMAJOR[.MINOR[.PATCH]]`.
-- `spec.hyperparameters` — `additionalProperties` constrained to
-  scalar primitives (bounds the audit payload size).
-- `spec.outputs.artifact_uri` — `s3://` / `gs://` / `abfss://` scheme.
-- `spec.retries.max` — integer 0..10.
+The point: the control plane is the *contract layer*. It must
+fail fast and explain why. Stack traces never reach the user; the
+`{error, code, request_id}` shape is non-negotiable.
 
-`status.phase` is constrained to the documented state-machine enum,
-and `subresources.status: {}` is set so the operator updates
-`status` without bumping `metadata.resourceVersion` of the spec
-view (prevents reconcile-loops between the control plane writing
-spec and the operator writing status).
+### `operator/` — reconciliation and enforcement
 
-Conversion strategy is `None` at `v1alpha1`; the structural schema
-is the precondition for switching to `Webhook` in `v1beta1`.
+The operator is intentionally **boring**. It does one thing:
+makes cluster state match `spec`. The reference solution accepts:
 
-### F2 — Control-plane API ([`control-plane/openapi.yaml`](./control-plane/openapi.yaml))
+- **Single reconcile entrypoint** for create + update + delete.
+  Kopf's per-event handlers are a footgun — the same logic must
+  run for every transition, or restart-recovery diverges.
+- **Idempotent every call**. `reconcile(spec)` produces the same
+  Job/ConfigMap/SA regardless of how many times it runs. This is
+  what makes operator restart safe and what makes test cases
+  tractable (assert on final state, not transition order).
+- **Finalizers are mandatory, not optional**. Without them,
+  deleting a `TrainingRun` leaves the Job, ConfigMap, and SA
+  orphaned. Compliance auditors find these. The reference adds
+  one finalizer (`platform.smartrecs.io/finalizer`) and removes
+  it only after the cleanup path runs.
+- **Status writes are separate from spec reads**. The operator
+  never reads its own status to decide what to do — it reads
+  cluster state. Status is a *publication channel for the user*,
+  not internal memory.
 
-Surface deliberately narrow:
+Trade-off explicitly accepted: leader election is wired up but
+the reference runs single-replica. The capstone is graded on
+correctness, not HA.
 
-- `POST /v1/training-runs` — admission. Requires `Idempotency-Key`
-  for retry safety; rejects with `429` and `code: quota.*` on
-  over-quota; rejects with `400` and `code: schema.*` on bad input.
-- `GET /v1/training-runs` — cursor-paginated list. Filters: `tenant`,
-  `phase`, `created_after`, `created_before`. Cursor (not offset)
-  tolerates list mutation mid-query, which is the dominant case
-  here because the operator keeps writing status.
-- `GET /v1/training-runs/{id}` — single-run state.
-- `DELETE /v1/training-runs/{id}` — `202 Accepted` (cancellation is
-  async; the operator finalises asynchronously).
-- `GET /v1/tenants/{id}/quota-usage` — live usage vs. limits (F5).
+### `audit/` — the compliance backbone
 
-`Error` shape is `{error, code, request_id}` — never stack traces.
-`X-Request-Id` is server-assigned if absent and travels in the
-response header and to logs / audit.
+The audit chain is the single component an auditor will inspect
+line-by-line. The reference solution treats it as a *separate*
+component, not a logging library, for one reason: **a logger that
+can also be turned off, redirected, or filtered cannot produce
+evidence**. The audit chain is structurally different:
 
-### F3 — Operator reconciliation ([`operator/reconcile.py`](./operator/reconcile.py))
+- **Insert-only at the SQL level**. A trigger rejects UPDATE and
+  DELETE on the `audit_log` table. The application cannot tamper
+  even if it wants to.
+- **Hash-chained, with the previous-entry hash bound into the
+  current entry's signature**. Removing or reordering an entry
+  invalidates every entry after it.
+- **Signing identity is workload identity**, not a shared key.
+  The control plane signs with its SPIFFE SVID; the operator
+  signs with its own. An auditor can prove which component
+  emitted which event.
+- **`verify` walks the chain and reports the first mismatch**.
+  Not "the chain is fine" — the first byte that disagrees with
+  the recomputed hash. That's what an investigator needs.
 
-The skeleton pins three properties graders should check:
+The point: this is the only component where you cannot ship
+"good enough." The acceptance demo runs `verify` against the
+platform DB; "verified" is binary.
 
-- `desired_job()` is deterministic — same `spec` → byte-identical
-  Job. This is what makes reconcile idempotent.
-- `next_phase()` is a pure function. Tested without a cluster.
-  Terminal states (`Succeeded`, `Failed`, `Cancelled`) are
-  absorbing.
-- `reconcile()` always adds the finalizer *before* touching child
-  resources. This is the rule that prevents dangling Jobs when the
-  CR is deleted between create and finalize.
+## Design decisions the project shares
 
-Owner references make Job → CR GC automatic for in-cluster
-resources; the finalizer handles *out-of-cluster* cleanup (audit
-emit, DB row).
+- **Higher-order primitive, not pod specs**. Users write
+  `TrainingRun`, never `apiVersion: batch/v1`. If the CRD leaks
+  Job semantics into the user's mental model, the abstraction
+  has failed and you should rename the field.
+- **Workload identity over service-account tokens**. Long-lived
+  bearer tokens in a tenant namespace are a compromise that
+  spreads. SPIFFE SVIDs (or cloud IRSA) are bound to the pod's
+  identity and rotate automatically.
+- **Default-deny NetworkPolicy in every tenant namespace**. The
+  default-allow that Kubernetes ships with is the most common
+  multi-tenancy bug in junior platform teams. The reference adds
+  the deny policy *during tenant onboarding*, before any
+  workload exists, so the first workload deploys against the
+  enforced policy and not a permissive default.
+- **Per-tenant cost attribution from day one**. Every metric and
+  every audit entry carries `tenant`. Retrofitting tenant labels
+  onto an established platform is the work of a quarter.
+- **OpenAPI spec is version-controlled**, not generated as a
+  build artifact. The spec is the source of truth that the SDK,
+  CLI, and tests all consume.
 
-### F4 — Multi-tenancy ([`multi-tenancy/tenant-bootstrap.yaml`](./multi-tenancy/tenant-bootstrap.yaml))
+## Rubric
 
-Per tenant, all in one manifest the control plane templates and
-applies at `POST /v1/tenants`:
+Graders evaluate the capstone against the four-axis contract from the
+Overview: higher-order primitive, end-to-end operator pattern, hostile-
+pod multi-tenancy, and an evidence-grade audit chain. Below are the
+failure modes that disqualify a submission — each is something the
+acceptance demo surfaces deterministically.
 
-- `Namespace` with Pod Security Admission `restricted` enforcement.
-- `ResourceQuota` capping CPU, memory, GPU, pod count, job count.
-- `LimitRange` with *no* default on `requests` (forces every
-  Deployment to declare them) but defaults on `limits` (prevents a
-  runaway pod consuming the whole quota).
-- `NetworkPolicy default-deny` covering both ingress and egress.
-- A second `NetworkPolicy` allowing only DNS + platform-component
-  namespaces (feature-store, model-registry, MLflow) as egress.
-- `ServiceAccount` with annotations for either AWS IRSA, GKE
-  Workload Identity, or implicit SPIFFE — F4 accepts any of the
-  three; the manifest shows the three placements so the choice is
-  one annotation, not a refactor.
+### Common mistakes graders see
 
-### F5 — Quota enforcement
+1. **Database-only model with no CR**. Loses Kubernetes-native
+   semantics (RBAC, garbage collection, finalizers). The
+   acceptance demo's "restart the operator" step exposes this
+   immediately — there is no spec to reconcile against.
+2. **CR-only model with no DB**. Cross-tenant listing requires
+   walking every namespace; quota lookup is `O(runs)` instead of
+   `O(1)`. The control plane's p95 latency target fails.
+3. **Treating namespace as a security boundary**. Namespace
+   provides naming + RBAC + quotas. NetworkPolicy + workload
+   identity provide isolation. The acceptance demo's
+   cross-tenant read attempt is exactly this trap.
+4. **Skipping finalizers**. Deletion leaves orphaned Jobs and
+   the next reconcile fires for resources that no longer have a
+   CR. Symptom: the operator log fills with "not found" errors
+   and the Job count drifts upward.
+5. **Audit log as a logger, not a chain**. If `verify` is not
+   shipped, or if the table allows UPDATE/DELETE, the audit
+   trail is decorative. An auditor will reject it.
+6. **Quota enforced only at admission**. A quota reduction
+   *after* admission must be detected by the operator on next
+   reconcile. The reference reads the current quota every time;
+   it does not cache the admission-time value.
+7. **Tenants as configuration**. Hardcoded tenant lists, env
+   vars, or a YAML file. Tenants are first-class resources with
+   their own lifecycle (onboarding, quota changes, offboarding).
 
-Enforced at the control plane on `POST /v1/training-runs` (returns
-`429 quota.gpu_hours.exceeded` or `quota.concurrent_runs.exceeded`).
-Live usage exposed via `GET /v1/tenants/{id}/quota-usage`. Kubernetes
-`ResourceQuota` is the second layer of defence at the namespace —
-if the control plane is bypassed (a `kubectl apply` straight to the
-cluster), the namespace quota still rejects the create.
+## Validation
 
-### F6 — SDK + CLI
+The reference solution is graded by an acceptance demo, not by unit
+tests in isolation. The demo is the integration contract; passing
+it is what "done" means.
 
-Out of scope for the curated artifacts — the OpenAPI spec is what
-the SDK and CLI generate against. `openapi-generator-cli generate
--i control-plane/openapi.yaml -g python` is the SDK source. The
-CLI verbs (`create | list | status | cancel`) wrap the four API
-operations 1:1.
+- **End-to-end golden path**. `POST /trainingruns` from a tenant
+  SDK → CR created → operator reconciles → Job runs → status
+  transitions through `Pending → Running → Succeeded` → audit
+  entries chained for every transition.
+- **Operator restart recovery**. Kill the operator mid-run; on
+  restart, `reconcile(spec)` reproduces the same Job/ConfigMap/SA
+  without duplicating side effects. Idempotency is what the
+  graders probe here.
+- **Cross-tenant isolation under attack**. From inside tenant A's
+  pod, attempt to (a) reach tenant B's service IP, (b) read
+  tenant B's secrets via the Kubernetes API, (c) emit metrics
+  labelled with tenant B. All three must fail closed —
+  NetworkPolicy, RBAC bound to SPIFFE SVID, and the metrics
+  middleware respectively.
+- **Quota enforcement after admission**. Lower a tenant's quota
+  *while* a run is queued; the operator's next reconcile must
+  detect the violation and refuse to launch the Job (status
+  reason: `QuotaExceeded`), not rely on the admission-time value.
+- **Audit chain `verify` passes**. Run the audit verifier against
+  the platform DB; it must return "verified" and the chain hash
+  must match across control-plane and operator entries. Tamper
+  with one row out-of-band and rerun; the verifier must report
+  the **first** mismatched offset, not a generic failure.
+- **Finalizer cleanup**. Delete a `TrainingRun`; the operator's
+  finalizer path must remove the Job, ConfigMap, and SA before
+  releasing the CR. `kubectl get all -l platform.smartrecs.io/run=<id>`
+  returns empty.
 
-### F7 — Observability ([`observability/`](./observability))
+If any of the six probes fails, the capstone is incomplete — not
+"mostly working." The platform contract is binary at this layer.
 
-Five metrics, label conventions documented, one dashboard JSON. The
-catalog is explicit about what NOT to label (run ID, image digest,
-user identity) — the single highest-leverage piece of guidance for
-graders to check.
+## Where this project lands in the track
 
-### F8 — Audit chain ([`audit/schema.sql`](./audit/schema.sql))
+- It is the **integration test** for modules 001-003 and 007. If
+  the per-module exercises taught the right vocabulary, this
+  project assembles it.
+- It is the **foundation** for projects 02-05. The feature store,
+  workflow orchestrator, model registry, and serving plane all
+  assume this control-plane shape and this tenant model.
+- It is the **lower bound** of "real" ML platform engineering.
+  Production platforms add HA, multi-region, fair-share
+  scheduling, cost-based admission, and observability per SLO —
+  none of which change the shape laid out here, only its
+  amplitude.
 
-The trigger pattern is the load-bearing piece. Three triggers
-(`BEFORE UPDATE`, `BEFORE DELETE`, `BEFORE TRUNCATE`) make the
-table append-only at the SQL level. `verify_audit_chain()` returns
-`NULL` for verified or the first bad `sequence_no`, which is what
-the `verify` CLI command wraps.
+## References
 
-## 3. Validation steps
+### Curriculum touchpoints
 
-Every artifact in this directory validates statically without a
-running cluster. The platform's runtime tests are part of the
-learner's deliverable.
+- [`ml-platform/mod-001`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-solutions/tree/main/modules/mod-001-platform-fundamentals)
+  — platform fundamentals; the contract mindset this project enacts.
+- [`ml-platform/mod-002`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-solutions/tree/main/modules/mod-002-api-design)
+  — API design; the versioning + error shape the control plane ships.
+- [`ml-platform/mod-003`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-solutions/tree/main/modules/mod-003-multi-tenancy-resources)
+  — multi-tenancy + resources; the tenant isolation model.
+- [`ml-platform/mod-007`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-solutions/tree/main/modules/mod-007-developer-experience)
+  — developer experience; the SDK + CLI ergonomics.
+- [`ml-platform/mod-008`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-solutions/tree/main/modules/mod-008-observability)
+  — observability; the Prometheus + structured-log surface.
+- [`ml-platform/mod-009`](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-solutions/tree/main/modules/mod-009-security-governance)
+  — security + governance; the audit chain and workload-identity binding.
+- [`engineer-solutions/mod-104`](https://github.com/ai-infra-curriculum/ai-infra-engineer-solutions/tree/main/modules/mod-104-kubernetes)
+  — Kubernetes primitives the operator builds on.
+- [`senior-engineer-solutions/projects/project-204-k8s-operator`](https://github.com/ai-infra-curriculum/ai-infra-senior-engineer-solutions/tree/main/projects/project-204-k8s-operator)
+  — the production-grade `TrainingJob` operator; what this
+  capstone's operator becomes after HA, leader election,
+  graduated CRD versioning, and full envtest coverage land.
+- [`architect-solutions/projects/project-301-enterprise-mlops`](https://github.com/ai-infra-curriculum/ai-infra-architect-solutions/tree/main/projects/project-301-enterprise-mlops)
+  — what an enterprise-scale version of this same platform looks like.
 
-```bash
-# F1 — CRD shape
-kubectl --dry-run=client -f crd/training-run-crd.yaml apply
-kubeconform -strict -summary crd/training-run-crd.yaml
+### Upstream specifications and tooling
 
-# F2 — OpenAPI spec
-openapi-generator-cli validate -i control-plane/openapi.yaml
-redocly lint control-plane/openapi.yaml
-
-# F3 — Operator skeleton compiles
-python3 -m py_compile operator/reconcile.py
-
-# F4 — Tenant bootstrap is well-formed Kubernetes
-kubeconform -strict -summary multi-tenancy/tenant-bootstrap.yaml
-
-# F7 — Dashboard JSON parses
-python3 -c "import json,sys; json.load(open('observability/grafana-dashboard.json')); print('ok')"
-
-# F8 — Audit schema applies (against a throwaway DB)
-psql -d audit_test -f audit/schema.sql --single-transaction --set ON_ERROR_STOP=1
-```
-
-The end-to-end acceptance demo (the 8-step grading procedure in
-`requirements.md`) is what proves the *implementation*. The static
-checks above prove the *contract* the learner is implementing
-against is well-formed.
-
-> Validation note: this solution was authored in a sandbox where
-> Python and `kubectl` execution are not available. The artifacts
-> were reviewed by hand against the official Kubernetes CRD spec,
-> OpenAPI 3.0.3, PostgreSQL trigger semantics, and the Prometheus
-> naming conventions. Graders running the commands above are the
-> first execution path.
-
-## 4. Rubric or review checklist
-
-The full rubric is in [`rubric.md`](./rubric.md). Quick-look version:
-
-| Pass means | Notes |
-|---|---|
-| All F1–F8 demonstrated end-to-end | The acceptance demo is non-negotiable. |
-| `audit_log` rejects `UPDATE`/`DELETE`/`TRUNCATE` at the DB | Verified with three explicit psql commands, not "the code doesn't do it". |
-| Cross-tenant bucket read fails *and* cross-namespace HTTP call fails | Two different layers of isolation — both must fail. |
-| CRD has structural schema; `subresources.status: {}` set | Pre-requisite for safe future versioning + reconcile loops. |
-| Metrics do not carry per-run labels | Single most common cardinality bomb. |
-| `Idempotency-Key` honoured on POST | Tested with a deliberate retry of the same key + payload. |
-| `make up` brings the whole platform up | NF1 — anything less is "scripts," not a platform. |
-
-## 5. Common mistakes
-
-Drawn from `STEP_BY_STEP.md` "Common pitfalls" in the learning repo
-plus what graders see repeatedly in submissions:
-
-- **Treating namespace as a security boundary.** It is a naming +
-  RBAC + quota boundary. Cross-tenant isolation requires *all four*
-  of namespace + quota + NetworkPolicy + workload identity. The
-  reference `tenant-bootstrap.yaml` ships them together for this
-  reason.
-- **Skipping finalizers.** A `kubectl delete trainingrun foo` that
-  leaves dangling Jobs is an automatic Fail on F3. Owner references
-  handle in-cluster GC; finalizers handle out-of-cluster cleanup
-  (DB row, audit emit).
-- **Mutating `spec` from the operator.** Spec is the user's; status
-  is the operator's. Mutating spec creates a feedback loop between
-  the user's `kubectl edit` and the operator's writes.
-- **Putting tenant in the URL path.** Doubles the route table, and
-  per-tenant auth has to be re-implemented at every endpoint
-  instead of in one middleware. The reference puts tenant in the
-  bearer token.
-- **Image tag instead of digest.** Tags are mutable; a `:v3.2.1`
-  retagged at the registry silently changes what runs. The CRD
-  regex enforces `@sha256:...`.
-- **Audit-table insert-only enforced only in application code.** A
-  DBA with psql or a misbehaving service bypasses the guard.
-  Enforce it with a trigger on the *table*.
-- **Putting run ID on Prometheus metrics.** Unbounded label
-  cardinality kills the TSDB. Run-level state belongs in logs +
-  DB, not metrics. The `observability/metrics.md` catalog
-  documents this explicitly.
-- **Auto-killing running pods on quota change.** Tempting, but a
-  policy decision the platform team should make consciously and
-  document — not a side effect of reconcile. The reference operator
-  only blocks *new* pod creation when quota is reduced.
-- **Hand-rolled CRD without `subresources.status: {}`.** Without
-  the status subresource, every status write bumps the spec
-  resource version, which retriggers reconcile, which writes status
-  again — an infinite loop on a busy operator.
-- **Skipping `Idempotency-Key` on POST.** Network retry → double
-  training-run submission → double GPU-hour spend → angry FinOps
-  team. The header is non-optional on any mutating endpoint that
-  consumes real resources.
-
-## 6. References
-
-Project-local context:
-
-- `projects/project-01-platform-core/README.md` (this dir).
-- `projects/project-01-platform-core/STEP_BY_STEP.md` — solution-side
-  build sequence.
-- `projects/project-01-platform-core/rubric.md` — grading rubric.
-- Curated artifacts: `crd/`, `control-plane/`, `operator/`,
-  `multi-tenancy/`, `audit/`, `observability/`.
-
-Paired learning repository (read alongside this solution):
-
-- `projects/project-01-platform-core/README.md` — project framing.
-- `projects/project-01-platform-core/requirements.md` — F1–F8 +
-  NF1–NF4 and the acceptance demo.
-- `projects/project-01-platform-core/architecture.md` — component
-  map, CRD example, DB schema, non-functional targets.
-- `projects/project-01-platform-core/STEP_BY_STEP.md` — phase-by-phase
-  learner build guide.
-
-Cross-references to other solutions in this repo:
-
-- `modules/mod-001-platform-fundamentals/SOLUTION.md` — namespace
-  is not a security boundary (ex-02); plugin model (ex-04).
-- `modules/mod-002-api-design/SOLUTION.md` — versioning, error
-  envelope, cursor pagination, `Idempotency-Key`.
-- `modules/mod-003-multi-tenancy-resources/SOLUTION.md` — quotas,
-  fair share, queueing.
-- `modules/mod-007-developer-experience/SOLUTION.md` — SDK + CLI
-  ergonomics.
-- `modules/mod-008-observability/SOLUTION.md` — metric naming,
-  label cardinality, structured logs.
-- `modules/mod-009-security-governance/SOLUTION.md` — audit-chain
-  pattern and compliance posture.
-
-Official documentation (the source policy's "official first" tier):
-
-- Kubernetes — [Custom Resource Definitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/),
-  [Structural Schemas](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema),
-  [Status Subresource](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#status-subresource),
-  [ResourceQuota](https://kubernetes.io/docs/concepts/policy/resource-quotas/),
-  [LimitRange](https://kubernetes.io/docs/concepts/policy/limit-range/),
-  [Network Policies](https://kubernetes.io/docs/concepts/services-networking/network-policies/),
-  [Pod Security Admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/).
-- [OpenAPI 3.0.3 specification](https://spec.openapis.org/oas/v3.0.3).
-- [Prometheus — Naming](https://prometheus.io/docs/practices/naming/),
-  [Instrumentation](https://prometheus.io/docs/practices/instrumentation/),
-  [Histograms and summaries](https://prometheus.io/docs/practices/histograms/).
-- [PostgreSQL — Triggers](https://www.postgresql.org/docs/current/triggers.html),
-  [pgcrypto](https://www.postgresql.org/docs/current/pgcrypto.html).
-- [SPIFFE specification](https://github.com/spiffe/spiffe/blob/main/standards/SPIFFE.md) /
-  [AWS IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) /
-  [GKE Workload Identity](https://cloud.google.com/kubernetes-engine/docs/concepts/workload-identity).
-- [kopf — Kubernetes Operator Pythonic Framework](https://kopf.readthedocs.io/en/stable/).
+- [Kubernetes CustomResourceDefinitions](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
+  — the CRD contract the `TrainingRun` type implements.
+- [Kubernetes Finalizers](https://kubernetes.io/docs/concepts/overview/working-with-objects/finalizers/)
+  — the deletion-handshake the operator relies on for cleanup.
+- [Kubernetes NetworkPolicy](https://kubernetes.io/docs/concepts/services-networking/network-policies/)
+  — the default-deny posture each tenant namespace ships with.
+- [Kopf operator framework](https://kopf.readthedocs.io/) — the
+  reference operator's reconciliation runtime.
+- [SPIFFE / SPIRE](https://spiffe.io/docs/latest/spiffe-about/overview/)
+  — workload identity used to sign audit entries and bind RBAC.
+- [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)
+  — the trace + metric attribute shape platform components emit.

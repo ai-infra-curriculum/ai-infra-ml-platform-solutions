@@ -12,7 +12,7 @@
     },
     "CURRICULUM.md": {
       "findings": [],
-      "mtime_ns": 1779984633804900114,
+      "mtime_ns": 1779948532594787437,
       "size": 1527
     },
     "LEARNING_GUIDE.md": {
@@ -27,8 +27,8 @@
     },
     "SOLUTIONS_INDEX.md": {
       "findings": [],
-      "mtime_ns": 1779984584898974594,
-      "size": 2533
+      "mtime_ns": 1779924251052844365,
+      "size": 2133
     },
     "SOLUTION_OVERVIEW.md": {
       "findings": [],
@@ -37,7 +37,7 @@
     },
     "VERSIONS.md": {
       "findings": [],
-      "mtime_ns": 1779984633804900114,
+      "mtime_ns": 1779948532594787437,
       "size": 220
     },
     "guides/README.md": {
@@ -302,7 +302,7 @@
     },
     "modules/mod-005-workflow-orchestration/exercise-01/DECISION.md": {
       "findings": [],
-      "mtime_ns": 1779948770487808661,
+      "mtime_ns": 1779916458299139777,
       "size": 1185
     },
     "modules/mod-005-workflow-orchestration/exercise-01/README.md": {
@@ -397,7 +397,7 @@
     },
     "modules/mod-007-developer-experience/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779948770487808661,
+      "mtime_ns": 1779916458302473062,
       "size": 4513
     },
     "modules/mod-007-developer-experience/exercise-01/INTERVIEW_TEMPLATE.md": {
@@ -545,72 +545,10 @@
       "mtime_ns": 1779924251052844365,
       "size": 64
     },
-    "projects/project-01-platform-core/README.md": {
-      "findings": [],
-      "mtime_ns": 1779984425178061756,
-      "size": 2491
-    },
     "projects/project-01-platform-core/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779984522073260021,
-      "size": 16503
-    },
-    "projects/project-01-platform-core/STEP_BY_STEP.md": {
-      "findings": [],
-      "mtime_ns": 1779984565759264647,
-      "size": 5957
-    },
-    "projects/project-01-platform-core/control-plane/openapi.yaml": {
-      "findings": [],
-      "mtime_ns": 1779984266927126641,
-      "size": 8253
-    },
-    "projects/project-01-platform-core/crd/training-run-crd.yaml": {
-      "findings": [
-        {
-          "excerpt": "# v1alpha1 + conversion placeholder for v1beta1/v1.",
-          "line": 8,
-          "message": "Found placeholder marker.",
-          "path": "projects/project-01-platform-core/crd/training-run-crd.yaml",
-          "severity": "warning",
-          "type": "placeholder"
-        },
-        {
-          "excerpt": "# Conversion placeholder. The webhook is wired in deploy/ once a v1beta1",
-          "line": 156,
-          "message": "Found placeholder marker.",
-          "path": "projects/project-01-platform-core/crd/training-run-crd.yaml",
-          "severity": "warning",
-          "type": "placeholder"
-        }
-      ],
-      "mtime_ns": 1779984234884278902,
-      "size": 5748
-    },
-    "projects/project-01-platform-core/multi-tenancy/tenant-bootstrap.yaml": {
-      "findings": [],
-      "mtime_ns": 1779984611061911440,
-      "size": 3848
-    },
-    "projects/project-01-platform-core/observability/grafana-dashboard.json": {
-      "findings": [],
-      "mtime_ns": 1779984349855869895,
-      "size": 3624
-    },
-    "projects/project-01-platform-core/observability/metrics.md": {
-      "findings": [],
-      "mtime_ns": 1779984332202804085,
-      "size": 2491
-    },
-    "projects/project-01-platform-core/operator/reconcile.py": {
-      "findings": [],
-      "mtime_ns": 1779984383772022578,
-      "size": 7245
-    },
-    "projects/project-01-platform-core/rubric.md": {
-      "findings": [],
-      "mtime_ns": 1779984403168395302,
-      "size": 2976
+      "mtime_ns": 1779948523638258189,
+      "size": 13309
     },
     "resources/README.md": {
       "findings": [],
@@ -618,6 +556,6 @@
       "size": 85
     }
   },
-  "generated_at": "2026-05-28T16:10:33Z",
+  "generated_at": "2026-05-28T06:08:52Z",
   "schema_version": 1
 }

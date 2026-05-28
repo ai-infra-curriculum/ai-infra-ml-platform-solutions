@@ -104,7 +104,7 @@
       "why": "Module-level SOLUTION.md exists; per-exercise artifacts could deepen the answer for graders comparing approaches."
     }
   ],
-  "generated_at": "2026-05-28T14:53:55Z",
+  "generated_at": "2026-05-27T23:28:36Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
@@ -142,7 +142,7 @@
       "status": "verified",
       "title": "Author solution artifact for project-01-platform-core",
       "type": "project_solution_gap",
-      "verified_at": "2026-05-28T16:10:33Z",
+      "verified_at": "2026-05-28T06:08:52Z",
       "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
     },
     {
