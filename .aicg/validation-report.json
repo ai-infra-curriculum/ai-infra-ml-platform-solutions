@@ -1,0 +1,54 @@
+{
+  "audit_summary": {
+    "error_count": 4,
+    "gap_count": 6,
+    "module_count": 9,
+    "project_count": 5,
+    "status": "fail",
+    "warning_count": 2
+  },
+  "checks": [
+    {
+      "finding_count": 0,
+      "findings": [],
+      "name": "markdown_basics",
+      "status": "pass"
+    },
+    {
+      "checked_count": 3,
+      "finding_count": 0,
+      "findings": [],
+      "name": "curriculum_file_format",
+      "status": "pass"
+    },
+    {
+      "checked_count": 18,
+      "finding_count": 0,
+      "findings": [],
+      "name": "python_syntax",
+      "status": "pass"
+    },
+    {
+      "finding_count": 0,
+      "findings": [],
+      "name": "ci_contract",
+      "status": "pass"
+    },
+    {
+      "finding_count": 0,
+      "findings": [],
+      "name": "audit_blockers",
+      "status": "pass"
+    }
+  ],
+  "generated_at": "2026-05-27T23:22:01Z",
+  "repo": {
+    "has_git": true,
+    "kind": "solutions",
+    "name": "ai-infra-ml-platform-solutions",
+    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "track": "ml-platform"
+  },
+  "schema_version": 1,
+  "status": "passed"
+}

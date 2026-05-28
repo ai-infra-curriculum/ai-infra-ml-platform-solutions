@@ -1,9 +1,9 @@
 # Orchestrator Decision Memo — Reference
 
 ## Scenario
-Mid-size ML org (20 engineers, ~30 models). Current state: manual notebooks
-+ cron + a couple of Argo Workflows. Picking the single orchestrator going
-forward.
+Mid-size ML org (20 engineers, ~30 models). Current state: manual
+notebooks + cron + a couple of Argo Workflows. Picking the single
+orchestrator going forward.
 
 ## Criteria + scoring (1-5)
 
