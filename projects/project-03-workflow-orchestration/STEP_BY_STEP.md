@@ -47,10 +47,10 @@ that loads YAML, validates against the schema, and builds a
 `networkx.is_directed_acyclic_graph(graph) or raise ValueError(...)`.
 The fixture set the learner is asked to write is exactly:
 
-- A valid pipeline (the sample).
-- An invalid pipeline with a cycle.
-- An invalid pipeline with a `depends_on` target that does not exist.
-- An invalid pipeline that hits a JSON Schema constraint (e.g.,
++ A valid pipeline (the sample).
++ An invalid pipeline with a cycle.
++ An invalid pipeline with a `depends_on` target that does not exist.
++ An invalid pipeline that hits a JSON Schema constraint (e.g.,
   unknown top-level key, malformed retries block).
 
 Validation command:
@@ -235,10 +235,10 @@ All six should leave matching entries in the `audit_log` table.
 
 ## Where to go next
 
-- Module 05 cross-exercise rationale:
++ Module 05 cross-exercise rationale:
   [`mod-005/SOLUTION.md`](../../modules/mod-005-workflow-orchestration/SOLUTION.md).
-- Engineering-track deep dive into ML orchestration patterns:
++ Engineering-track deep dive into ML orchestration patterns:
   [`engineer-solutions/mod-106 ex-11`](https://github.com/ai-infra-curriculum/ai-infra-engineer-solutions/tree/main/modules/mod-106-mlops).
-- For an enterprise-scale orchestration architecture (above the
++ For an enterprise-scale orchestration architecture (above the
   engine — federation, fleet management, multi-cluster):
   `architect-solutions/projects/project-301-enterprise-mlops/`.
