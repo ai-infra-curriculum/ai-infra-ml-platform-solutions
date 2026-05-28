@@ -1,0 +1,516 @@
+# Platform control-plane API contract -- reference solution for F1, F3.
+#
+# Validates with:
+#   openapi-spec-validator control-plane/openapi.yaml
+#   # (or) redocly lint control-plane/openapi.yaml
+#
+# Surface kept small on purpose. This is the contract the platform
+# team makes against every internal consumer; growing the surface
+# is governed by mod-002 deprecation discipline. The learner
+# implements the FastAPI app behind this spec; the spec is the
+# rubric for "what shape must the API have to grade against the
+# rubric's F1/F3 rows?"
+
+openapi: 3.1.0
+info:
+  title: ML Platform Control Plane
+  version: v1
+  description: |
+    The self-service contract for the platform's higher-order
+    primitives:
+
+      * `Tenant`        -- a team's slice of the platform.
+      * `ResourceClaim` -- a quota/capacity grant attached to a tenant.
+      * `TrainingRun`   -- a submitted ML training job.
+      * `AuditEntry`    -- read-only view of the platform's audit chain.
+
+    Consumers program against this API and its generated SDK
+    (`mod-002/ex-04`). The platform team's own CLI
+    (`mod-007/ex-02`) is the first dogfood consumer; that's the
+    coupling that keeps the contract honest.
+
+servers:
+  - url: https://platform.example.com/v1
+
+security:
+  - bearerAuth: []
+
+paths:
+  /tenants:
+    post:
+      summary: Provision a new tenant (namespace + quota + RBAC).
+      operationId: createTenant
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCreate'
+      responses:
+        '201':
+          description: Tenant created. Operator reconciles the namespace bundle within ~30 s.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Tenant' }
+        '200':
+          description: Idempotent replay -- prior request returned.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Tenant' }
+        '400': { $ref: '#/components/responses/Error' }
+        '409': { $ref: '#/components/responses/Error' }
+    get:
+      summary: List tenants the caller can see (admin = all; user = own).
+      operationId: listTenants
+      parameters:
+        - in: query
+          name: page_size
+          schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+        - in: query
+          name: page_token
+          description: Opaque cursor; absent on the first page.
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TenantList' }
+
+  /tenants/{tenant_id}:
+    get:
+      summary: Read one tenant. Cross-tenant lookups return 404, not 403.
+      operationId: getTenant
+      parameters:
+        - $ref: '#/components/parameters/TenantId'
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Tenant' }
+        '404': { $ref: '#/components/responses/Error' }
+
+  /tenants/{tenant_id}/claims:
+    post:
+      summary: Request a ResourceClaim (CPU/memory/GPU budget) for the tenant.
+      operationId: createResourceClaim
+      parameters:
+        - $ref: '#/components/parameters/TenantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceClaimCreate'
+      responses:
+        '201':
+          description: Claim accepted and queued for operator reconcile.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ResourceClaim' }
+        '202':
+          description: Claim exceeds tenant budget; pending platform-admin approval.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ResourceClaim' }
+        '400': { $ref: '#/components/responses/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+    get:
+      summary: List ResourceClaims for the tenant.
+      operationId: listResourceClaims
+      parameters:
+        - $ref: '#/components/parameters/TenantId'
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ResourceClaimList' }
+
+  /tenants/{tenant_id}/training-runs:
+    post:
+      summary: Submit a TrainingRun. Idempotent on `Idempotency-Key`.
+      operationId: submitTrainingRun
+      parameters:
+        - $ref: '#/components/parameters/TenantId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/TrainingRunCreate' }
+      responses:
+        '202':
+          description: |
+            Accepted; the run starts asynchronously. The caller polls
+            `GET /training-runs/{id}` for the phase transition.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrainingRun' }
+        '200':
+          description: Idempotent replay -- the prior submission's run is returned.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrainingRun' }
+        '400': { $ref: '#/components/responses/Error' }
+        '402':
+          description: |
+            Tenant has insufficient remaining ResourceClaim budget. Use
+            `POST /tenants/{tenant_id}/claims` first.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '404': { $ref: '#/components/responses/Error' }
+    get:
+      summary: List TrainingRuns for the tenant.
+      operationId: listTrainingRuns
+      parameters:
+        - $ref: '#/components/parameters/TenantId'
+        - in: query
+          name: phase
+          schema: { $ref: '#/components/schemas/TrainingRunPhase' }
+        - in: query
+          name: page_size
+          schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+        - in: query
+          name: page_token
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrainingRunList' }
+
+  /training-runs/{run_id}:
+    get:
+      summary: Read one TrainingRun. Cross-tenant lookups return 404.
+      operationId: getTrainingRun
+      parameters:
+        - in: path
+          name: run_id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrainingRun' }
+        '404': { $ref: '#/components/responses/Error' }
+
+  /training-runs/{run_id}:cancel:
+    post:
+      summary: Cancel a running TrainingRun. Idempotent.
+      operationId: cancelTrainingRun
+      parameters:
+        - in: path
+          name: run_id
+          required: true
+          schema: { type: string, format: uuid }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason: { type: string, minLength: 1 }
+      responses:
+        '200':
+          description: Cancellation recorded; the operator stops the workload.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrainingRun' }
+        '404': { $ref: '#/components/responses/Error' }
+        '409':
+          description: Run already in a terminal phase.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /audit:
+    get:
+      summary: Read-only window onto the platform audit chain.
+      operationId: listAuditEntries
+      parameters:
+        - in: query
+          name: tenant_id
+          schema: { type: string }
+          description: Required for non-admin callers; admins may omit it.
+        - in: query
+          name: resource_kind
+          schema: { type: string }
+        - in: query
+          name: resource_id
+          schema: { type: string }
+        - in: query
+          name: from
+          schema: { type: string, format: date-time }
+        - in: query
+          name: to
+          schema: { type: string, format: date-time }
+        - in: query
+          name: page_size
+          schema: { type: integer, minimum: 1, maximum: 500, default: 100 }
+        - in: query
+          name: page_token
+          schema: { type: string }
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AuditList' }
+        '403':
+          description: Caller may not omit tenant_id.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+
+  /audit:verify:
+    post:
+      summary: Run `verify_audit_chain` over a sequence range.
+      operationId: verifyAuditChain
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [start_seq, end_seq]
+              properties:
+                start_seq: { type: integer, minimum: 1 }
+                end_seq:   { type: integer, minimum: 1 }
+      responses:
+        '200':
+          description: |
+            Verification ran. `breaks` is empty when the chain is
+            intact; a non-empty `breaks` array means the chain was
+            tampered with -- page the on-call.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [start_seq, end_seq, breaks]
+                properties:
+                  start_seq: { type: integer }
+                  end_seq:   { type: integer }
+                  breaks:
+                    type: array
+                    items: { $ref: '#/components/schemas/ChainBreak' }
+        '400': { $ref: '#/components/responses/Error' }
+
+components:
+  parameters:
+    TenantId:
+      in: path
+      name: tenant_id
+      required: true
+      schema: { type: string }
+    IdempotencyKey:
+      in: header
+      name: Idempotency-Key
+      required: true
+      description: |
+        Client-generated key (UUIDv4 recommended). The server stores
+        the first response and replays it for any duplicate request
+        with the same key for 24 h. POSTs without this header are
+        rejected with 400.
+      schema: { type: string, minLength: 1, maxLength: 128 }
+
+  responses:
+    Error:
+      description: Standardised error envelope (matches project-04).
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        OIDC-issued access token. The platform never accepts long-lived
+        static tokens; see `mod-009/ex-01` for the identity model.
+
+  schemas:
+    Tenant:
+      type: object
+      required: [id, slug, owner_group, namespace, created_at]
+      properties:
+        id:           { type: string, format: uuid }
+        slug:         { type: string, pattern: '^[a-z][a-z0-9-]{1,38}[a-z0-9]$' }
+        display_name: { type: string }
+        owner_group:  { type: string, description: OIDC group that owns the tenant. }
+        namespace:    { type: string, description: K8s namespace the operator created. }
+        created_at:   { type: string, format: date-time }
+        status:       { $ref: '#/components/schemas/TenantStatus' }
+
+    TenantCreate:
+      type: object
+      required: [slug, owner_group]
+      properties:
+        slug:         { type: string, pattern: '^[a-z][a-z0-9-]{1,38}[a-z0-9]$' }
+        display_name: { type: string }
+        owner_group:  { type: string }
+
+    TenantList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/Tenant' }
+        next_page_token:
+          type: string
+          description: Omitted when this is the last page.
+
+    TenantStatus:
+      type: string
+      enum: [Provisioning, Active, Suspended, Deprovisioning, Deleted]
+
+    ResourceClaim:
+      type: object
+      required: [id, tenant_id, status, cpu, memory, created_at]
+      properties:
+        id:         { type: string, format: uuid }
+        tenant_id:  { type: string }
+        status:     { $ref: '#/components/schemas/ResourceClaimStatus' }
+        cpu:        { type: string, description: K8s quantity (e.g. "32"). }
+        memory:     { type: string, description: K8s quantity (e.g. "128Gi"). }
+        gpu:        { type: string, description: K8s quantity; default "0". }
+        priority:   { $ref: '#/components/schemas/Priority' }
+        expires_at: { type: string, format: date-time }
+        created_at: { type: string, format: date-time }
+
+    ResourceClaimCreate:
+      type: object
+      required: [cpu, memory]
+      properties:
+        cpu:        { type: string }
+        memory:     { type: string }
+        gpu:        { type: string }
+        priority:   { $ref: '#/components/schemas/Priority' }
+        expires_at: { type: string, format: date-time }
+
+    ResourceClaimStatus:
+      type: string
+      enum: [Pending, Approved, Active, Rejected, Expired]
+
+    ResourceClaimList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/ResourceClaim' }
+
+    Priority:
+      type: string
+      enum: [interactive, batch, backfill]
+
+    TrainingRun:
+      type: object
+      required: [id, tenant_id, image, phase, submitted_at]
+      properties:
+        id:          { type: string, format: uuid }
+        tenant_id:   { type: string }
+        image:       { type: string, description: Container image (digest-pinned recommended). }
+        command:
+          type: array
+          items: { type: string }
+        resources:
+          type: object
+          properties:
+            cpu:    { type: string }
+            memory: { type: string }
+            gpu:    { type: string }
+        priority:    { $ref: '#/components/schemas/Priority' }
+        phase:       { $ref: '#/components/schemas/TrainingRunPhase' }
+        submitted_by: { type: string }
+        submitted_at: { type: string, format: date-time }
+        started_at:   { type: string, format: date-time }
+        finished_at:  { type: string, format: date-time }
+        exit_code:    { type: integer }
+        artifact_uri: { type: string }
+        audit_chain_entry_id: { type: string, format: uuid }
+
+    TrainingRunCreate:
+      type: object
+      required: [image, resources]
+      properties:
+        image:    { type: string }
+        command:
+          type: array
+          items: { type: string }
+        resources:
+          type: object
+          required: [cpu, memory]
+          properties:
+            cpu:    { type: string }
+            memory: { type: string }
+            gpu:    { type: string }
+        priority: { $ref: '#/components/schemas/Priority' }
+        artifact_uri: { type: string }
+
+    TrainingRunPhase:
+      type: string
+      enum: [Pending, Scheduled, Running, Succeeded, Failed, Cancelled]
+
+    TrainingRunList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/TrainingRun' }
+        next_page_token: { type: string }
+
+    AuditEntry:
+      type: object
+      required: [seq, tenant_id, actor, action, resource_kind, resource_id, occurred_at]
+      properties:
+        seq:           { type: integer }
+        tenant_id:     { type: string }
+        actor:         { type: string }
+        actor_kind:    { type: string, enum: [user, service, system] }
+        action:        { type: string }
+        resource_kind: { type: string }
+        resource_id:   { type: string }
+        request_id:    { type: string }
+        payload:       { type: object, additionalProperties: true }
+        occurred_at:   { type: string, format: date-time }
+
+    AuditList:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: { $ref: '#/components/schemas/AuditEntry' }
+        next_page_token: { type: string }
+
+    ChainBreak:
+      type: object
+      required: [broken_seq, note]
+      properties:
+        broken_seq:    { type: integer }
+        expected_hash: { type: string, description: Hex-encoded sha256. }
+        actual_hash:   { type: string, description: Hex-encoded sha256. }
+        note:          { type: string }
+
+    Error:
+      type: object
+      required: [error, code, request_id]
+      properties:
+        error:      { type: string, description: Human-readable summary. }
+        code:       { type: string, description: Stable machine-readable code. }
+        request_id: { type: string }
+        detail:     { type: string, description: Optional extra context. }

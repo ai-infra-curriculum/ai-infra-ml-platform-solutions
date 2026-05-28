@@ -4,7 +4,7 @@
       "status": "fail"
     },
     "placeholder_scan": {
-      "finding_count": 0,
+      "finding_count": 2,
       "status": "pass"
     },
     "project_parity": {
@@ -36,18 +36,6 @@
       "type": "exercise_solution_module_level_only"
     },
     {
-      "accepted_artifacts": [
-        "SOLUTION.md",
-        "STEP_BY_STEP.md",
-        "README.md"
-      ],
-      "expected_path": "projects/project-01-platform-core",
-      "message": "Solution project project-01-platform-core has no SOLUTION.md / README.md / STEP_BY_STEP.md.",
-      "project_id": "project-01-platform-core",
-      "severity": "error",
-      "type": "missing_project_solution_artifact"
-    },
-    {
       "expected_path": "projects/project-02-feature-store",
       "learning_path": "projects/project-02-feature-store",
       "message": "Missing solution project directory for project-02-feature-store.",
@@ -70,9 +58,25 @@
       "project_id": "project-05-developer-portal",
       "severity": "error",
       "type": "missing_solution_project"
+    },
+    {
+      "excerpt": "# Placeholder convention: `${TENANT_SLUG}`, `${TENANT_GROUP}`, and",
+      "line": 8,
+      "message": "Found placeholder marker.",
+      "path": "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml",
+      "severity": "warning",
+      "type": "placeholder"
+    },
+    {
+      "excerpt": "\"pending\",          # placeholder; updated after insert",
+      "line": 205,
+      "message": "Found placeholder marker.",
+      "path": "projects/project-01-platform-core/control-plane/training_runs.py",
+      "severity": "warning",
+      "type": "placeholder"
     }
   ],
-  "generated_at": "2026-05-28T19:14:26Z",
+  "generated_at": "2026-05-28T20:22:05Z",
   "modules": [
     {
       "exercise_count": 5,
@@ -925,25 +929,12 @@
   },
   "projects": [
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "accepted_artifacts": [
-            "SOLUTION.md",
-            "STEP_BY_STEP.md",
-            "README.md"
-          ],
-          "expected_path": "projects/project-01-platform-core",
-          "message": "Solution project project-01-platform-core has no SOLUTION.md / README.md / STEP_BY_STEP.md.",
-          "project_id": "project-01-platform-core",
-          "severity": "error",
-          "type": "missing_project_solution_artifact"
-        }
-      ],
+      "found_artifact": "projects/project-01-platform-core/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-01-platform-core",
       "project_id": "project-01-platform-core",
       "solution_path": "projects/project-01-platform-core",
-      "status": "gap",
+      "status": "ok",
       "title": "Project 01: Self-Service ML Platform Core"
     },
     {
@@ -1024,12 +1015,12 @@
     "registry_last_verified": "2026-05-24"
   },
   "summary": {
-    "error_count": 4,
-    "gap_count": 6,
+    "error_count": 3,
+    "gap_count": 7,
     "module_count": 9,
     "project_count": 5,
     "status": "fail",
-    "warning_count": 2
+    "warning_count": 4
   },
   "workspace": "/home/s0v3r1gn/ai-infra-curriculum"
 }

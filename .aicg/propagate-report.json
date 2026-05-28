@@ -3,18 +3,18 @@
   "curriculum_appended": {
     "already_present": [],
     "appended": [
-      "fill-project-04-model-registry-solution"
+      "fill-project-01-platform-core-solution"
     ],
     "present": true
   },
   "curriculum_suggestions": [
     {
-      "scope": "project-04-model-registry",
-      "suggestion": "Update `CURRICULUM.md` so the row for `project-04-model-registry` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
-      "work_id": "fill-project-04-model-registry-solution"
+      "scope": "project-01-platform-core",
+      "suggestion": "Update `CURRICULUM.md` so the row for `project-01-platform-core` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "fill-project-01-platform-core-solution"
     }
   ],
-  "generated_at": "2026-05-28T19:14:25Z",
+  "generated_at": "2026-05-28T20:22:05Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
@@ -28,10 +28,10 @@
     {
       "date": "2026-05-28",
       "module": null,
-      "project": "project-04-model-registry",
-      "title": "Author solution artifact for project-04-model-registry",
+      "project": "project-01-platform-core",
+      "title": "Author solution artifact for project-01-platform-core",
       "type": "project_solution_gap",
-      "work_id": "fill-project-04-model-registry-solution"
+      "work_id": "fill-project-01-platform-core-solution"
     }
   ],
   "versions_path": "VERSIONS.md"

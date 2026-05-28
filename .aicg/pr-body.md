@@ -1,14 +1,14 @@
 ## AICG Work Item
 
-- Work ID: `fill-project-04-model-registry-solution`
-- Project: `project-04-model-registry`
+- Work ID: `fill-project-01-platform-core-solution`
+- Project: `project-01-platform-core`
 - Type: `project_solution_gap`
 
 ## Audit Summary
 
 - Status: `fail`
-- Errors: `4`
-- Warnings: `2`
+- Errors: `3`
+- Warnings: `4`
 
 ## Validation Summary
 
@@ -18,5 +18,5 @@
 ## Rollback
 
 ```bash
-git checkout main && git branch -D aicg/2026-05-28/ai-infra-ml-platform-solutions/fill-project-04-model-registry-solution
+git checkout main && git branch -D aicg/2026-05-28/ai-infra-ml-platform-solutions/fill-project-01-platform-core-solution
 ```

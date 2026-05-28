@@ -1,0 +1,194 @@
+# Per-tenant namespace bundle the operator applies when a Tenant
+# transitions Provisioning -> Active.
+#
+# Validates with:
+#   kubeconform -strict -summary -kubernetes-version 1.29 \
+#       multi-tenancy/namespace-template.yaml
+#
+# Placeholder convention: `${TENANT_SLUG}`, `${TENANT_GROUP}`, and
+# `${TENANT_AUDIT_ENTRY_ID}` are substituted by the operator at
+# render time. The literal placeholders are present in the
+# checked-in copy so the rubric can grade the *shape* without
+# needing a live render.
+
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-${TENANT_SLUG}
+  labels:
+    platform.example.com/tenant: ${TENANT_SLUG}
+    platform.example.com/owner-group: ${TENANT_GROUP}
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+  annotations:
+    platform.example.com/audit-entry: ${TENANT_AUDIT_ENTRY_ID}
+
+---
+# Per-namespace defaults so a tenant manifest that forgets requests/limits
+# still gets safe values. The exercise-04 rubric in mod-001 grades on this.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: defaults
+  namespace: tenant-${TENANT_SLUG}
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: 500m
+        memory: 512Mi
+      defaultRequest:
+        cpu: 100m
+        memory: 128Mi
+
+---
+# Hard cap on the tenant's total namespace consumption. Numbers below
+# are template defaults; the operator overrides from the approved
+# ResourceClaim before applying.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-quota
+  namespace: tenant-${TENANT_SLUG}
+spec:
+  hard:
+    requests.cpu: "8"
+    requests.memory: 32Gi
+    requests.nvidia.com/gpu: "0"
+    limits.cpu: "16"
+    limits.memory: 64Gi
+    pods: "200"
+    services: "50"
+    configmaps: "200"
+    secrets: "200"
+    persistentvolumeclaims: "20"
+
+---
+# Default-deny ingress. The allow-list overlay below opens only the
+# specific platform-service flows that the tenant's workloads need.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-ingress
+  namespace: tenant-${TENANT_SLUG}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-egress
+  namespace: tenant-${TENANT_SLUG}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+
+---
+# Allow intra-namespace pod-to-pod traffic so a tenant's own multi-pod
+# workloads work. Inter-tenant traffic is still denied (the two
+# default-deny policies above govern that).
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-intra-namespace
+  namespace: tenant-${TENANT_SLUG}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - podSelector: {}
+  egress:
+    - to:
+        - podSelector: {}
+
+---
+# Allow egress to platform services (registry, feature store, etc.)
+# and to the cluster DNS. Everything else is denied by the policy
+# above.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-platform-services
+  namespace: tenant-${TENANT_SLUG}
+spec:
+  podSelector: {}
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              platform.example.com/system: control-plane
+      ports:
+        - protocol: TCP
+          port: 443
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+
+---
+# The tenant's OIDC group gets edit rights inside its own namespace
+# only. Cluster-level resources are off-limits.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tenant-edit
+  namespace: tenant-${TENANT_SLUG}
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "configmaps", "secrets", "services",
+                "persistentvolumeclaims"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets", "daemonsets", "replicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["batch"]
+    resources: ["jobs", "cronjobs"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["platform.example.com"]
+    resources: ["trainingruns", "resourceclaims"]
+    verbs: ["get", "list", "watch", "create", "update", "patch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tenant-edit
+  namespace: tenant-${TENANT_SLUG}
+subjects:
+  - kind: Group
+    name: ${TENANT_GROUP}
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: tenant-edit
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# ServiceAccount the operator uses to run TrainingRun workloads in
+# this namespace. Has no permissions of its own; the operator
+# creates Pods that bind to it.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: platform-trainingrun
+  namespace: tenant-${TENANT_SLUG}
+automountServiceAccountToken: false
