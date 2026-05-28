@@ -1,0 +1,247 @@
+# Control-plane API — reference solution for project-01-platform-core (F2, F5, F6).
+#
+# Validates statically with:
+#   openapi-generator-cli validate -i openapi.yaml
+#   redocly lint openapi.yaml
+#
+# Surface intentionally narrow: only the endpoints requirements.md F2/F5
+# pins down. Tenant identity is in the bearer token, not a path segment, so
+# the route table stays one-dimensional and per-tenant authorisation is
+# evaluated in one place (the auth middleware).
+openapi: 3.0.3
+info:
+  title: SmartRecs Platform Control Plane
+  version: 1.0.0
+  description: |
+    User-facing surface for the SmartRecs ML platform. The contract maps
+    1:1 to the TrainingRun CRD in `crd/training-run-crd.yaml`: a POST
+    materialises a CR, the operator reconciles, and status is mirrored
+    back from CR status + the platform DB.
+servers:
+  - url: https://platform.smartrecs.internal/v1
+security:
+  - bearerAuth: []
+paths:
+  /training-runs:
+    post:
+      operationId: createTrainingRun
+      summary: Admit a new training run
+      parameters:
+        - $ref: '#/components/parameters/RequestId'
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, maxLength: 64 }
+          description: |
+            Repeating a POST with the same key + payload returns the
+            original 201 response and does not create a second run.
+            Required on mutating POSTs so a network retry cannot create
+            a duplicate TrainingRun and double-spend quota/GPU time (F6).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrainingRunSpec'
+      responses:
+        '201':
+          description: Run admitted
+          headers:
+            X-Request-Id:
+              $ref: '#/components/headers/XRequestId'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrainingRun'
+        '400':
+          description: Schema or image-allowlist violation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Missing or invalid token
+        '403':
+          description: Token valid but caller has no rights in target tenant
+        '429':
+          description: Tenant quota exceeded (GPU-hours or concurrent runs)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      operationId: listTrainingRuns
+      summary: List training runs visible to the caller
+      parameters:
+        - name: tenant
+          in: query
+          schema: { type: string }
+        - name: phase
+          in: query
+          schema:
+            type: string
+            enum: [Pending, Running, Succeeded, Failed, Cancelled]
+        - name: created_after
+          in: query
+          schema: { type: string, format: date-time }
+        - name: created_before
+          in: query
+          schema: { type: string, format: date-time }
+        - name: page_size
+          in: query
+          schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+        - name: page_token
+          in: query
+          schema: { type: string }
+        - $ref: '#/components/parameters/RequestId'
+      responses:
+        '200':
+          description: A page of runs (cursor-paginated)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: '#/components/schemas/TrainingRun' }
+                  next_page_token:
+                    type: string
+                    nullable: true
+  /training-runs/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema: { type: string, format: uuid }
+      - $ref: '#/components/parameters/RequestId'
+    get:
+      operationId: getTrainingRun
+      responses:
+        '200':
+          description: Current state
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/TrainingRun' }
+        '404':
+          description: Not found or not visible to caller
+    delete:
+      operationId: cancelTrainingRun
+      summary: Cancel a running run (deletes the CR; phase → Cancelled)
+      responses:
+        '202':
+          description: Cancellation accepted; operator will clean up resources
+        '404':
+          description: Not found
+        '409':
+          description: Run already in a terminal state
+  /tenants/{id}/quota-usage:
+    get:
+      operationId: getTenantQuotaUsage
+      summary: Current quota consumption for a tenant
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+        - $ref: '#/components/parameters/RequestId'
+      responses:
+        '200':
+          description: Live usage vs. limits
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/QuotaUsage' }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  headers:
+    XRequestId:
+      schema: { type: string }
+      description: Server-assigned correlation ID propagated to logs and audit chain.
+  parameters:
+    RequestId:
+      name: X-Request-Id
+      in: header
+      required: false
+      schema: { type: string }
+      description: Caller-supplied correlation ID; if absent, server generates one.
+  schemas:
+    TrainingRunSpec:
+      type: object
+      required: [name, image, resources, dataset, tenant]
+      properties:
+        name:
+          type: string
+          pattern: '^[a-z0-9]([-a-z0-9]*[a-z0-9])?$'
+        tenant:
+          type: string
+        image:
+          type: string
+          pattern: '^[A-Za-z0-9.\-]+(:[0-9]+)?/[A-Za-z0-9._/\-]+@sha256:[A-Fa-f0-9]{64}$'
+        resources:
+          type: object
+          required: [requests, limits]
+          additionalProperties: true
+        dataset:
+          type: object
+          required: [name, version]
+          properties:
+            name: { type: string }
+            version: { type: string }
+        hyperparameters:
+          type: object
+          additionalProperties: true
+        retries:
+          type: object
+          properties:
+            max: { type: integer, minimum: 0, maximum: 10 }
+            backoff: { type: string, enum: [exponential, linear, none] }
+    TrainingRun:
+      type: object
+      required: [id, name, tenant, spec, status, created_at]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        tenant: { type: string }
+        spec: { $ref: '#/components/schemas/TrainingRunSpec' }
+        status:
+          type: object
+          properties:
+            phase:
+              type: string
+              enum: [Pending, Running, Succeeded, Failed, Cancelled]
+            started_at: { type: string, format: date-time, nullable: true }
+            completed_at: { type: string, format: date-time, nullable: true }
+            metrics_uri: { type: string, nullable: true }
+            artifact_uri: { type: string, nullable: true }
+        created_at: { type: string, format: date-time }
+        updated_at: { type: string, format: date-time }
+    QuotaUsage:
+      type: object
+      required: [tenant_id, limits, used]
+      properties:
+        tenant_id: { type: string, format: uuid }
+        limits:
+          type: object
+          properties:
+            gpu_hours_per_month: { type: number }
+            concurrent_runs: { type: integer }
+        used:
+          type: object
+          properties:
+            gpu_hours_this_month: { type: number }
+            concurrent_runs: { type: integer }
+    Error:
+      type: object
+      required: [error, code, request_id]
+      properties:
+        error: { type: string, description: "Human-readable summary." }
+        code: { type: string, description: "Stable machine code (e.g. quota.gpu_hours.exceeded)." }
+        request_id: { type: string }
+        details:
+          type: object
+          additionalProperties: true

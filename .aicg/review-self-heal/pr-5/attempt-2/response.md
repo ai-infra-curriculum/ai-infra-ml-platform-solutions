@@ -1,0 +1,1 @@
+Inlined the `Idempotency-Key` parameter directly on `POST /training-runs` with `required: true` so the requirement is unambiguous to SDK generators and validators that don't honor `required` on `$ref`'d parameter components, and removed the now-unused component definition.
