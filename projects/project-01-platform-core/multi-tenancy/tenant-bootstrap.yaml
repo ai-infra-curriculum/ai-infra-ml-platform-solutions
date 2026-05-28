@@ -1,0 +1,123 @@
+# Tenant-bootstrap manifest — reference solution for F4 (multi-tenancy).
+#
+# One file produces every object the platform creates when a tenant
+# onboards. Apply with:
+#   kubectl apply -f tenant-bootstrap.yaml
+#
+# Validates statically with:
+#   kubeconform -strict -summary tenant-bootstrap.yaml
+#
+# The literal values below model tenant "recs-team"; the control plane
+# templates them per-tenant. Cross-tenant isolation rests on the four
+# objects below working *together*: namespace alone is not a security
+# boundary (see modules/mod-001/SOLUTION.md ex-02).
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-recs-team
+  labels:
+    platform.smartrecs.io/tenant: recs-team
+    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce-version: latest
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: tenant-quota
+  namespace: tenant-recs-team
+spec:
+  # Numbers come from requirements.md F5 ("per-tenant GPU + memory + CPU caps")
+  # and are deliberately conservative starter values; the control plane
+  # writes the actual tenant-specific values from its quota table.
+  hard:
+    requests.cpu: "64"
+    requests.memory: 256Gi
+    requests.nvidia.com/gpu: "4"
+    limits.cpu: "64"
+    limits.memory: 256Gi
+    limits.nvidia.com/gpu: "4"
+    pods: "50"
+    count/jobs.batch: "20"
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tenant-defaults
+  namespace: tenant-recs-team
+spec:
+  # No defaults on requests; force every workload to declare them so
+  # missing-request bugs surface at admission, not at runtime. Defaults
+  # on limits prevent a runaway pod from consuming the whole quota.
+  limits:
+    - type: Container
+      default:
+        cpu: "2"
+        memory: 4Gi
+      # No defaultRequest: every workload must declare requests explicitly.
+      max:
+        cpu: "16"
+        memory: 64Gi
+        nvidia.com/gpu: "2"
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: tenant-recs-team
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-platform-egress
+  namespace: tenant-recs-team
+spec:
+  podSelector: {}
+  policyTypes: [Egress]
+  egress:
+    # DNS (kube-dns) — required for any outbound resolution.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Platform-owned destinations: feature store, MLflow tracking,
+    # model registry. Identified by namespace label so the policy
+    # does not pin to a pod-IP that changes on redeploy.
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              platform.smartrecs.io/component: feature-store
+        - namespaceSelector:
+            matchLabels:
+              platform.smartrecs.io/component: model-registry
+        - namespaceSelector:
+            matchLabels:
+              platform.smartrecs.io/component: mlflow
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tenant-trainer
+  namespace: tenant-recs-team
+  # Workload identity binding. The annotation key is cloud-specific;
+  # one of these would be uncommented in a real deploy. Both shown
+  # because requirements.md F4 accepts either SPIFFE or cloud IRSA.
+  annotations:
+    # EKS IRSA:
+    eks.amazonaws.com/role-arn: arn:aws:iam::123456789012:role/tenant-recs-team-trainer
+    # GKE Workload Identity:
+    iam.gke.io/gcp-service-account: tenant-recs-team-trainer@PROJECT.iam.gserviceaccount.com
+    # SPIFFE/SPIRE (alternative): the identity is derived from the
+    # ServiceAccount + namespace; no annotation needed.
+automountServiceAccountToken: false
