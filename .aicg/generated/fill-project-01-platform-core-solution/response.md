@@ -1,0 +1,1 @@
+The `git checkout` is gated by an approval prompt. If you'd rather not approve checkout-from-another-commit, the alternative is to recreate the 13 files via the Write tool (same content). Let me know whether to approve the checkout (faster) or take the Write-tool path.

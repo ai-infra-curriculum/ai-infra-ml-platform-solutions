@@ -31,4 +31,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 
 | Date | Work ID | Scope | Title |
 |---|---|---|---|
-| 2026-05-28 | `fill-project-02-feature-store-solution` | `project-02-feature-store` | Author solution artifact for project-02-feature-store |
+| 2026-05-27 | `fill-project-01-platform-core-solution` | `project-01-platform-core` | Author solution artifact for project-01-platform-core |

@@ -3,18 +3,18 @@
   "curriculum_appended": {
     "already_present": [],
     "appended": [
-      "fill-project-02-feature-store-solution"
+      "fill-project-01-platform-core-solution"
     ],
     "present": true
   },
   "curriculum_suggestions": [
     {
-      "scope": "project-02-feature-store",
-      "suggestion": "Update `CURRICULUM.md` so the row for `project-02-feature-store` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
-      "work_id": "fill-project-02-feature-store-solution"
+      "scope": "project-01-platform-core",
+      "suggestion": "Update `CURRICULUM.md` so the row for `project-01-platform-core` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "fill-project-01-platform-core-solution"
     }
   ],
-  "generated_at": "2026-05-28T17:05:44Z",
+  "generated_at": "2026-05-28T06:08:52Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
@@ -26,12 +26,12 @@
   "status": "updated",
   "updated": [
     {
-      "date": "2026-05-28",
+      "date": "2026-05-27",
       "module": null,
-      "project": "project-02-feature-store",
-      "title": "Author solution artifact for project-02-feature-store",
+      "project": "project-01-platform-core",
+      "title": "Author solution artifact for project-01-platform-core",
       "type": "project_solution_gap",
-      "work_id": "fill-project-02-feature-store-solution"
+      "work_id": "fill-project-01-platform-core-solution"
     }
   ],
   "versions_path": "VERSIONS.md"

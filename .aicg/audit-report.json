@@ -36,16 +36,12 @@
       "type": "exercise_solution_module_level_only"
     },
     {
-      "accepted_artifacts": [
-        "SOLUTION.md",
-        "STEP_BY_STEP.md",
-        "README.md"
-      ],
-      "expected_path": "projects/project-01-platform-core",
-      "message": "Solution project project-01-platform-core has no SOLUTION.md / README.md / STEP_BY_STEP.md.",
-      "project_id": "project-01-platform-core",
+      "expected_path": "projects/project-02-feature-store",
+      "learning_path": "projects/project-02-feature-store",
+      "message": "Missing solution project directory for project-02-feature-store.",
+      "project_id": "project-02-feature-store",
       "severity": "error",
-      "type": "missing_project_solution_artifact"
+      "type": "missing_solution_project"
     },
     {
       "expected_path": "projects/project-03-workflow-orchestration",
@@ -72,7 +68,7 @@
       "type": "missing_solution_project"
     }
   ],
-  "generated_at": "2026-05-28T17:05:45Z",
+  "generated_at": "2026-05-28T06:08:52Z",
   "modules": [
     {
       "exercise_count": 5,
@@ -925,34 +921,30 @@
   },
   "projects": [
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "accepted_artifacts": [
-            "SOLUTION.md",
-            "STEP_BY_STEP.md",
-            "README.md"
-          ],
-          "expected_path": "projects/project-01-platform-core",
-          "message": "Solution project project-01-platform-core has no SOLUTION.md / README.md / STEP_BY_STEP.md.",
-          "project_id": "project-01-platform-core",
-          "severity": "error",
-          "type": "missing_project_solution_artifact"
-        }
-      ],
+      "found_artifact": "projects/project-01-platform-core/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-01-platform-core",
       "project_id": "project-01-platform-core",
       "solution_path": "projects/project-01-platform-core",
-      "status": "gap",
+      "status": "ok",
       "title": "Project 01: Self-Service ML Platform Core"
     },
     {
-      "found_artifact": "projects/project-02-feature-store/SOLUTION.md",
-      "gaps": [],
+      "found_artifact": null,
+      "gaps": [
+        {
+          "expected_path": "projects/project-02-feature-store",
+          "learning_path": "projects/project-02-feature-store",
+          "message": "Missing solution project directory for project-02-feature-store.",
+          "project_id": "project-02-feature-store",
+          "severity": "error",
+          "type": "missing_solution_project"
+        }
+      ],
       "learning_path": "projects/project-02-feature-store",
       "project_id": "project-02-feature-store",
-      "solution_path": "projects/project-02-feature-store",
-      "status": "ok",
+      "solution_path": null,
+      "status": "gap",
       "title": "Project 02: Enterprise Feature Store"
     },
     {

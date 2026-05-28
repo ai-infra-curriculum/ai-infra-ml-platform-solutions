@@ -12,7 +12,7 @@
     },
     "CURRICULUM.md": {
       "findings": [],
-      "mtime_ns": 1779987944941718650,
+      "mtime_ns": 1779948532594787437,
       "size": 1527
     },
     "LEARNING_GUIDE.md": {
@@ -27,7 +27,7 @@
     },
     "SOLUTIONS_INDEX.md": {
       "findings": [],
-      "mtime_ns": 1779987034622034290,
+      "mtime_ns": 1779924251052844365,
       "size": 2133
     },
     "SOLUTION_OVERVIEW.md": {
@@ -37,7 +37,7 @@
     },
     "VERSIONS.md": {
       "findings": [],
-      "mtime_ns": 1779987944941718650,
+      "mtime_ns": 1779948532594787437,
       "size": 220
     },
     "guides/README.md": {
@@ -302,7 +302,7 @@
     },
     "modules/mod-005-workflow-orchestration/exercise-01/DECISION.md": {
       "findings": [],
-      "mtime_ns": 1779987034622034290,
+      "mtime_ns": 1779916458299139777,
       "size": 1185
     },
     "modules/mod-005-workflow-orchestration/exercise-01/README.md": {
@@ -397,7 +397,7 @@
     },
     "modules/mod-007-developer-experience/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779987034622034290,
+      "mtime_ns": 1779916458302473062,
       "size": 4513
     },
     "modules/mod-007-developer-experience/exercise-01/INTERVIEW_TEMPLATE.md": {
@@ -545,10 +545,10 @@
       "mtime_ns": 1779924251052844365,
       "size": 64
     },
-    "projects/project-02-feature-store/SOLUTION.md": {
+    "projects/project-01-platform-core/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779987921058743408,
-      "size": 18116
+      "mtime_ns": 1779948523638258189,
+      "size": 13309
     },
     "resources/README.md": {
       "findings": [],
@@ -556,6 +556,6 @@
       "size": 85
     }
   },
-  "generated_at": "2026-05-28T17:05:44Z",
+  "generated_at": "2026-05-28T06:08:52Z",
   "schema_version": 1
 }
