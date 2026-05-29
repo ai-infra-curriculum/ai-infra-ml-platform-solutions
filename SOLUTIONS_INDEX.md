@@ -1,7 +1,7 @@
 # Solutions Index
 
 Reference implementations for [ai-infra-ml-platform-learning](https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning).
-**Coverage: 100% modules (45 exercises) · 1 / 5 projects.** Last updated 2026-05-28.
+**Coverage: 100% modules (45 exercises) · 2 / 5 projects.** Last updated 2026-05-29.
 
 ## Layout
 - `modules/`: per-exercise solutions (one dir per learning exercise)
@@ -13,6 +13,7 @@ Reference implementations for [ai-infra-ml-platform-learning](https://github.com
 | Project | Status |
 |---|---|
 | [project-04-model-registry](./projects/project-04-model-registry/) | ✅ |
+| [project-05-developer-portal](./projects/project-05-developer-portal/) | ✅ |
 
 ## Module coverage
 
@@ -37,7 +38,7 @@ Reference implementations for [ai-infra-ml-platform-learning](https://github.com
 | 02-feature-store | ⏳ | Pending. |
 | 03-workflow-orchestration | ⏳ | Pending. |
 | 04-model-registry | ⏳ | Pending. |
-| 05-developer-portal | ⏳ | Pending. |
+| [05-developer-portal](projects/project-05-developer-portal/SOLUTION.md) | ✅ | Backstage catalog + scaffolder + TechDocs + scorecards + token-exchange auth. |
 
 ## Cross-references to engineer-solutions
 

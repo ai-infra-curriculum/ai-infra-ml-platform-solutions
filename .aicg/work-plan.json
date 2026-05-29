@@ -1,11 +1,11 @@
 {
   "audit_summary": {
-    "error_count": 5,
+    "error_count": 1,
     "gap_count": 7,
     "module_count": 9,
     "project_count": 5,
     "status": "fail",
-    "warning_count": 2
+    "warning_count": 6
   },
   "backlog_item_count": 2,
   "backlog_items": [
@@ -51,9 +51,10 @@
           "nist-ai-rmf"
         ]
       },
-      "status": "planned",
+      "status": "verified",
       "title": "Add exercise-level depth for mod-001-platform-fundamentals",
       "type": "exercise_depth_followup",
+      "verified_at": "2026-05-29T21:04:05Z",
       "why": "Module-level SOLUTION.md exists; per-exercise artifacts could deepen the answer for graders comparing approaches."
     },
     {
@@ -105,134 +106,17 @@
       "why": "Module-level SOLUTION.md exists; per-exercise artifacts could deepen the answer for graders comparing approaches."
     }
   ],
-  "generated_at": "2026-05-27T23:28:36Z",
+  "generated_at": "2026-05-29T19:45:26Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
     "name": "ai-infra-ml-platform-solutions",
-    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions",
     "track": "ml-platform"
   },
   "schema_version": 2,
-  "work_item_count": 5,
+  "work_item_count": 1,
   "work_items": [
-    {
-      "actions": [
-        {
-          "path": "projects/project-01-platform-core",
-          "type": "create_directory"
-        },
-        {
-          "path": "projects/project-01-platform-core/SOLUTION.md",
-          "project_id": "project-01-platform-core",
-          "source_project": "projects/project-01-platform-core",
-          "type": "write_solution"
-        }
-      ],
-      "exercises": [],
-      "id": "fill-project-01-platform-core-solution",
-      "priority": 1,
-      "project": "project-01-platform-core",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "error",
-      "source_policy": {
-        "needs_research_blocks_merge": true,
-        "official_first": true,
-        "required_default_sources": []
-      },
-      "status": "verified",
-      "title": "Author solution artifact for project-01-platform-core",
-      "type": "project_solution_gap",
-      "verified_at": "2026-05-28T06:08:52Z",
-      "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
-    },
-    {
-      "actions": [
-        {
-          "path": "projects/project-02-feature-store",
-          "type": "create_directory"
-        },
-        {
-          "path": "projects/project-02-feature-store/SOLUTION.md",
-          "project_id": "project-02-feature-store",
-          "source_project": "projects/project-02-feature-store",
-          "type": "write_solution"
-        }
-      ],
-      "exercises": [],
-      "id": "fill-project-02-feature-store-solution",
-      "priority": 2,
-      "project": "project-02-feature-store",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "error",
-      "source_policy": {
-        "needs_research_blocks_merge": true,
-        "official_first": true,
-        "required_default_sources": []
-      },
-      "status": "planned",
-      "title": "Author solution artifact for project-02-feature-store",
-      "type": "project_solution_gap",
-      "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
-    },
-    {
-      "actions": [
-        {
-          "path": "projects/project-03-workflow-orchestration",
-          "type": "create_directory"
-        },
-        {
-          "path": "projects/project-03-workflow-orchestration/SOLUTION.md",
-          "project_id": "project-03-workflow-orchestration",
-          "source_project": "projects/project-03-workflow-orchestration",
-          "type": "write_solution"
-        }
-      ],
-      "exercises": [],
-      "id": "fill-project-03-workflow-orchestration-solution",
-      "priority": 3,
-      "project": "project-03-workflow-orchestration",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "error",
-      "source_policy": {
-        "needs_research_blocks_merge": true,
-        "official_first": true,
-        "required_default_sources": []
-      },
-      "status": "planned",
-      "title": "Author solution artifact for project-03-workflow-orchestration",
-      "type": "project_solution_gap",
-      "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
-    },
-    {
-      "actions": [
-        {
-          "path": "projects/project-04-model-registry",
-          "type": "create_directory"
-        },
-        {
-          "path": "projects/project-04-model-registry/SOLUTION.md",
-          "project_id": "project-04-model-registry",
-          "source_project": "projects/project-04-model-registry",
-          "type": "write_solution"
-        }
-      ],
-      "exercises": [],
-      "id": "fill-project-04-model-registry-solution",
-      "priority": 4,
-      "project": "project-04-model-registry",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "error",
-      "source_policy": {
-        "needs_research_blocks_merge": true,
-        "official_first": true,
-        "required_default_sources": []
-      },
-      "status": "planned",
-      "title": "Author solution artifact for project-04-model-registry",
-      "type": "project_solution_gap",
-      "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
-    },
     {
       "actions": [
         {
@@ -248,7 +132,7 @@
       ],
       "exercises": [],
       "id": "fill-project-05-developer-portal-solution",
-      "priority": 5,
+      "priority": 1,
       "project": "project-05-developer-portal",
       "repo": "ai-infra-ml-platform-solutions",
       "severity": "error",
@@ -257,9 +141,10 @@
         "official_first": true,
         "required_default_sources": []
       },
-      "status": "planned",
+      "status": "verified",
       "title": "Author solution artifact for project-05-developer-portal",
       "type": "project_solution_gap",
+      "verified_at": "2026-05-29T20:12:41Z",
       "why": "Learning repo defines a project capstone but the paired solutions repo is missing the canonical SOLUTION.md / README.md / STEP_BY_STEP.md."
     }
   ]

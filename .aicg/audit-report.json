@@ -9,7 +9,7 @@
     },
     "project_parity": {
       "project_count": 5,
-      "status": "fail"
+      "status": "pass"
     },
     "repo_structure": {
       "finding_count": 0,
@@ -27,12 +27,13 @@
       "type": "exercise_solution_module_level_only"
     },
     {
-      "expected_path": "projects/project-05-developer-portal",
-      "learning_path": "projects/project-05-developer-portal",
-      "message": "Missing solution project directory for project-05-developer-portal.",
-      "project_id": "project-05-developer-portal",
-      "severity": "error",
-      "type": "missing_solution_project"
+      "exercise_id": "exercise-05",
+      "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+      "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+      "module_id": "mod-002-api-design",
+      "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+      "severity": "warning",
+      "type": "exercise_solution_module_level_only"
     },
     {
       "excerpt": "# v1alpha1 + conversion placeholder for v1beta1/v1.",
@@ -67,7 +68,7 @@
       "type": "placeholder"
     }
   ],
-  "generated_at": "2026-05-29T22:03:36Z",
+  "generated_at": "2026-05-29T20:12:42Z",
   "modules": [
     {
       "exercise_count": 5,
@@ -244,8 +245,18 @@
         {
           "exercise_id": "exercise-05",
           "expected_solution_dir": "modules/mod-002-api-design/exercise-05",
-          "found_artifact": "modules/mod-002-api-design/exercise-05/SOLUTION.md",
-          "gaps": [],
+          "found_artifact": null,
+          "gaps": [
+            {
+              "exercise_id": "exercise-05",
+              "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+              "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+              "module_id": "mod-002-api-design",
+              "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+              "severity": "warning",
+              "type": "exercise_solution_module_level_only"
+            }
+          ],
           "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
           "required_artifacts": [
             "SOLUTION.md",
@@ -253,19 +264,29 @@
             "README.md"
           ],
           "slug": "api-design-review",
-          "status": "ok",
+          "status": "module_rationale_only",
           "title": "Exercise 05: API Design Review (Pair Exercise)"
         }
       ],
-      "gaps": [],
+      "gaps": [
+        {
+          "exercise_id": "exercise-05",
+          "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
+          "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+          "module_id": "mod-002-api-design",
+          "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
+          "severity": "warning",
+          "type": "exercise_solution_module_level_only"
+        }
+      ],
       "has_module_rationale": true,
       "learning_path": "lessons/mod-002-api-design",
       "missing_solution_count": 0,
       "module_id": "mod-002-api-design",
-      "module_rationale_only_count": 0,
+      "module_rationale_only_count": 1,
       "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
       "solution_path": "modules/mod-002-api-design",
-      "status": "ok"
+      "status": "module_rationale_only"
     },
     {
       "exercise_count": 5,
@@ -936,21 +957,12 @@
       "title": "Project 04: Model Management System"
     },
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "expected_path": "projects/project-05-developer-portal",
-          "learning_path": "projects/project-05-developer-portal",
-          "message": "Missing solution project directory for project-05-developer-portal.",
-          "project_id": "project-05-developer-portal",
-          "severity": "error",
-          "type": "missing_solution_project"
-        }
-      ],
+      "found_artifact": "projects/project-05-developer-portal/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-05-developer-portal",
       "project_id": "project-05-developer-portal",
-      "solution_path": null,
-      "status": "gap",
+      "solution_path": "projects/project-05-developer-portal",
+      "status": "ok",
       "title": "Project 05: Developer Portal & SDK"
     }
   ],
@@ -968,12 +980,12 @@
     "registry_last_verified": "2026-05-24"
   },
   "summary": {
-    "error_count": 1,
+    "error_count": 0,
     "gap_count": 6,
     "module_count": 9,
     "project_count": 5,
-    "status": "fail",
-    "warning_count": 5
+    "status": "pass",
+    "warning_count": 6
   },
   "workspace": "/home/rook/ai-infra-curriculum"
 }

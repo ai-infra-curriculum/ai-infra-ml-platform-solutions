@@ -1,0 +1,105 @@
+# Scorecard definitions. Each check is a rule with a query, a
+# threshold, and a remediation link. The portal's scorecard backend
+# evaluates each rule on a 15-minute tick and surfaces the result
+# as a per-entity annotation:
+#   scorecards.example.com/<scorecard-id>: "<pass>/<total>"
+#
+# Validate with `yamllint -s`.
+
+apiVersion: scorecards.example.com/v1alpha1
+kind: ScorecardSet
+metadata:
+  name: default
+spec:
+  scorecards:
+    - id: platform-baseline
+      title: Platform Baseline
+      appliesTo:
+        kinds: [Component, MLModel]
+      checks:
+        - id: has-owner
+          title: Has an owner
+          query: spec.owner != null && resolves(spec.owner, kind=Group)
+          remediationLink: 'docs://platform/onboarding#assign-an-owner'
+        - id: has-techdocs
+          title: Has TechDocs
+          query: metadata.annotations['backstage.io/techdocs-ref'] != null
+          remediationLink: 'docs://platform/techdocs#enable'
+        - id: has-lifecycle
+          title: Has lifecycle
+          query: spec.lifecycle in ['experimental', 'production', 'deprecated']
+          remediationLink: 'docs://platform/catalog#lifecycle'
+        - id: has-tags
+          title: Has tags
+          query: count(metadata.tags) >= 1
+          remediationLink: 'docs://platform/catalog#tags'
+        - id: has-system
+          title: Has system
+          query: spec.system != null && resolves(spec.system, kind=System)
+          remediationLink: 'docs://platform/catalog#systems'
+        - id: service-has-api
+          title: Service has an API definition
+          query: spec.type != 'service' || count(spec.providesApis) >= 1
+          remediationLink: 'docs://platform/catalog#api-definition'
+        - id: has-ci
+          title: Repo has CI
+          query: github.workflowRunsLast14Days >= 1
+          remediationLink: 'docs://platform/onboarding#ci'
+        - id: ci-green
+          title: Most-recent CI is green
+          query: github.defaultBranchCI == 'success'
+          remediationLink: 'docs://platform/onboarding#fix-ci'
+
+    - id: production-readiness
+      title: Production Readiness
+      appliesTo:
+        kinds: [Component, MLModel]
+        when: spec.lifecycle == 'production'
+      checks:
+        - id: has-slo
+          title: Has an SLO
+          query: metadata.annotations['slo.example.com/availability'] != null
+          remediationLink: 'docs://platform/slo#define'
+        - id: has-runbook
+          title: Has a runbook
+          query: metadata.annotations['runbook.example.com/url'] != null
+          remediationLink: 'docs://platform/runbook#template'
+        - id: has-pager
+          title: Has a pager target
+          query: metadata.annotations['pagerduty.com/service-id'] != null
+          remediationLink: 'docs://platform/oncall#pagerduty'
+        - id: alerts-wired
+          title: Alerts wired
+          query: prometheus.ruleCountForEntity > 0
+          remediationLink: 'docs://platform/observability#alerts'
+        - id: deps-declared
+          title: Dependencies declared
+          query: count(spec.dependsOn) >= 1
+          remediationLink: 'docs://platform/catalog#dependson'
+
+    - id: compliance
+      title: Compliance (regulated tenants only)
+      appliesTo:
+        kinds: [MLModel]
+        when: tenant.regulated == true && spec.lifecycle == 'production'
+      checks:
+        - id: signed
+          title: Model is Cosign-signed
+          query: registry.signatureVerified == true
+          remediationLink: 'docs://platform/registry#signing'
+        - id: lineage-dataset
+          title: Lineage edge to a documented dataset
+          query: resolves(spec.dataset, kind=Dataset, lifecycle='production')
+          remediationLink: 'docs://platform/registry#lineage'
+        - id: promotion-approver
+          title: Production promotion has an approver
+          query: registry.lastProductionPromotion.approver != null
+          remediationLink: 'docs://platform/registry#approvers'
+        - id: approver-not-registrant
+          title: Approver is not the registering identity
+          query: registry.lastProductionPromotion.approver != registry.registeredBy
+          remediationLink: 'docs://platform/registry#separation-of-duties'
+        - id: audit-chain-verified
+          title: Audit chain verifies clean
+          query: audit.verifyForEntity == 'clean'
+          remediationLink: 'docs://platform/audit#verify'

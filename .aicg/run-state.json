@@ -1,15 +1,15 @@
 {
-  "command": "/home/rook/ai-infra-curriculum/ai-infra-content-generator/scripts/run-claude-content.sh --model claude-opus-4-7 --prompt /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/depth-mod-002-api-design-exercises.md --output-dir /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/depth-mod-002-api-design-exercises --repo /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions --work-id depth-mod-002-api-design-exercises",
+  "command": "/home/rook/ai-infra-curriculum/ai-infra-content-generator/scripts/run-claude-content.sh --model claude-opus-4-7 --prompt /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/fill-project-05-developer-portal-solution.md --output-dir /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/fill-project-05-developer-portal-solution --repo /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions --work-id fill-project-05-developer-portal-solution",
   "limit_pattern_unmatched": false,
-  "output_dir": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/depth-mod-002-api-design-exercises",
-  "prompt_path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/depth-mod-002-api-design-exercises.md",
+  "output_dir": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/fill-project-05-developer-portal-solution",
+  "prompt_path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/fill-project-05-developer-portal-solution.md",
   "repo": "ai-infra-ml-platform-solutions",
   "returncode": 0,
   "schema_version": 1,
   "status": "verified",
   "stderr": "",
   "stdout": "",
-  "updated_at": "2026-05-29T22:02:34Z",
-  "verified_at": "2026-05-29T22:03:35Z",
-  "work_id": "depth-mod-002-api-design-exercises"
+  "updated_at": "2026-05-29T20:12:13Z",
+  "verified_at": "2026-05-29T20:12:41Z",
+  "work_id": "fill-project-05-developer-portal-solution"
 }
