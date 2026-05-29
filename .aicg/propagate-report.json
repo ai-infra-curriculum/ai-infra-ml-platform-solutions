@@ -3,18 +3,18 @@
   "curriculum_appended": {
     "already_present": [],
     "appended": [
-      "fill-project-01-platform-core-solution"
+      "depth-mod-002-api-design-exercises"
     ],
     "present": true
   },
   "curriculum_suggestions": [
     {
-      "scope": "project-01-platform-core",
-      "suggestion": "Update `CURRICULUM.md` so the row for `project-01-platform-core` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
-      "work_id": "fill-project-01-platform-core-solution"
+      "scope": "mod-002-api-design",
+      "suggestion": "Update `CURRICULUM.md` so the row for `mod-002-api-design` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "depth-mod-002-api-design-exercises"
     }
   ],
-  "generated_at": "2026-05-28T06:08:52Z",
+  "generated_at": "2026-05-29T22:03:35Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
@@ -26,12 +26,12 @@
   "status": "updated",
   "updated": [
     {
-      "date": "2026-05-27",
-      "module": null,
-      "project": "project-01-platform-core",
-      "title": "Author solution artifact for project-01-platform-core",
-      "type": "project_solution_gap",
-      "work_id": "fill-project-01-platform-core-solution"
+      "date": "2026-05-29",
+      "module": "mod-002-api-design",
+      "project": null,
+      "title": "Add exercise-level depth for mod-002-api-design",
+      "type": "exercise_depth_followup",
+      "work_id": "depth-mod-002-api-design-exercises"
     }
   ],
   "versions_path": "VERSIONS.md"

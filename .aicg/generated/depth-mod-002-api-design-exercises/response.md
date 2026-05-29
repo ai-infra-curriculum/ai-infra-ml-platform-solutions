@@ -1,0 +1,3 @@
+Created `modules/mod-002-api-design/exercise-05/SOLUTION.md`.
+
+It factors the Ex-05 content out of the module-level SOLUTION.md (review-template structure: versioning, auth/tenant, idempotency, pagination, error taxonomy, backwards-compat) and integrates the existing `REVIEW.md` as the worked example, without inventing new facts. All six required sections (overview, worked answer, validation, rubric, common mistakes, references) are present; references point to module sources, sibling exercise artifacts, the learning prompt, and RFC 7807 (already cited in REVIEW.md). The other four exercises in the module weren't listed in this packet's `## Exercises` scope, so they weren't touched.

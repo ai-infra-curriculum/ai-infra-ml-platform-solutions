@@ -98,9 +98,10 @@
           "nist-ai-rmf"
         ]
       },
-      "status": "planned",
+      "status": "verified",
       "title": "Add exercise-level depth for mod-002-api-design",
       "type": "exercise_depth_followup",
+      "verified_at": "2026-05-29T22:03:35Z",
       "why": "Module-level SOLUTION.md exists; per-exercise artifacts could deepen the answer for graders comparing approaches."
     }
   ],
