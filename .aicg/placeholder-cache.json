@@ -2,560 +2,792 @@
   "entries": {
     "CODE_OF_CONDUCT.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775769371468,
       "size": 10090
     },
     "CONTRIBUTING.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775769371468,
       "size": 930
     },
     "CURRICULUM.md": {
       "findings": [],
-      "mtime_ns": 1779948532594787437,
-      "size": 1527
+      "mtime_ns": 1780088645101041096,
+      "size": 1687
     },
     "LEARNING_GUIDE.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775769371468,
       "size": 941
     },
     "README.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775769371468,
       "size": 5095
     },
     "SOLUTIONS_INDEX.md": {
       "findings": [],
-      "mtime_ns": 1779924251052844365,
-      "size": 2133
+      "mtime_ns": 1780085569182596604,
+      "size": 2663
     },
     "SOLUTION_OVERVIEW.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775769371468,
       "size": 5850
     },
     "VERSIONS.md": {
       "findings": [],
-      "mtime_ns": 1779948532594787437,
-      "size": 220
+      "mtime_ns": 1780088645101041096,
+      "size": 839
     },
     "guides/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775769371468,
       "size": 116
     },
     "modules/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458289139923,
+      "mtime_ns": 1780083775773371690,
       "size": 915
     },
     "modules/mod-001-platform-fundamentals/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 588
     },
     "modules/mod-001-platform-fundamentals/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 5440
     },
     "modules/mod-001-platform-fundamentals/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 804
     },
     "modules/mod-001-platform-fundamentals/exercise-01/openapi.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 2782
     },
     "modules/mod-001-platform-fundamentals/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 454
     },
     "modules/mod-001-platform-fundamentals/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 354
     },
     "modules/mod-001-platform-fundamentals/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 667
     },
     "modules/mod-001-platform-fundamentals/exercise-04/plugins.py": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 1055
     },
     "modules/mod-001-platform-fundamentals/exercise-05/CASE_STUDY.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 1291
+    },
+    "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md": {
+      "findings": [
+        {
+          "excerpt": "needed but not yet sourced, flag it with an explicit TODO citation",
+          "line": 132,
+          "message": "Found todo marker.",
+          "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
+          "severity": "warning",
+          "type": "todo"
+        },
+        {
+          "excerpt": "placeholder rather than guessing.",
+          "line": 133,
+          "message": "Found placeholder marker.",
+          "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
+          "severity": "warning",
+          "type": "placeholder"
+        }
+      ],
+      "mtime_ns": 1780088641201087372,
+      "size": 7181
     },
     "modules/mod-002-api-design/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 370
     },
     "modules/mod-002-api-design/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 4798
     },
     "modules/mod-002-api-design/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 325
     },
     "modules/mod-002-api-design/exercise-01/STATE_MACHINE.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 916
     },
     "modules/mod-002-api-design/exercise-01/openapi.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 2277
     },
     "modules/mod-002-api-design/exercise-02/MIGRATION.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 1274
     },
     "modules/mod-002-api-design/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 396
     },
     "modules/mod-002-api-design/exercise-02/migrate.py": {
       "findings": [],
-      "mtime_ns": 1779916458292473208,
+      "mtime_ns": 1780083775773371690,
       "size": 802
     },
     "modules/mod-002-api-design/exercise-02/openapi-v2.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775773371690,
       "size": 880
     },
     "modules/mod-002-api-design/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 500
     },
     "modules/mod-002-api-design/exercise-03/app.py": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 2981
     },
     "modules/mod-002-api-design/exercise-03/requirements.txt": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 102
     },
     "modules/mod-002-api-design/exercise-03/test_app.py": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 1457
     },
     "modules/mod-002-api-design/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 617
     },
     "modules/mod-002-api-design/exercise-04/sdk.py": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 2886
     },
     "modules/mod-002-api-design/exercise-05/REVIEW.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 1216
     },
     "modules/mod-003-multi-tenancy-resources/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 609
     },
     "modules/mod-003-multi-tenancy-resources/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 4993
     },
     "modules/mod-003-multi-tenancy-resources/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 278
     },
     "modules/mod-003-multi-tenancy-resources/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 325
     },
     "modules/mod-003-multi-tenancy-resources/exercise-02/test-quota.sh": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 578
     },
     "modules/mod-003-multi-tenancy-resources/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 453
     },
     "modules/mod-003-multi-tenancy-resources/exercise-03/network-policy.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 790
     },
     "modules/mod-003-multi-tenancy-resources/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 330
     },
     "modules/mod-003-multi-tenancy-resources/exercise-04/volcano-job.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 453
     },
     "modules/mod-003-multi-tenancy-resources/exercise-04/volcano-queues.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 281
     },
     "modules/mod-003-multi-tenancy-resources/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458295806493,
+      "mtime_ns": 1780083775777371912,
       "size": 477
     },
     "modules/mod-004-feature-store/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775777371912,
       "size": 731
     },
     "modules/mod-004-feature-store/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775777371912,
       "size": 4969
     },
     "modules/mod-004-feature-store/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 361
     },
     "modules/mod-004-feature-store/exercise-01/feature_store.yaml": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 226
     },
     "modules/mod-004-feature-store/exercise-01/features.py": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 930
     },
     "modules/mod-004-feature-store/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 491
     },
     "modules/mod-004-feature-store/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 355
     },
     "modules/mod-004-feature-store/exercise-03/materialize_dag.py": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 1193
     },
     "modules/mod-004-feature-store/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 356
     },
     "modules/mod-004-feature-store/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 243
     },
     "modules/mod-004-feature-store/exercise-05/alerts.yml": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 496
     },
     "modules/mod-004-feature-store/exercise-05/freshness_exporter.py": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 1091
     },
     "modules/mod-005-workflow-orchestration/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 695
     },
     "modules/mod-005-workflow-orchestration/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 4482
     },
     "modules/mod-005-workflow-orchestration/exercise-01/DECISION.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 1185
     },
     "modules/mod-005-workflow-orchestration/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 116
     },
     "modules/mod-005-workflow-orchestration/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 425
     },
     "modules/mod-005-workflow-orchestration/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 310
     },
     "modules/mod-005-workflow-orchestration/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458299139777,
+      "mtime_ns": 1780083775781372134,
       "size": 176
     },
     "modules/mod-005-workflow-orchestration/exercise-04/dag_with_sla.py": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775781372134,
       "size": 1222
     },
     "modules/mod-005-workflow-orchestration/exercise-05/CAPACITY_PLAN.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775781372134,
       "size": 1033
     },
     "modules/mod-005-workflow-orchestration/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775781372134,
       "size": 173
     },
     "modules/mod-006-model-management/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 528
     },
     "modules/mod-006-model-management/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 4336
     },
     "modules/mod-006-model-management/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 271
     },
     "modules/mod-006-model-management/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 242
     },
     "modules/mod-006-model-management/exercise-02/rollback.py": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 1144
     },
     "modules/mod-006-model-management/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 315
     },
     "modules/mod-006-model-management/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 420
     },
     "modules/mod-006-model-management/exercise-04/gate.py": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 1107
     },
     "modules/mod-006-model-management/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 180
     },
     "modules/mod-006-model-management/exercise-05/quarterly_audit.py": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 1639
     },
     "modules/mod-007-developer-experience/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 349
     },
     "modules/mod-007-developer-experience/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 4513
     },
     "modules/mod-007-developer-experience/exercise-01/INTERVIEW_TEMPLATE.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 915
     },
     "modules/mod-007-developer-experience/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 138
     },
     "modules/mod-007-developer-experience/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458302473062,
+      "mtime_ns": 1780083775785372356,
       "size": 372
     },
     "modules/mod-007-developer-experience/exercise-02/cli.py": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775785372356,
       "size": 3162
     },
     "modules/mod-007-developer-experience/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775785372356,
       "size": 134
     },
     "modules/mod-007-developer-experience/exercise-03/TUTORIAL.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775785372356,
       "size": 1738
     },
     "modules/mod-007-developer-experience/exercise-04/ERROR_CATALOG.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775785372356,
       "size": 1929
     },
     "modules/mod-007-developer-experience/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775785372356,
       "size": 366
     },
     "modules/mod-007-developer-experience/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 105
     },
     "modules/mod-007-developer-experience/exercise-05/SURVEY_PLAN.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 1360
     },
     "modules/mod-008-observability/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 508
     },
     "modules/mod-008-observability/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 3593
     },
     "modules/mod-008-observability/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 266
     },
     "modules/mod-008-observability/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 370
     },
     "modules/mod-008-observability/exercise-02/burn-rate-alerts.yml": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 1547
     },
     "modules/mod-008-observability/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 150
     },
     "modules/mod-008-observability/exercise-03/drift_exporter.py": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 1498
     },
     "modules/mod-008-observability/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 296
     },
     "modules/mod-008-observability/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 191
     },
     "modules/mod-008-observability/exercise-05/RUNBOOKS.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 1522
     },
     "modules/mod-009-security-governance/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 354
     },
     "modules/mod-009-security-governance/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779916458305806346,
+      "mtime_ns": 1780083775789372578,
       "size": 4231
     },
     "modules/mod-009-security-governance/exercise-01/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775789372578,
       "size": 300
     },
     "modules/mod-009-security-governance/exercise-01/oidc_auth.py": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775789372578,
       "size": 1591
     },
     "modules/mod-009-security-governance/exercise-02/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775789372578,
       "size": 336
     },
     "modules/mod-009-security-governance/exercise-03/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775789372578,
       "size": 332
     },
     "modules/mod-009-security-governance/exercise-04/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775789372578,
       "size": 408
     },
     "modules/mod-009-security-governance/exercise-05/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775793372800,
       "size": 204
     },
     "projects/README.md": {
       "findings": [],
-      "mtime_ns": 1779924251052844365,
+      "mtime_ns": 1780083775793372800,
       "size": 64
+    },
+    "projects/project-01-platform-core/README.md": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 2491
     },
     "projects/project-01-platform-core/SOLUTION.md": {
       "findings": [],
-      "mtime_ns": 1779948523638258189,
+      "mtime_ns": 1780083775793372800,
       "size": 13309
+    },
+    "projects/project-01-platform-core/STEP_BY_STEP.md": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 5957
+    },
+    "projects/project-01-platform-core/audit/verify.py": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 5547
+    },
+    "projects/project-01-platform-core/control-plane/openapi.yaml": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 8293
+    },
+    "projects/project-01-platform-core/control-plane/training_runs.py": {
+      "findings": [
+        {
+          "excerpt": "\"pending\",          # placeholder; updated after insert",
+          "line": 205,
+          "message": "Found placeholder marker.",
+          "path": "projects/project-01-platform-core/control-plane/training_runs.py",
+          "severity": "warning",
+          "type": "placeholder"
+        }
+      ],
+      "mtime_ns": 1780083775793372800,
+      "size": 10077
+    },
+    "projects/project-01-platform-core/crd/training-run-crd.yaml": {
+      "findings": [
+        {
+          "excerpt": "# v1alpha1 + conversion placeholder for v1beta1/v1.",
+          "line": 8,
+          "message": "Found placeholder marker.",
+          "path": "projects/project-01-platform-core/crd/training-run-crd.yaml",
+          "severity": "warning",
+          "type": "placeholder"
+        },
+        {
+          "excerpt": "# Conversion placeholder. The webhook is wired in deploy/ once a v1beta1",
+          "line": 156,
+          "message": "Found placeholder marker.",
+          "path": "projects/project-01-platform-core/crd/training-run-crd.yaml",
+          "severity": "warning",
+          "type": "placeholder"
+        }
+      ],
+      "mtime_ns": 1780083775793372800,
+      "size": 5748
+    },
+    "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml": {
+      "findings": [
+        {
+          "excerpt": "# Placeholder convention: `${TENANT_SLUG}`, `${TENANT_GROUP}`, and",
+          "line": 8,
+          "message": "Found placeholder marker.",
+          "path": "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml",
+          "severity": "warning",
+          "type": "placeholder"
+        }
+      ],
+      "mtime_ns": 1780083775793372800,
+      "size": 5166
+    },
+    "projects/project-01-platform-core/multi-tenancy/tenant-bootstrap.yaml": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 3848
+    },
+    "projects/project-01-platform-core/observability/grafana-dashboard.json": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 3624
+    },
+    "projects/project-01-platform-core/observability/metrics.md": {
+      "findings": [],
+      "mtime_ns": 1780083775793372800,
+      "size": 2491
+    },
+    "projects/project-01-platform-core/operator/crds.yaml": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 5699
+    },
+    "projects/project-01-platform-core/operator/reconcile.py": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 7527
+    },
+    "projects/project-01-platform-core/rubric.md": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 2979
+    },
+    "projects/project-02-feature-store/SOLUTION.md": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 18116
+    },
+    "projects/project-03-workflow-orchestration/README.md": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 2243
+    },
+    "projects/project-03-workflow-orchestration/SOLUTION.md": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 14856
+    },
+    "projects/project-03-workflow-orchestration/STEP_BY_STEP.md": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 10352
+    },
+    "projects/project-03-workflow-orchestration/api/pipeline.schema.json": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 5592
+    },
+    "projects/project-03-workflow-orchestration/examples/nightly-recs-retrain.yaml": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 1547
+    },
+    "projects/project-03-workflow-orchestration/executor/retry_classifier.py": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 4498
+    },
+    "projects/project-03-workflow-orchestration/executor/state_machine.py": {
+      "findings": [],
+      "mtime_ns": 1780083775797373023,
+      "size": 5031
+    },
+    "projects/project-03-workflow-orchestration/gates/condition.py": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 5458
+    },
+    "projects/project-03-workflow-orchestration/tests/test_state_machine.py": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 7466
+    },
+    "projects/project-04-model-registry/README.md": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 3356
+    },
+    "projects/project-04-model-registry/SOLUTION.md": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 15003
+    },
+    "projects/project-04-model-registry/STEP_BY_STEP.md": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 6444
+    },
+    "projects/project-04-model-registry/deployment/rollout-strategies.md": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 6111
+    },
+    "projects/project-04-model-registry/gates/evaluate.py": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 6199
+    },
+    "projects/project-04-model-registry/gates/gates.yaml": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 2115
+    },
+    "projects/project-04-model-registry/multi-tenancy/policy.md": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 3596
+    },
+    "projects/project-04-model-registry/observability/grafana-dashboard.json": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 3769
+    },
+    "projects/project-04-model-registry/observability/metrics.md": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 3497
+    },
+    "projects/project-04-model-registry/registry/openapi.yaml": {
+      "findings": [],
+      "mtime_ns": 1780083775801373245,
+      "size": 16016
+    },
+    "projects/project-04-model-registry/rubric.md": {
+      "findings": [],
+      "mtime_ns": 1780083775805373467,
+      "size": 3692
+    },
+    "projects/project-04-model-registry/signing/verify.py": {
+      "findings": [],
+      "mtime_ns": 1780083775805373467,
+      "size": 5609
     },
     "resources/README.md": {
       "findings": [],
-      "mtime_ns": 1779916458309139631,
+      "mtime_ns": 1780083775805373467,
       "size": 85
     }
   },
-  "generated_at": "2026-05-28T06:08:52Z",
+  "generated_at": "2026-05-29T21:04:05Z",
   "schema_version": 1
 }

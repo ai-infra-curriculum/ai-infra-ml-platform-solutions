@@ -1,14 +1,14 @@
 ## AICG Work Item
 
-- Work ID: `fill-project-01-platform-core-solution`
-- Project: `project-01-platform-core`
-- Type: `project_solution_gap`
+- Work ID: `depth-mod-001-platform-fundamentals-exercises`
+- Module: `mod-001-platform-fundamentals`
+- Type: `exercise_depth_followup`
 
 ## Audit Summary
 
 - Status: `fail`
-- Errors: `4`
-- Warnings: `2`
+- Errors: `1`
+- Warnings: `7`
 
 ## Validation Summary
 
@@ -18,5 +18,5 @@
 ## Rollback
 
 ```bash
-git checkout main && git branch -D aicg/2026-05-27/ai-infra-ml-platform-solutions/fill-project-01-platform-core-solution
+git checkout main && git branch -D aicg/2026-05-29/ai-infra-ml-platform-solutions/depth-mod-001-platform-fundamentals-exercises
 ```

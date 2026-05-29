@@ -1,15 +1,15 @@
 {
-  "command": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-content-generator/scripts/run-claude-content.sh --model claude-opus-4-7 --prompt /home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/fill-project-01-platform-core-solution.md --output-dir /home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/fill-project-01-platform-core-solution --repo /home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions --work-id fill-project-01-platform-core-solution",
+  "command": "/home/rook/ai-infra-curriculum/ai-infra-content-generator/scripts/run-claude-content.sh --model claude-opus-4-7 --prompt /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/depth-mod-001-platform-fundamentals-exercises.md --output-dir /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/depth-mod-001-platform-fundamentals-exercises --repo /home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions --work-id depth-mod-001-platform-fundamentals-exercises",
   "limit_pattern_unmatched": false,
-  "output_dir": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/fill-project-01-platform-core-solution",
-  "prompt_path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/fill-project-01-platform-core-solution.md",
+  "output_dir": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/generated/depth-mod-001-platform-fundamentals-exercises",
+  "prompt_path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions/.aicg/prompts/depth-mod-001-platform-fundamentals-exercises.md",
   "repo": "ai-infra-ml-platform-solutions",
   "returncode": 0,
   "schema_version": 1,
   "status": "verified",
   "stderr": "",
   "stdout": "",
-  "updated_at": "2026-05-28T06:04:14Z",
-  "verified_at": "2026-05-28T06:08:52Z",
-  "work_id": "fill-project-01-platform-core-solution"
+  "updated_at": "2026-05-29T21:02:23Z",
+  "verified_at": "2026-05-29T21:04:05Z",
+  "work_id": "depth-mod-001-platform-fundamentals-exercises"
 }

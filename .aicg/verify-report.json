@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-28T06:08:52Z",
+  "generated_at": "2026-05-29T21:04:05Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
@@ -15,14 +15,14 @@
       "actions": [
         {
           "findings": [],
-          "path": "projects/project-01-platform-core",
+          "path": "modules/mod-001-platform-fundamentals",
           "quality": null,
           "status": "ok",
           "type": "create_directory"
         },
         {
           "findings": [],
-          "path": "projects/project-01-platform-core/SOLUTION.md",
+          "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
           "quality": null,
           "status": "ok",
           "type": "write_solution"
@@ -31,7 +31,7 @@
       "finding_count": 0,
       "findings": [],
       "status": "verified",
-      "work_id": "fill-project-01-platform-core-solution"
+      "work_id": "depth-mod-001-platform-fundamentals-exercises"
     }
   ]
 }
