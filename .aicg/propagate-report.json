@@ -3,35 +3,35 @@
   "curriculum_appended": {
     "already_present": [],
     "appended": [
-      "fill-project-01-platform-core-solution"
+      "fill-project-05-developer-portal-solution"
     ],
     "present": true
   },
   "curriculum_suggestions": [
     {
-      "scope": "project-01-platform-core",
-      "suggestion": "Update `CURRICULUM.md` so the row for `project-01-platform-core` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
-      "work_id": "fill-project-01-platform-core-solution"
+      "scope": "project-05-developer-portal",
+      "suggestion": "Update `CURRICULUM.md` so the row for `project-05-developer-portal` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "fill-project-05-developer-portal-solution"
     }
   ],
-  "generated_at": "2026-05-28T06:08:52Z",
+  "generated_at": "2026-05-29T20:12:41Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
     "name": "ai-infra-ml-platform-solutions",
-    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions",
     "track": "ml-platform"
   },
   "schema_version": 1,
   "status": "updated",
   "updated": [
     {
-      "date": "2026-05-27",
+      "date": "2026-05-29",
       "module": null,
-      "project": "project-01-platform-core",
-      "title": "Author solution artifact for project-01-platform-core",
+      "project": "project-05-developer-portal",
+      "title": "Author solution artifact for project-05-developer-portal",
       "type": "project_solution_gap",
-      "work_id": "fill-project-01-platform-core-solution"
+      "work_id": "fill-project-05-developer-portal-solution"
     }
   ],
   "versions_path": "VERSIONS.md"

@@ -4,12 +4,12 @@
       "status": "fail"
     },
     "placeholder_scan": {
-      "finding_count": 0,
+      "finding_count": 4,
       "status": "pass"
     },
     "project_parity": {
       "project_count": 5,
-      "status": "fail"
+      "status": "pass"
     },
     "repo_structure": {
       "finding_count": 0,
@@ -36,39 +36,39 @@
       "type": "exercise_solution_module_level_only"
     },
     {
-      "expected_path": "projects/project-02-feature-store",
-      "learning_path": "projects/project-02-feature-store",
-      "message": "Missing solution project directory for project-02-feature-store.",
-      "project_id": "project-02-feature-store",
-      "severity": "error",
-      "type": "missing_solution_project"
+      "excerpt": "# v1alpha1 + conversion placeholder for v1beta1/v1.",
+      "line": 8,
+      "message": "Found placeholder marker.",
+      "path": "projects/project-01-platform-core/crd/training-run-crd.yaml",
+      "severity": "warning",
+      "type": "placeholder"
     },
     {
-      "expected_path": "projects/project-03-workflow-orchestration",
-      "learning_path": "projects/project-03-workflow-orchestration",
-      "message": "Missing solution project directory for project-03-workflow-orchestration.",
-      "project_id": "project-03-workflow-orchestration",
-      "severity": "error",
-      "type": "missing_solution_project"
+      "excerpt": "# Conversion placeholder. The webhook is wired in deploy/ once a v1beta1",
+      "line": 156,
+      "message": "Found placeholder marker.",
+      "path": "projects/project-01-platform-core/crd/training-run-crd.yaml",
+      "severity": "warning",
+      "type": "placeholder"
     },
     {
-      "expected_path": "projects/project-04-model-registry",
-      "learning_path": "projects/project-04-model-registry",
-      "message": "Missing solution project directory for project-04-model-registry.",
-      "project_id": "project-04-model-registry",
-      "severity": "error",
-      "type": "missing_solution_project"
+      "excerpt": "\"pending\",          # placeholder; updated after insert",
+      "line": 205,
+      "message": "Found placeholder marker.",
+      "path": "projects/project-01-platform-core/control-plane/training_runs.py",
+      "severity": "warning",
+      "type": "placeholder"
     },
     {
-      "expected_path": "projects/project-05-developer-portal",
-      "learning_path": "projects/project-05-developer-portal",
-      "message": "Missing solution project directory for project-05-developer-portal.",
-      "project_id": "project-05-developer-portal",
-      "severity": "error",
-      "type": "missing_solution_project"
+      "excerpt": "# Placeholder convention: `${TENANT_SLUG}`, `${TENANT_GROUP}`, and",
+      "line": 8,
+      "message": "Found placeholder marker.",
+      "path": "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml",
+      "severity": "warning",
+      "type": "placeholder"
     }
   ],
-  "generated_at": "2026-05-28T06:08:52Z",
+  "generated_at": "2026-05-29T20:12:42Z",
   "modules": [
     {
       "exercise_count": 5,
@@ -916,7 +916,7 @@
     "has_git": true,
     "kind": "learning",
     "name": "ai-infra-ml-platform-learning",
-    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-learning",
+    "path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-learning",
     "track": "ml-platform"
   },
   "projects": [
@@ -930,75 +930,39 @@
       "title": "Project 01: Self-Service ML Platform Core"
     },
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "expected_path": "projects/project-02-feature-store",
-          "learning_path": "projects/project-02-feature-store",
-          "message": "Missing solution project directory for project-02-feature-store.",
-          "project_id": "project-02-feature-store",
-          "severity": "error",
-          "type": "missing_solution_project"
-        }
-      ],
+      "found_artifact": "projects/project-02-feature-store/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-02-feature-store",
       "project_id": "project-02-feature-store",
-      "solution_path": null,
-      "status": "gap",
+      "solution_path": "projects/project-02-feature-store",
+      "status": "ok",
       "title": "Project 02: Enterprise Feature Store"
     },
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "expected_path": "projects/project-03-workflow-orchestration",
-          "learning_path": "projects/project-03-workflow-orchestration",
-          "message": "Missing solution project directory for project-03-workflow-orchestration.",
-          "project_id": "project-03-workflow-orchestration",
-          "severity": "error",
-          "type": "missing_solution_project"
-        }
-      ],
+      "found_artifact": "projects/project-03-workflow-orchestration/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-03-workflow-orchestration",
       "project_id": "project-03-workflow-orchestration",
-      "solution_path": null,
-      "status": "gap",
+      "solution_path": "projects/project-03-workflow-orchestration",
+      "status": "ok",
       "title": "Project 03: ML Workflow Orchestration Engine"
     },
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "expected_path": "projects/project-04-model-registry",
-          "learning_path": "projects/project-04-model-registry",
-          "message": "Missing solution project directory for project-04-model-registry.",
-          "project_id": "project-04-model-registry",
-          "severity": "error",
-          "type": "missing_solution_project"
-        }
-      ],
+      "found_artifact": "projects/project-04-model-registry/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-04-model-registry",
       "project_id": "project-04-model-registry",
-      "solution_path": null,
-      "status": "gap",
+      "solution_path": "projects/project-04-model-registry",
+      "status": "ok",
       "title": "Project 04: Model Management System"
     },
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "expected_path": "projects/project-05-developer-portal",
-          "learning_path": "projects/project-05-developer-portal",
-          "message": "Missing solution project directory for project-05-developer-portal.",
-          "project_id": "project-05-developer-portal",
-          "severity": "error",
-          "type": "missing_solution_project"
-        }
-      ],
+      "found_artifact": "projects/project-05-developer-portal/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-05-developer-portal",
       "project_id": "project-05-developer-portal",
-      "solution_path": null,
-      "status": "gap",
+      "solution_path": "projects/project-05-developer-portal",
+      "status": "ok",
       "title": "Project 05: Developer Portal & SDK"
     }
   ],
@@ -1006,7 +970,7 @@
     "has_git": true,
     "kind": "solutions",
     "name": "ai-infra-ml-platform-solutions",
-    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions",
     "track": "ml-platform"
   },
   "schema_version": 2,
@@ -1016,12 +980,12 @@
     "registry_last_verified": "2026-05-24"
   },
   "summary": {
-    "error_count": 4,
+    "error_count": 0,
     "gap_count": 6,
     "module_count": 9,
     "project_count": 5,
-    "status": "fail",
-    "warning_count": 2
+    "status": "pass",
+    "warning_count": 6
   },
-  "workspace": "/home/s0v3r1gn/ai-infra-curriculum"
+  "workspace": "/home/rook/ai-infra-curriculum"
 }

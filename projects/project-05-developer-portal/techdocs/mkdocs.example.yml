@@ -1,0 +1,41 @@
+# Inherited per-entity MkDocs configuration. Every catalog entity
+# that ships docs has an `mkdocs.yml` at the repo root with at
+# minimum the `plugins` and `theme` entries below.
+#
+# Validate with: `mkdocs build --strict`.
+
+site_name: ML platform docs
+docs_dir: docs
+
+# REQUIRED. The TechDocs MkDocs plugin emits the search index and
+# frontmatter the portal reader expects. Without it, the portal
+# silently falls back to plain MkDocs and search/anchors break.
+plugins:
+  - techdocs-core
+
+theme:
+  name: material
+  features:
+    - content.code.copy
+    - navigation.tabs
+    - navigation.top
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Reference: reference.md
+  - Runbook: runbook.md

@@ -1,0 +1,123 @@
+# Worked catalog descriptors for the ML platform's reference
+# components. Validate against the upstream Backstage descriptor
+# schema:
+#   https://backstage.io/docs/features/software-catalog/descriptor-format
+#
+# Multi-document YAML: one entity per `---` block.
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: ml-platform
+  description: >
+    Everything the platform team owns and ships: control plane,
+    feature store, workflow orchestrator, model registry, the
+    developer portal itself.
+spec:
+  owner: group:platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: ml-platform-core
+  description: Self-service training-run control plane.
+spec:
+  owner: group:platform-team
+  domain: ml-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  description: Internal ML platform engineering team.
+spec:
+  type: team
+  profile:
+    displayName: ML Platform
+  parent: engineering
+  children: []
+  members: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: team-recs
+  description: Recommendation systems team — example tenant.
+spec:
+  type: team
+  parent: engineering
+  children: []
+  members: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ml-platform-sdk
+  description: Python SDK that wraps the platform API surface.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: ai-infra-curriculum/ai-infra-ml-platform-learning
+spec:
+  type: library
+  lifecycle: production
+  owner: group:platform-team
+  system: ml-platform-core
+  providesApis:
+    - ml-platform-control-plane-v1
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ml-platform-control-plane-v1
+  description: Control-plane OpenAPI for TrainingRuns.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: group:platform-team
+  system: ml-platform-core
+  definition: |
+    openapi: 3.1.0
+    info:
+      title: ML Platform Control Plane
+      version: '1.0.0'
+    paths: {}
+
+---
+# Custom kind — MLModel. Validated by the
+# `MLModelEntityValidator` registered on the catalog backend.
+apiVersion: ml-platform.example.com/v1alpha1
+kind: MLModel
+metadata:
+  name: recsys-ctr-predictor
+  namespace: team-recs
+  description: Click-through-rate predictor for the home feed.
+  annotations:
+    ml-platform.example.com/registry-url: https://registry.example.com/v1/models/recsys-ctr-predictor
+    ml-platform.example.com/model-version-id: 00000000-0000-0000-0000-000000000001
+spec:
+  type: classifier
+  lifecycle: production
+  framework: pytorch-2.1
+  owner: group:team-recs
+  system: ml-platform-core
+  trainingRun: resource:default/training-run-2026-05-12-abc
+  dataset: dataset:default/recs-curated-2026-05
+
+---
+# Custom kind — Dataset.
+apiVersion: ml-platform.example.com/v1alpha1
+kind: Dataset
+metadata:
+  name: recs-curated-2026-05
+  description: Curated user-click dataset for May 2026.
+spec:
+  type: tabular
+  lifecycle: production
+  owner: group:team-recs
+  system: ml-platform-core
