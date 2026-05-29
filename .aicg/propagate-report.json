@@ -3,23 +3,23 @@
   "curriculum_appended": {
     "already_present": [],
     "appended": [
-      "depth-mod-001-platform-fundamentals-exercises"
+      "fill-project-05-developer-portal-solution"
     ],
     "present": true
   },
   "curriculum_suggestions": [
     {
-      "scope": "mod-001-platform-fundamentals",
-      "suggestion": "Update `CURRICULUM.md` so the row for `mod-001-platform-fundamentals` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
-      "work_id": "depth-mod-001-platform-fundamentals-exercises"
+      "scope": "project-05-developer-portal",
+      "suggestion": "Update `CURRICULUM.md` so the row for `project-05-developer-portal` reflects the newly-landed content. Schema varies per repo; this is a suggested edit, not an automated change.",
+      "work_id": "fill-project-05-developer-portal-solution"
     }
   ],
-  "generated_at": "2026-05-29T21:04:05Z",
+  "generated_at": "2026-05-29T20:12:41Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
     "name": "ai-infra-ml-platform-solutions",
-    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions",
     "track": "ml-platform"
   },
   "schema_version": 1,
@@ -27,11 +27,11 @@
   "updated": [
     {
       "date": "2026-05-29",
-      "module": "mod-001-platform-fundamentals",
-      "project": null,
-      "title": "Add exercise-level depth for mod-001-platform-fundamentals",
-      "type": "exercise_depth_followup",
-      "work_id": "depth-mod-001-platform-fundamentals-exercises"
+      "module": null,
+      "project": "project-05-developer-portal",
+      "title": "Author solution artifact for project-05-developer-portal",
+      "type": "project_solution_gap",
+      "work_id": "fill-project-05-developer-portal-solution"
     }
   ],
   "versions_path": "VERSIONS.md"

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-05-29T21:04:05Z",
+  "generated_at": "2026-05-29T20:12:41Z",
   "repo": {
     "has_git": true,
     "kind": "solutions",
     "name": "ai-infra-ml-platform-solutions",
-    "path": "/home/s0v3r1gn/ai-infra-curriculum/ai-infra-ml-platform-solutions",
+    "path": "/home/rook/ai-infra-curriculum/ai-infra-ml-platform-solutions",
     "track": "ml-platform"
   },
   "schema_version": 1,
@@ -15,14 +15,14 @@
       "actions": [
         {
           "findings": [],
-          "path": "modules/mod-001-platform-fundamentals",
+          "path": "projects/project-05-developer-portal",
           "quality": null,
           "status": "ok",
           "type": "create_directory"
         },
         {
           "findings": [],
-          "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
+          "path": "projects/project-05-developer-portal/SOLUTION.md",
           "quality": null,
           "status": "ok",
           "type": "write_solution"
@@ -31,7 +31,7 @@
       "finding_count": 0,
       "findings": [],
       "status": "verified",
-      "work_id": "depth-mod-001-platform-fundamentals-exercises"
+      "work_id": "fill-project-05-developer-portal-solution"
     }
   ]
 }

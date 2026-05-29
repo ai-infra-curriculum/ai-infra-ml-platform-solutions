@@ -4,12 +4,12 @@
       "status": "fail"
     },
     "placeholder_scan": {
-      "finding_count": 6,
+      "finding_count": 4,
       "status": "pass"
     },
     "project_parity": {
       "project_count": 5,
-      "status": "fail"
+      "status": "pass"
     },
     "repo_structure": {
       "finding_count": 0,
@@ -19,20 +19,21 @@
   "gaps": [
     {
       "exercise_id": "exercise-05",
+      "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+      "message": "mod-001-platform-fundamentals/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+      "module_id": "mod-001-platform-fundamentals",
+      "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+      "severity": "warning",
+      "type": "exercise_solution_module_level_only"
+    },
+    {
+      "exercise_id": "exercise-05",
       "learning_path": "lessons/mod-002-api-design/exercises/exercise-05-api-design-review.md",
       "message": "mod-002-api-design/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
       "module_id": "mod-002-api-design",
       "module_rationale_path": "modules/mod-002-api-design/SOLUTION.md",
       "severity": "warning",
       "type": "exercise_solution_module_level_only"
-    },
-    {
-      "expected_path": "projects/project-05-developer-portal",
-      "learning_path": "projects/project-05-developer-portal",
-      "message": "Missing solution project directory for project-05-developer-portal.",
-      "project_id": "project-05-developer-portal",
-      "severity": "error",
-      "type": "missing_solution_project"
     },
     {
       "excerpt": "# v1alpha1 + conversion placeholder for v1beta1/v1.",
@@ -65,25 +66,9 @@
       "path": "projects/project-01-platform-core/multi-tenancy/namespace-template.yaml",
       "severity": "warning",
       "type": "placeholder"
-    },
-    {
-      "excerpt": "needed but not yet sourced, flag it with an explicit TODO citation",
-      "line": 132,
-      "message": "Found todo marker.",
-      "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
-      "severity": "warning",
-      "type": "todo"
-    },
-    {
-      "excerpt": "placeholder rather than guessing.",
-      "line": 133,
-      "message": "Found placeholder marker.",
-      "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
-      "severity": "warning",
-      "type": "placeholder"
     }
   ],
-  "generated_at": "2026-05-29T21:04:05Z",
+  "generated_at": "2026-05-29T20:12:42Z",
   "modules": [
     {
       "exercise_count": 5,
@@ -151,8 +136,18 @@
         {
           "exercise_id": "exercise-05",
           "expected_solution_dir": "modules/mod-001-platform-fundamentals/exercise-05",
-          "found_artifact": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
-          "gaps": [],
+          "found_artifact": null,
+          "gaps": [
+            {
+              "exercise_id": "exercise-05",
+              "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+              "message": "mod-001-platform-fundamentals/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+              "module_id": "mod-001-platform-fundamentals",
+              "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+              "severity": "warning",
+              "type": "exercise_solution_module_level_only"
+            }
+          ],
           "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
           "required_artifacts": [
             "SOLUTION.md",
@@ -160,19 +155,29 @@
             "README.md"
           ],
           "slug": "case-study-analysis-michelangelo-metaflow",
-          "status": "ok",
+          "status": "module_rationale_only",
           "title": "Exercise 05: Case Study Analysis \u2014 Michelangelo vs Metaflow"
         }
       ],
-      "gaps": [],
+      "gaps": [
+        {
+          "exercise_id": "exercise-05",
+          "learning_path": "lessons/mod-001-platform-fundamentals/exercises/exercise-05-case-study-analysis-michelangelo-metaflow.md",
+          "message": "mod-001-platform-fundamentals/exercise-05 relies on module-level rationale instead of an exercise-level artifact.",
+          "module_id": "mod-001-platform-fundamentals",
+          "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
+          "severity": "warning",
+          "type": "exercise_solution_module_level_only"
+        }
+      ],
       "has_module_rationale": true,
       "learning_path": "lessons/mod-001-platform-fundamentals",
       "missing_solution_count": 0,
       "module_id": "mod-001-platform-fundamentals",
-      "module_rationale_only_count": 0,
+      "module_rationale_only_count": 1,
       "module_rationale_path": "modules/mod-001-platform-fundamentals/SOLUTION.md",
       "solution_path": "modules/mod-001-platform-fundamentals",
-      "status": "ok"
+      "status": "module_rationale_only"
     },
     {
       "exercise_count": 5,
@@ -952,21 +957,12 @@
       "title": "Project 04: Model Management System"
     },
     {
-      "found_artifact": null,
-      "gaps": [
-        {
-          "expected_path": "projects/project-05-developer-portal",
-          "learning_path": "projects/project-05-developer-portal",
-          "message": "Missing solution project directory for project-05-developer-portal.",
-          "project_id": "project-05-developer-portal",
-          "severity": "error",
-          "type": "missing_solution_project"
-        }
-      ],
+      "found_artifact": "projects/project-05-developer-portal/SOLUTION.md",
+      "gaps": [],
       "learning_path": "projects/project-05-developer-portal",
       "project_id": "project-05-developer-portal",
-      "solution_path": null,
-      "status": "gap",
+      "solution_path": "projects/project-05-developer-portal",
+      "status": "ok",
       "title": "Project 05: Developer Portal & SDK"
     }
   ],
@@ -984,12 +980,12 @@
     "registry_last_verified": "2026-05-24"
   },
   "summary": {
-    "error_count": 1,
-    "gap_count": 8,
+    "error_count": 0,
+    "gap_count": 6,
     "module_count": 9,
     "project_count": 5,
-    "status": "fail",
-    "warning_count": 7
+    "status": "pass",
+    "warning_count": 6
   },
   "workspace": "/home/rook/ai-infra-curriculum"
 }

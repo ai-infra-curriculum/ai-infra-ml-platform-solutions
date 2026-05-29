@@ -12,8 +12,8 @@
     },
     "CURRICULUM.md": {
       "findings": [],
-      "mtime_ns": 1780088645101041096,
-      "size": 1687
+      "mtime_ns": 1780085561630272289,
+      "size": 1679
     },
     "LEARNING_GUIDE.md": {
       "findings": [],
@@ -27,8 +27,8 @@
     },
     "SOLUTIONS_INDEX.md": {
       "findings": [],
-      "mtime_ns": 1780085569182596604,
-      "size": 2663
+      "mtime_ns": 1780085505171877170,
+      "size": 2865
     },
     "SOLUTION_OVERVIEW.md": {
       "findings": [],
@@ -37,8 +37,8 @@
     },
     "VERSIONS.md": {
       "findings": [],
-      "mtime_ns": 1780088645101041096,
-      "size": 839
+      "mtime_ns": 1780085561630272289,
+      "size": 831
     },
     "guides/README.md": {
       "findings": [],
@@ -94,28 +94,6 @@
       "findings": [],
       "mtime_ns": 1780083775773371690,
       "size": 1291
-    },
-    "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md": {
-      "findings": [
-        {
-          "excerpt": "needed but not yet sourced, flag it with an explicit TODO citation",
-          "line": 132,
-          "message": "Found todo marker.",
-          "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
-          "severity": "warning",
-          "type": "todo"
-        },
-        {
-          "excerpt": "placeholder rather than guessing.",
-          "line": 133,
-          "message": "Found placeholder marker.",
-          "path": "modules/mod-001-platform-fundamentals/exercise-05/SOLUTION.md",
-          "severity": "warning",
-          "type": "placeholder"
-        }
-      ],
-      "mtime_ns": 1780088641201087372,
-      "size": 7181
     },
     "modules/mod-002-api-design/README.md": {
       "findings": [],
@@ -782,12 +760,92 @@
       "mtime_ns": 1780083775805373467,
       "size": 5609
     },
+    "projects/project-05-developer-portal/README.md": {
+      "findings": [],
+      "mtime_ns": 1780085116961714942,
+      "size": 3924
+    },
+    "projects/project-05-developer-portal/SOLUTION.md": {
+      "findings": [],
+      "mtime_ns": 1780085555942028553,
+      "size": 20829
+    },
+    "projects/project-05-developer-portal/STEP_BY_STEP.md": {
+      "findings": [],
+      "mtime_ns": 1780085161357479293,
+      "size": 7477
+    },
+    "projects/project-05-developer-portal/auth/identity.md": {
+      "findings": [],
+      "mtime_ns": 1780085431820877872,
+      "size": 5227
+    },
+    "projects/project-05-developer-portal/catalog/catalog-info.yaml": {
+      "findings": [],
+      "mtime_ns": 1780085211881993807,
+      "size": 3034
+    },
+    "projects/project-05-developer-portal/catalog/entity-kinds.md": {
+      "findings": [],
+      "mtime_ns": 1780085242562598257,
+      "size": 4891
+    },
+    "projects/project-05-developer-portal/catalog/processors.md": {
+      "findings": [],
+      "mtime_ns": 1780085274655405446,
+      "size": 4887
+    },
+    "projects/project-05-developer-portal/observability/adoption-metrics.md": {
+      "findings": [],
+      "mtime_ns": 1780085490635270787,
+      "size": 4981
+    },
+    "projects/project-05-developer-portal/plugins/plugin-architecture.md": {
+      "findings": [],
+      "mtime_ns": 1780085459325983377,
+      "size": 4305
+    },
+    "projects/project-05-developer-portal/rubric.md": {
+      "findings": [],
+      "mtime_ns": 1780085191033698958,
+      "size": 4984
+    },
+    "projects/project-05-developer-portal/scaffolder/templates.md": {
+      "findings": [],
+      "mtime_ns": 1780085304428279831,
+      "size": 4169
+    },
+    "projects/project-05-developer-portal/scaffolder/training-run-template.yaml": {
+      "findings": [],
+      "mtime_ns": 1780085325524958209,
+      "size": 4099
+    },
+    "projects/project-05-developer-portal/scorecards/scorecard-definitions.yaml": {
+      "findings": [],
+      "mtime_ns": 1780085400375650981,
+      "size": 4403
+    },
+    "projects/project-05-developer-portal/scorecards/scorecards.md": {
+      "findings": [],
+      "mtime_ns": 1780085380102885695,
+      "size": 3746
+    },
+    "projects/project-05-developer-portal/techdocs/architecture.md": {
+      "findings": [],
+      "mtime_ns": 1780085348613746670,
+      "size": 3742
+    },
+    "projects/project-05-developer-portal/techdocs/mkdocs.example.yml": {
+      "findings": [],
+      "mtime_ns": 1780085356594028938,
+      "size": 961
+    },
     "resources/README.md": {
       "findings": [],
       "mtime_ns": 1780083775805373467,
       "size": 85
     }
   },
-  "generated_at": "2026-05-29T21:04:05Z",
+  "generated_at": "2026-05-29T20:12:42Z",
   "schema_version": 1
 }
