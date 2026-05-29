@@ -66,15 +66,29 @@
       "type": "nav_missing_reference"
     },
     {
-      "message": "`CURRICULUM.md` does not reference project `project-01-platform-core` that exists on disk.",
-      "path": "CURRICULUM.md#project-01-platform-core",
+      "message": "`CURRICULUM.md` does not reference project `project-02-feature-store` that exists on disk.",
+      "path": "CURRICULUM.md#project-02-feature-store",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "warning",
+      "type": "nav_missing_reference"
+    },
+    {
+      "message": "`CURRICULUM.md` does not reference project `project-03-workflow-orchestration` that exists on disk.",
+      "path": "CURRICULUM.md#project-03-workflow-orchestration",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "warning",
+      "type": "nav_missing_reference"
+    },
+    {
+      "message": "`CURRICULUM.md` does not reference project `project-04-model-registry` that exists on disk.",
+      "path": "CURRICULUM.md#project-04-model-registry",
       "repo": "ai-infra-ml-platform-solutions",
       "severity": "warning",
       "type": "nav_missing_reference"
     }
   ],
-  "gap_count": 10,
-  "generated_at": "2026-05-28T19:34:27Z",
+  "gap_count": 12,
+  "generated_at": "2026-05-29T19:45:26Z",
   "modules_on_disk": [
     "mod-001-platform-fundamentals",
     "mod-002-api-design",
@@ -89,6 +103,8 @@
   "operation": "curriculum_nav_audit",
   "projects_on_disk": [
     "project-01-platform-core",
+    "project-02-feature-store",
+    "project-03-workflow-orchestration",
     "project-04-model-registry"
   ],
   "repo": "ai-infra-ml-platform-solutions",
@@ -185,13 +201,33 @@
       "type": "curriculum_nav_drift"
     },
     {
-      "details": "`CURRICULUM.md` does not reference project `project-01-platform-core` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-project-01-platform-core",
-      "path": "CURRICULUM.md#project-01-platform-core",
+      "details": "`CURRICULUM.md` does not reference project `project-02-feature-store` that exists on disk.",
+      "id": "nav-nav-missing-reference-curriculum-md-project-02-feature-store",
+      "path": "CURRICULUM.md#project-02-feature-store",
       "repo": "ai-infra-ml-platform-solutions",
       "severity": "warning",
       "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference project `project-01-platform-core` that exists on disk.",
+      "title": "`CURRICULUM.md` does not reference project `project-02-feature-store` that exists on disk.",
+      "type": "curriculum_nav_drift"
+    },
+    {
+      "details": "`CURRICULUM.md` does not reference project `project-03-workflow-orchestration` that exists on disk.",
+      "id": "nav-nav-missing-reference-curriculum-md-project-03-workflow-orchestration",
+      "path": "CURRICULUM.md#project-03-workflow-orchestration",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "warning",
+      "subtype": "nav_missing_reference",
+      "title": "`CURRICULUM.md` does not reference project `project-03-workflow-orchestration` that exists on disk.",
+      "type": "curriculum_nav_drift"
+    },
+    {
+      "details": "`CURRICULUM.md` does not reference project `project-04-model-registry` that exists on disk.",
+      "id": "nav-nav-missing-reference-curriculum-md-project-04-model-registry",
+      "path": "CURRICULUM.md#project-04-model-registry",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "warning",
+      "subtype": "nav_missing_reference",
+      "title": "`CURRICULUM.md` does not reference project `project-04-model-registry` that exists on disk.",
       "type": "curriculum_nav_drift"
     }
   ]

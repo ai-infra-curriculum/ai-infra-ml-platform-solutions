@@ -1,0 +1,132 @@
+# Canonical Software Template for the "new training run" golden
+# path. Validate against the upstream Software Template schema:
+#   https://backstage.io/docs/features/software-templates/writing-templates/
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: training-run-from-scratch
+  title: New training run (from scratch)
+  description: >
+    Start a new ML training project against the platform's
+    TrainingRun control plane. Produces a repo wired with the
+    SDK, the required catalog descriptor, and TechDocs.
+  tags:
+    - ml-platform
+    - recommended
+spec:
+  owner: group:platform-team
+  type: service
+
+  parameters:
+    - title: Identity
+      required:
+        - name
+        - owner
+        - tenant
+      properties:
+        name:
+          title: Component name
+          type: string
+          description: kebab-case, used as repo name and catalog key
+          pattern: '^[a-z][a-z0-9-]{1,38}[a-z0-9]$'
+          ui:autofocus: true
+        owner:
+          title: Owner
+          type: string
+          description: Team that owns the new component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+        tenant:
+          title: Tenant
+          type: string
+          description: Tenant namespace the run executes under
+          ui:field: OwnedEntityPicker
+          ui:options:
+            allowedKinds:
+              - Group
+            catalogFilter:
+              - kind: Group
+                spec.type: tenant
+
+    - title: Training job
+      required:
+        - framework
+        - dataset
+      properties:
+        framework:
+          title: ML framework
+          type: string
+          enum:
+            - pytorch
+            - tensorflow
+            - jax
+          enumNames:
+            - PyTorch 2.x
+            - TensorFlow 2.x
+            - JAX
+        dataset:
+          title: Training dataset
+          type: string
+          description: Dataset registered in the catalog
+          ui:field: EntityPicker
+          ui:options:
+            allowedKinds:
+              - Dataset
+
+  steps:
+    - id: fetch-skeleton
+      name: Fetch repo skeleton
+      action: fetch:template
+      input:
+        url: ./skeletons/${{ parameters.framework }}
+        values:
+          name: ${{ parameters.name }}
+          owner: ${{ parameters.owner }}
+          tenant: ${{ parameters.tenant }}
+          dataset: ${{ parameters.dataset }}
+
+    - id: publish-github
+      name: Publish to GitHub (per-tenant app installation)
+      action: publish:github
+      input:
+        repoUrl: github.com?owner=${{ parameters.tenant }}&repo=${{ parameters.name }}
+        defaultBranch: main
+        protectDefaultBranch: true
+        deleteBranchOnMerge: true
+        # Use the per-tenant GitHub App, never a shared PAT.
+        token: ${{ secrets[ 'tenant-app-token-' + parameters.tenant ] }}
+
+    - id: open-pr
+      name: Open onboarding PR
+      action: github:pull-request:create
+      input:
+        repoUrl: ${{ steps['publish-github'].output.repoContentsUrl }}
+        title: 'chore: scaffold ${{ parameters.name }}'
+        body: |
+          Scaffolded by the ML platform Scaffolder from the
+          `training-run-from-scratch` template.
+          - Owner: ${{ parameters.owner }}
+          - Tenant: ${{ parameters.tenant }}
+          - Framework: ${{ parameters.framework }}
+          - Dataset: ${{ parameters.dataset }}
+        branchName: scaffold/${{ parameters.name }}
+
+    # REQUIRED FINAL STEP. A template that omits this is an F2
+    # hard fail — silently un-cataloged services are exactly
+    # the bug class this prevents.
+    - id: catalog-register
+      name: Register in catalog
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps['publish-github'].output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Pull request
+        url: ${{ steps['open-pr'].output.remoteUrl }}
+      - title: Catalog entry
+        icon: catalog
+        entityRef: ${{ steps['catalog-register'].output.entityRef }}
