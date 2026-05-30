@@ -86,3 +86,9 @@ See [`LICENSE`](./LICENSE).
 
 **Last updated**: 2026-05-25
 **Maintainer**: AI Infrastructure Curriculum Project
+
+
+---
+
+<!-- aicg:maintained-by -->
+Maintained by [VeriSwarm.ai](https://veriswarm.ai)
