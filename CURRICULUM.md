@@ -39,3 +39,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 | 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-004-feature-store` | `mod-004-feature-store` | Align CURRICULUM.md nav reference for mod-004-feature-store |
 | 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-005-workflow-orchestration` | `mod-005-workflow-orchestration` | Align CURRICULUM.md nav reference for mod-005-workflow-orchestration |
 | 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-006-model-management` | `mod-006-model-management` | Align CURRICULUM.md nav reference for mod-006-model-management |
+| 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-007-developer-experience` | `mod-007-developer-experience` | Align CURRICULUM.md nav reference for mod-007-developer-experience |
