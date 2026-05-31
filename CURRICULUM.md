@@ -35,3 +35,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 | 2026-05-29 | `fill-project-05-developer-portal-solution` | `project-05-developer-portal` | Author solution artifact for project-05-developer-portal |
 | 2026-05-29 | `depth-mod-001-platform-fundamentals-exercises` | `mod-001-platform-fundamentals` | Add exercise-level depth for mod-001-platform-fundamentals |
 | 2026-05-29 | `depth-mod-002-api-design-exercises` | `mod-002-api-design` | Add exercise-level depth for mod-002-api-design |
+| 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-003-multi-tenancy-resources` | `mod-003-multi-tenancy-resources` | Align CURRICULUM.md nav reference for mod-003-multi-tenancy-resources |
