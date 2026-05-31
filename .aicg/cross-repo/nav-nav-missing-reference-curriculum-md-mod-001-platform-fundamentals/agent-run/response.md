@@ -1,0 +1,1 @@
+Added a row to the Shipped table in CURRICULUM.md for `mod-001-platform-fundamentals` using the verified work item from `.aicg/work-plan.json` (id `depth-mod-001-platform-fundamentals-exercises`, verified 2026-05-29). The column shape matches the existing rows, and no other sections were touched.

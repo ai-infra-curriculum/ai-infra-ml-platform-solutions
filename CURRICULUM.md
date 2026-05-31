@@ -33,3 +33,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 |---|---|---|---|
 | 2026-05-27 | `fill-project-01-platform-core-solution` | `project-01-platform-core` | Author solution artifact for project-01-platform-core |
 | 2026-05-29 | `fill-project-05-developer-portal-solution` | `project-05-developer-portal` | Author solution artifact for project-05-developer-portal |
+| 2026-05-29 | `depth-mod-001-platform-fundamentals-exercises` | `mod-001-platform-fundamentals` | Add exercise-level depth for mod-001-platform-fundamentals |
