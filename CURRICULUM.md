@@ -37,3 +37,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 | 2026-05-29 | `depth-mod-002-api-design-exercises` | `mod-002-api-design` | Add exercise-level depth for mod-002-api-design |
 | 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-003-multi-tenancy-resources` | `mod-003-multi-tenancy-resources` | Align CURRICULUM.md nav reference for mod-003-multi-tenancy-resources |
 | 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-004-feature-store` | `mod-004-feature-store` | Align CURRICULUM.md nav reference for mod-004-feature-store |
+| 2026-05-30 | `nav-nav-missing-reference-curriculum-md-mod-005-workflow-orchestration` | `mod-005-workflow-orchestration` | Align CURRICULUM.md nav reference for mod-005-workflow-orchestration |
