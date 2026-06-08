@@ -1,7 +1,7 @@
 # Identity and access
 
 The portal is the auth boundary the user sees. SSO at the portal,
-[OAuth 2.0 Token Exchange (RFC 8693)](https://www.rfc-editor.org/rfc/rfc8693)
+[OAuth 2.0 Token Exchange (RFC 8693)](https://www.rfc-editor.org/info/rfc8693/)
 for every downstream call. The user signs in once a day; every
 downstream API call rides a short-lived token bound to the user's
 identity and tenant.
@@ -119,11 +119,11 @@ in-portal flag; the IdP's claim is the source of truth.
 ## References
 
 - OAuth 2.0 Authorization Framework (RFC 6749):
-  <https://www.rfc-editor.org/rfc/rfc6749>
+  <https://www.rfc-editor.org/info/rfc6749/>
 - OAuth 2.0 Token Exchange (RFC 8693):
-  <https://www.rfc-editor.org/rfc/rfc8693>
+  <https://www.rfc-editor.org/info/rfc8693/>
 - OAuth 2.0 for Browser-Based Apps (RFC 9700, BCP 240):
-  <https://www.rfc-editor.org/rfc/rfc9700>
+  <https://www.rfc-editor.org/info/rfc9700/>
 - OpenID Connect Core 1.0:
   <https://openid.net/specs/openid-connect-core-1_0.html>
 - OpenID Connect RP-Initiated Logout 1.0:
