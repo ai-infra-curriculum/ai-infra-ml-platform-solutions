@@ -237,7 +237,7 @@ gate at the registry promotion path (project-04 §F3) is where
 - API calls from the portal frontend to the portal backend
   carry the session cookie. API calls from the portal backend
   to the platform APIs use OAuth 2.0 Token Exchange
-  ([RFC 8693](https://www.rfc-editor.org/rfc/rfc8693)) — the
+  ([RFC 8693](https://www.rfc-editor.org/info/rfc8693/)) — the
   portal exchanges its server identity + the user's sub for a
   short-lived access token bound to the user. Project-01's
   control plane validates the token against the IdP; the
@@ -431,9 +431,9 @@ External (official):
   (definitions of internal developer platforms, platform-as-product,
   golden paths): <https://tag-app-delivery.cncf.io/whitepapers/platforms/>
 - OAuth 2.0 Token Exchange (RFC 8693):
-  <https://www.rfc-editor.org/rfc/rfc8693>
+  <https://www.rfc-editor.org/info/rfc8693/>
 - OAuth 2.0 Authorization Framework (RFC 6749):
-  <https://www.rfc-editor.org/rfc/rfc6749>
+  <https://www.rfc-editor.org/info/rfc6749/>
 - OpenID Connect Core 1.0:
   <https://openid.net/specs/openid-connect-core-1_0.html>
 - MkDocs (TechDocs build engine):
