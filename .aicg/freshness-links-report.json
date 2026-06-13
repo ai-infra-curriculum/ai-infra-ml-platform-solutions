@@ -1,0 +1,277 @@
+{
+  "broken_count": 14,
+  "broken_findings": [
+    {
+      "file_path": "CODE_OF_CONDUCT.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://github.com/ai-infra-curriculum/ai-infra-engineer-learning/discussions"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/SOLUTION.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://www.rfc-editor.org/rfc/rfc8693"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/SOLUTION.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://www.rfc-editor.org/rfc/rfc6749"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/SOLUTION.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://github.com/ai-infra-curriculum/ai-infra-engineer-solutions/tree/main/modules/mod-107-developer-experience"
+    },
+    {
+      "file_path": "projects/project-02-feature-store/SOLUTION.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://docs.sigstore.dev/cosign/overview/"
+    },
+    {
+      "file_path": "projects/project-01-platform-core/STEP_BY_STEP.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning/tree/main/projects/project-01-platform-core`"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/scorecards/scorecards.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://backstage.io/docs/features/tech-insights/"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/auth/identity.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://www.rfc-editor.org/rfc/rfc8693"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/auth/identity.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://www.rfc-editor.org/rfc/rfc6749"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/auth/identity.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://www.rfc-editor.org/rfc/rfc9700"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/techdocs/architecture.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://github.com/.../docs`"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/scaffolder/templates.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://backstage.io/docs/reference/plugin-scaffolder-backend-module-bitbucket-cloud/"
+    },
+    {
+      "file_path": "projects/project-05-developer-portal/observability/adoption-metrics.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://dora.dev/research/platform-engineering/"
+    },
+    {
+      "file_path": "modules/mod-009-security-governance/exercise-04/README.md",
+      "reason": "Not Found",
+      "status": 404,
+      "url": "https://github.com/ai-infra-curriculum/ai-infra-mlops-learning/tree/main/projects/project-4-governance"
+    }
+  ],
+  "files_scanned": 62,
+  "generated_at": "2026-06-04T21:13:01Z",
+  "operation": "freshness_links",
+  "repo": "ai-infra-ml-platform-solutions",
+  "schema_version": 1,
+  "urls_unique": 123,
+  "work_items": [
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://github.com/ai-infra-curriculum/ai-infra-engineer-learning/discussions"
+        }
+      ],
+      "id": "refresh-links-code-of-conduct-md",
+      "path": "CODE_OF_CONDUCT.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in CODE_OF_CONDUCT.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://github.com/ai-infra-curriculum/ai-infra-mlops-learning/tree/main/projects/project-4-governance"
+        }
+      ],
+      "id": "refresh-links-modules-mod-009-security-governance-exercise-04-readme-md",
+      "path": "modules/mod-009-security-governance/exercise-04/README.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in modules/mod-009-security-governance/exercise-04/README.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://github.com/ai-infra-curriculum/ai-infra-ml-platform-learning/tree/main/projects/project-01-platform-core`"
+        }
+      ],
+      "id": "refresh-links-projects-project-01-platform-core-step-by-step-md",
+      "path": "projects/project-01-platform-core/STEP_BY_STEP.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in projects/project-01-platform-core/STEP_BY_STEP.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://docs.sigstore.dev/cosign/overview/"
+        }
+      ],
+      "id": "refresh-links-projects-project-02-feature-store-solution-md",
+      "path": "projects/project-02-feature-store/SOLUTION.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in projects/project-02-feature-store/SOLUTION.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 3,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://www.rfc-editor.org/rfc/rfc8693"
+        },
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://www.rfc-editor.org/rfc/rfc6749"
+        },
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://github.com/ai-infra-curriculum/ai-infra-engineer-solutions/tree/main/modules/mod-107-developer-experience"
+        }
+      ],
+      "id": "refresh-links-projects-project-05-developer-portal-solution-md",
+      "path": "projects/project-05-developer-portal/SOLUTION.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "medium",
+      "title": "Fix 3 broken link(s) in projects/project-05-developer-portal/SOLUTION.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 3,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://www.rfc-editor.org/rfc/rfc8693"
+        },
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://www.rfc-editor.org/rfc/rfc6749"
+        },
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://www.rfc-editor.org/rfc/rfc9700"
+        }
+      ],
+      "id": "refresh-links-projects-project-05-developer-portal-auth-identity-md",
+      "path": "projects/project-05-developer-portal/auth/identity.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "medium",
+      "title": "Fix 3 broken link(s) in projects/project-05-developer-portal/auth/identity.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://dora.dev/research/platform-engineering/"
+        }
+      ],
+      "id": "refresh-links-projects-project-05-developer-portal-observability-adoption-metrics-md",
+      "path": "projects/project-05-developer-portal/observability/adoption-metrics.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in projects/project-05-developer-portal/observability/adoption-metrics.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://backstage.io/docs/reference/plugin-scaffolder-backend-module-bitbucket-cloud/"
+        }
+      ],
+      "id": "refresh-links-projects-project-05-developer-portal-scaffolder-templates-md",
+      "path": "projects/project-05-developer-portal/scaffolder/templates.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in projects/project-05-developer-portal/scaffolder/templates.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://backstage.io/docs/features/tech-insights/"
+        }
+      ],
+      "id": "refresh-links-projects-project-05-developer-portal-scorecards-scorecards-md",
+      "path": "projects/project-05-developer-portal/scorecards/scorecards.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in projects/project-05-developer-portal/scorecards/scorecards.md",
+      "type": "refresh_links"
+    },
+    {
+      "broken_count": 1,
+      "details": [
+        {
+          "reason": "Not Found",
+          "status": 404,
+          "url": "https://github.com/.../docs`"
+        }
+      ],
+      "id": "refresh-links-projects-project-05-developer-portal-techdocs-architecture-md",
+      "path": "projects/project-05-developer-portal/techdocs/architecture.md",
+      "repo": "ai-infra-ml-platform-solutions",
+      "severity": "low",
+      "title": "Fix 1 broken link(s) in projects/project-05-developer-portal/techdocs/architecture.md",
+      "type": "refresh_links"
+    }
+  ]
+}
