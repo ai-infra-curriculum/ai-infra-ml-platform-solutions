@@ -43,3 +43,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 | 2026-05-31 | `nav-nav-missing-reference-curriculum-md-mod-008-observability` | `mod-008-observability` | Align CURRICULUM.md nav reference for mod-008-observability |
 | 2026-05-31 | `nav-nav-missing-reference-curriculum-md-mod-009-security-governance` | `mod-009-security-governance` | Align CURRICULUM.md nav reference for mod-009-security-governance |
 | 2026-05-31 | `nav-nav-missing-reference-curriculum-md-project-02-feature-store` | `project-02-feature-store` | Align CURRICULUM.md nav reference for project-02-feature-store |
+| 2026-06-12 | `nav-nav-missing-reference-curriculum-md-project-03-workflow-orchestration` | `project-03-workflow-orchestration` | Align CURRICULUM.md nav reference for project-03-workflow-orchestration |

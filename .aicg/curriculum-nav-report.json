@@ -3,76 +3,6 @@
   "curriculum_md_present": true,
   "findings": [
     {
-      "message": "`CURRICULUM.md` does not reference module `mod-001-platform-fundamentals` that exists on disk.",
-      "path": "CURRICULUM.md#mod-001-platform-fundamentals",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-002-api-design` that exists on disk.",
-      "path": "CURRICULUM.md#mod-002-api-design",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-003-multi-tenancy-resources` that exists on disk.",
-      "path": "CURRICULUM.md#mod-003-multi-tenancy-resources",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-004-feature-store` that exists on disk.",
-      "path": "CURRICULUM.md#mod-004-feature-store",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-005-workflow-orchestration` that exists on disk.",
-      "path": "CURRICULUM.md#mod-005-workflow-orchestration",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-006-model-management` that exists on disk.",
-      "path": "CURRICULUM.md#mod-006-model-management",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-007-developer-experience` that exists on disk.",
-      "path": "CURRICULUM.md#mod-007-developer-experience",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-008-observability` that exists on disk.",
-      "path": "CURRICULUM.md#mod-008-observability",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference module `mod-009-security-governance` that exists on disk.",
-      "path": "CURRICULUM.md#mod-009-security-governance",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
-      "message": "`CURRICULUM.md` does not reference project `project-02-feature-store` that exists on disk.",
-      "path": "CURRICULUM.md#project-02-feature-store",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "type": "nav_missing_reference"
-    },
-    {
       "message": "`CURRICULUM.md` does not reference project `project-03-workflow-orchestration` that exists on disk.",
       "path": "CURRICULUM.md#project-03-workflow-orchestration",
       "repo": "ai-infra-ml-platform-solutions",
@@ -87,8 +17,8 @@
       "type": "nav_missing_reference"
     }
   ],
-  "gap_count": 12,
-  "generated_at": "2026-05-29T19:45:26Z",
+  "gap_count": 2,
+  "generated_at": "2026-06-01T22:27:33Z",
   "modules_on_disk": [
     "mod-001-platform-fundamentals",
     "mod-002-api-design",
@@ -105,111 +35,12 @@
     "project-01-platform-core",
     "project-02-feature-store",
     "project-03-workflow-orchestration",
-    "project-04-model-registry"
+    "project-04-model-registry",
+    "project-05-developer-portal"
   ],
   "repo": "ai-infra-ml-platform-solutions",
   "schema_version": 1,
   "work_items": [
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-001-platform-fundamentals` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-001-platform-fundamentals",
-      "path": "CURRICULUM.md#mod-001-platform-fundamentals",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-001-platform-fundamentals` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-002-api-design` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-002-api-design",
-      "path": "CURRICULUM.md#mod-002-api-design",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-002-api-design` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-003-multi-tenancy-resources` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-003-multi-tenancy-resources",
-      "path": "CURRICULUM.md#mod-003-multi-tenancy-resources",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-003-multi-tenancy-resources` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-004-feature-store` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-004-feature-store",
-      "path": "CURRICULUM.md#mod-004-feature-store",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-004-feature-store` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-005-workflow-orchestration` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-005-workflow-orchestration",
-      "path": "CURRICULUM.md#mod-005-workflow-orchestration",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-005-workflow-orchestration` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-006-model-management` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-006-model-management",
-      "path": "CURRICULUM.md#mod-006-model-management",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-006-model-management` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-007-developer-experience` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-007-developer-experience",
-      "path": "CURRICULUM.md#mod-007-developer-experience",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-007-developer-experience` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-008-observability` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-008-observability",
-      "path": "CURRICULUM.md#mod-008-observability",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-008-observability` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference module `mod-009-security-governance` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-mod-009-security-governance",
-      "path": "CURRICULUM.md#mod-009-security-governance",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference module `mod-009-security-governance` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
-    {
-      "details": "`CURRICULUM.md` does not reference project `project-02-feature-store` that exists on disk.",
-      "id": "nav-nav-missing-reference-curriculum-md-project-02-feature-store",
-      "path": "CURRICULUM.md#project-02-feature-store",
-      "repo": "ai-infra-ml-platform-solutions",
-      "severity": "warning",
-      "subtype": "nav_missing_reference",
-      "title": "`CURRICULUM.md` does not reference project `project-02-feature-store` that exists on disk.",
-      "type": "curriculum_nav_drift"
-    },
     {
       "details": "`CURRICULUM.md` does not reference project `project-03-workflow-orchestration` that exists on disk.",
       "id": "nav-nav-missing-reference-curriculum-md-project-03-workflow-orchestration",

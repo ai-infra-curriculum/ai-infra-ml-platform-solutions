@@ -1,0 +1,10 @@
+{
+  "finding_count": 0,
+  "findings": [],
+  "generated_at": "2026-05-31T10:08:31Z",
+  "operation": "freshness_versions",
+  "repo": "ai-infra-ml-platform-solutions",
+  "schema_version": 1,
+  "target_count": 15,
+  "work_items": []
+}
