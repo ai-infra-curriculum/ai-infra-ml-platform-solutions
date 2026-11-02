@@ -1,1 +1,0 @@
-Added a row to `CURRICULUM.md`'s Shipped table for `project-04-model-registry`, matching the column shape used for the prior nav-drift entries (verified project exists on disk at `projects/project-04-model-registry/`).
