@@ -1,5 +1,12 @@
 # Versions
 
+## 2026-11
+
+| Date | Work ID | Scope | Title |
+|---|---|---|---|
+| 2026-11-04 | `fill-mod-001-platform-fundamentals-solutions` | `mod-001-platform-fundamentals` | Fill mod-001-platform-fundamentals module exercise solutions |
+
+
 ## 2026-05
 
 | Date | Work ID | Scope | Title |
