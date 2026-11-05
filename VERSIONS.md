@@ -1,5 +1,12 @@
 # Versions
 
+## 2026-11
+
+| Date | Work ID | Scope | Title |
+|---|---|---|---|
+| 2026-11-04 | `fill-mod-003-multi-tenancy-resources-solutions` | `mod-003-multi-tenancy-resources` | Fill mod-003-multi-tenancy-resources module exercise solutions |
+
+
 ## 2026-05
 
 | Date | Work ID | Scope | Title |
