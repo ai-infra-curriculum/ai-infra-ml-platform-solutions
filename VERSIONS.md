@@ -1,5 +1,12 @@
 # Versions
 
+## 2026-11
+
+| Date | Work ID | Scope | Title |
+|---|---|---|---|
+| 2026-11-04 | `fill-mod-005-workflow-orchestration-solutions` | `mod-005-workflow-orchestration` | Fill mod-005-workflow-orchestration module exercise solutions |
+
+
 ## 2026-05
 
 | Date | Work ID | Scope | Title |
