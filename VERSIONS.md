@@ -1,5 +1,12 @@
 # Versions
 
+## 2026-11
+
+| Date | Work ID | Scope | Title |
+|---|---|---|---|
+| 2026-11-05 | `fill-mod-006-model-management-solutions` | `mod-006-model-management` | Fill mod-006-model-management module exercise solutions |
+
+
 ## 2026-05
 
 | Date | Work ID | Scope | Title |
