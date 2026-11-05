@@ -5,6 +5,9 @@
 | Date | Work ID | Scope | Title |
 |---|---|---|---|
 | 2026-11-04 | `fill-mod-005-workflow-orchestration-solutions` | `mod-005-workflow-orchestration` | Fill mod-005-workflow-orchestration module exercise solutions |
+| 2026-11-04 | `fill-mod-004-feature-store-solutions` | `mod-004-feature-store` | Fill mod-004-feature-store module exercise solutions |
+| 2026-11-04 | `fill-mod-003-multi-tenancy-resources-solutions` | `mod-003-multi-tenancy-resources` | Fill mod-003-multi-tenancy-resources module exercise solutions |
+| 2026-11-04 | `fill-mod-001-platform-fundamentals-solutions` | `mod-001-platform-fundamentals` | Fill mod-001-platform-fundamentals module exercise solutions |
 
 
 ## 2026-05
