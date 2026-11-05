@@ -46,3 +46,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 | 2026-06-12 | `nav-nav-missing-reference-curriculum-md-project-03-workflow-orchestration` | `project-03-workflow-orchestration` | Align CURRICULUM.md nav reference for project-03-workflow-orchestration |
 | 2026-06-13 | `nav-nav-missing-reference-curriculum-md-project-04-model-registry` | `project-04-model-registry` | Align CURRICULUM.md nav reference for project-04-model-registry |
 | 2026-11-04 | `fill-mod-001-platform-fundamentals-solutions` | `mod-001-platform-fundamentals` | Fill mod-001-platform-fundamentals module exercise solutions |
+| 2026-11-05 | `fill-mod-009-security-governance-solutions` | `mod-009-security-governance` | Fill mod-009-security-governance module exercise solutions |
