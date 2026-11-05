@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: team-a-quota
+  namespace: team-a
+  labels:
+    team: team-a
+    managed-by: ml-platform
+spec:
+  hard:
+    # Compute — both requests.* and limits.* capped so a tenant
+    # cannot schedule tiny and burst huge.
+    requests.cpu: "32"
+    requests.memory: 128Gi
+    limits.cpu: "64"
+    limits.memory: 256Gi
+
+    # GPU — extended resources are quotable via requests.* only;
+    # there is no limits.* for extended resources.
+    requests.nvidia.com/gpu: "8"
+
+    # Object counts — bound the tenant's load on the API server
+    # so a runaway controller cannot exhaust etcd / apiserver.
+    count/pods: "200"
+    count/services: "50"
+    count/configmaps: "100"
+    count/secrets: "100"
+    count/persistentvolumeclaims: "50"
+    count/jobs.batch: "100"
+
+    # Storage — per-class so io2 is not lumped with gp3.
+    # The bare requests.storage is a cross-class ceiling; the
+    # per-class entries carve the budget inside it.
+    requests.storage: 2Ti
+    gp3.storageclass.storage.k8s.io/requests.storage: 2Ti
+    io2.storageclass.storage.k8s.io/requests.storage: 500Gi
