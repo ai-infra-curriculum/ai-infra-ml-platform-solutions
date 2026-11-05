@@ -1,5 +1,12 @@
 # Versions
 
+## 2026-11
+
+| Date | Work ID | Scope | Title |
+|---|---|---|---|
+| 2026-11-04 | `fill-mod-004-feature-store-solutions` | `mod-004-feature-store` | Fill mod-004-feature-store module exercise solutions |
+
+
 ## 2026-05
 
 | Date | Work ID | Scope | Title |

@@ -45,3 +45,4 @@ Auto-appended by the AICG runner. One row per verified work item. Edit the rest 
 | 2026-05-31 | `nav-nav-missing-reference-curriculum-md-project-02-feature-store` | `project-02-feature-store` | Align CURRICULUM.md nav reference for project-02-feature-store |
 | 2026-06-12 | `nav-nav-missing-reference-curriculum-md-project-03-workflow-orchestration` | `project-03-workflow-orchestration` | Align CURRICULUM.md nav reference for project-03-workflow-orchestration |
 | 2026-06-13 | `nav-nav-missing-reference-curriculum-md-project-04-model-registry` | `project-04-model-registry` | Align CURRICULUM.md nav reference for project-04-model-registry |
+| 2026-11-04 | `fill-mod-004-feature-store-solutions` | `mod-004-feature-store` | Fill mod-004-feature-store module exercise solutions |
